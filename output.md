@@ -50,8 +50,8 @@ Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de te
 | gtfs:pickupType     | http://transport.linkeddata.es/resource/PickupType/$(**pickup_type**) |  |  |  |
 | gtfs:dropOffType     | http://transport.linkeddata.es/resource/DropOffType/$(**drop_off_type**) |  |  |  |
 | gtfs:distanceTraveled     | shape_dist_traveled |  |  |  |
-| gtfs:trip | [trips](##trips) | <span style="color:blue">trip_id</span> | <span style="color:blue">trip_id</span> | <span style="color:red">equal</span> |
-| gtfs:stop | [stops](##trips) | <span style="color:blue">stop_id</span> | <span style="color:blue">stop_id</span> | <span style="color:red">equal</span> |
+| gtfs:trip | [trips](#trips) | <span style="color:blue">trip_id</span> | <span style="color:blue">trip_id</span> | <span style="color:red">equal</span> |
+| gtfs:stop | [stops](#trips) | <span style="color:blue">stop_id</span> | <span style="color:blue">stop_id</span> | <span style="color:red">equal</span> |
 
 
 
