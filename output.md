@@ -40,7 +40,7 @@ Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de te
 
 
 
-| Property       |                Column name                |                parameter1                |                parameter1                |                condition                |
+| Property       |                Column name                |                param1                |                param1                |                condition                |
 | :----------- | :----------------------------------  | -----------------------------------  | -----------------------------------  | -----------------------------------  |
 | a     | gtfs:StopTime |  |  |  |
 | gtfs:arrivalTime     | arrival_time                                                 |  |  |  |
