@@ -1,12 +1,15 @@
-```diff
-- RED text
-+ GREEN text
-! ORANGE text
-# GRAY text
-```
+**Authors**:
 
- 
-# Prefixes
+Jhon Toledo [(Ontology Engienering Group - Universidad Politécnica de Madrid)](https://oeg.fi.upm.es/)
+
+**License**:
+
+[![http://insertlicenseURIhere.org](https://img.shields.io/badge/License-Creative%20Commons%20Attribution%204.0%20International%20(CC%20BY%204.0)-blue.svg)](http://insertlicenseurihere.org/)
+
+# Namespaces used in the document
+
+
+
 | Prefix       |               IRI.                   |
 | :----------- | :----------------------------------  |
 | rr     | http://www.w3.org/ns/r2rml# |
@@ -29,20 +32,50 @@
 
 The mappings collection
 
-
 ## stoptimes
-| Property       |                Collation.                   |
-| :----------- | :----------------------------------  |
-| a     | gtfs:StopTime |
-| gtfs:arrivalTime     | $(arrival_time) |
-| gtfs:departureTime     | $(departure_time) |
-| gtfs:stopSequence     | $(stop_sequence) |
-| gtfs:headsign     | $(stop_headsign) |
-| gtfs:pickupType     | http://transport.linkeddata.es/resource/PickupType/$(pickup_type)~iri |
-| gtfs:dropOffType     | http://transport.linkeddata.es/resource/DropOffType/$(drop_off_type)~iri |
-| gtfs:distanceTraveled     | $(shape_dist_traveled) |
-| p     | o |
-| p     | o |
+
+### Titulo1
+
+Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum ha sido el texto de relleno estándar de las industrias desde el año 1500, cuando un impresor (N. del T. persona que se dedica a la imprenta) desconocido usó una galería de textos y los mezcló de tal manera que logró hacer un libro de textos especimen. No sólo sobrevivió 500 años, sino que tambien ingresó como texto de relleno en documentos electrónicos, quedando esencialmente igual al original. Fue popularizado en los 60s con la creación de las hojas "Letraset", las cuales contenian pasajes de Lorem Ipsum, y más recientemente con software de autoedición, como por ejemplo Aldus PageMaker, el cual incluye versiones de Lorem Ipsum.
+
+
+
+| Property       |                Column name                |                parameter1                |                parameter1                |                condition                |
+| :----------- | :----------------------------------  | -----------------------------------  | -----------------------------------  | -----------------------------------  |
+| a     | gtfs:StopTime |  |  |  |
+| gtfs:arrivalTime     | arrival_time                                                 |  |  |  |
+| gtfs:departureTime     | departure_time |  |  |  |
+| gtfs:stopSequence     | stop_sequence |  |  |  |
+| gtfs:headsign     | stop_headsign |  |  |  |
+| gtfs:pickupType     | http://transport.linkeddata.es/resource/PickupType/$(**pickup_type**) |  |  |  |
+| gtfs:dropOffType     | http://transport.linkeddata.es/resource/DropOffType/$(**drop_off_type**) |  |  |  |
+| gtfs:distanceTraveled     | shape_dist_traveled |  |  |  |
+| gtfs:trip | [trips](##trips) | <span style="color:blue">trip_id</span> | <span style="color:blue">trip_id</span> | <span style="color:red">equal</span> |
+| gtfs:stop | [stops](##trips) | <span style="color:blue">stop_id</span> | <span style="color:blue">stop_id</span> | <span style="color:red">equal</span> |
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -67,10 +100,10 @@ The mappings collection
 | Property       |                Collation.                   |
 | :----------- | :----------------------------------  |
 | a     | gtfs:Route |
-| gtfs:shortName     | $(route_short_name) |
+| gtfs:shortName     | <span style="color:red">$(route_short_name)</span> |
 | gtfs:longName     | $(route_long_name) |
 | dct:description     | $(route_desc) |
-| gtfs:routeType     | http://transport.linkeddata.es/resource/RouteType/$(route_type)~iri |
+| gtfs:routeType     | <span style="color:red">http://transport.linkeddata.es/resource/RouteType/$(route_type)~iri</span> |
 | gtfs:routeUrl     | $(route_url)~iri |
 | gtfs:color     | $(route_color) |
 | gtfs:textColor     | $(route_text_color) |
