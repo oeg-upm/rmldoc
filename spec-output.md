@@ -41,7 +41,7 @@ Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de te
 
 
 
-| Property       |                Column name                |                param1                |                param2                |                condition                |
+| Property       |                Column name***                |                param1                |                param2                |                condition                |
 | :----------- | :----------------------------------  | -----------------------------------  | -----------------------------------  | -----------------------------------  |
 | a     | gtfs:StopTime |  |  |  |
 | gtfs:arrivalTime     | arrival_time                                                 |  |  |  |
@@ -53,24 +53,6 @@ Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de te
 | gtfs:distanceTraveled     | shape_dist_traveled |  |  |  |
 | gtfs:trip | [trips](##trips) | <span style="color:blue">trip_id</span> | <span style="color:blue">trip_id</span> | <span style="color:red">equal</span> |
 | gtfs:stop | [stops](##trips) | <span style="color:blue">stop_id</span> | <span style="color:blue">stop_id</span> | <span style="color:red">equal</span> |
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -230,4 +212,23 @@ Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de te
 | gtfs:headwaySeconds     | $(headway_secs) |
 | gtfs:exactTimes     | $(exact_times) |
 | p     | o |
+
+
+<details>
+  <summary>Example</summary>
+
+  ### Some Javascript
+  ```java
+  map:person_000 <http://purl.org/dc/terms/contributor> <http://xmlns.com/foaf/0.1/Person> ;
+	rdfs:label "John Doe" ;
+	<http://xmlns.com/foaf/0.1/mbox> <mailto:john@doe.com> .
+
+map:person_001 <http://purl.org/dc/terms/contributor> <http://xmlns.com/foaf/0.1/Person> ;
+	rdfs:label "Jane Doe" ;
+	<http://xmlns.com/foaf/0.1/homepage> <https://janedoe.com> .
+
+map:rules_000 <http://purl.org/dc/terms/contributor> map:person_000, map:person_001 ;
+	rdf:type <http://rdfs.org/ns/void#Dataset> .
+  ```
+</details>
 
