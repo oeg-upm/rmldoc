@@ -54,7 +54,33 @@ Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de te
 | gtfs:trip | [trips](##trips) | <span style="color:blue">trip_id</span> | <span style="color:blue">trip_id</span> | <span style="color:red">equal</span> |
 | gtfs:stop | [stops](##trips) | <span style="color:blue">stop_id</span> | <span style="color:blue">stop_id</span> | <span style="color:red">equal</span> |
 
+<details>
+  <summary>RML example</summary>
 
+  ```java
+<stoptimes_0> a rr:TriplesMap;
+
+	rml:logicalSource [
+		a rml:LogicalSource;
+		rml:source "/data/STOP_TIMES.csv";
+		rml:referenceFormulation ql:CSV
+	];
+	rr:subjectMap [
+		a rr:SubjectMap;
+		rr:template "http://transport.linkeddata.es/madrid/metro/stoptimes/{trip_id}-{stop_id}-{arrival_time}";
+	];
+	rr:predicateObjectMap [
+		rr:predicateMap [
+			a rr:PredicateMap;
+			rr:constant rdf:type;
+		];
+		rr:objectMap [
+			a rr:ObjectMap;
+			rr:constant gtfs:StopTime;
+		];
+	].
+  ```
+</details>
 
 
 ## trips
@@ -214,32 +240,4 @@ Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de te
 | p     | o |
 
 
-<details>
-  <summary>Example</summary>
-
-  ### rml example
-  ```java
-<stoptimes_0> a rr:TriplesMap;
-
-	rml:logicalSource [
-		a rml:LogicalSource;
-		rml:source "/data/STOP_TIMES.csv";
-		rml:referenceFormulation ql:CSV
-	];
-	rr:subjectMap [
-		a rr:SubjectMap;
-		rr:template "http://transport.linkeddata.es/madrid/metro/stoptimes/{trip_id}-{stop_id}-{arrival_time}";
-	];
-	rr:predicateObjectMap [
-		rr:predicateMap [
-			a rr:PredicateMap;
-			rr:constant rdf:type;
-		];
-		rr:objectMap [
-			a rr:ObjectMap;
-			rr:constant gtfs:StopTime;
-		];
-	].
-  ```
-</details>
 
