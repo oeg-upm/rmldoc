@@ -46,13 +46,13 @@
 | ------- | ---------------------------- |
 | sources | ['/data/STOP_TIMES.csv~csv'] |
 
-### Subject
+### [Subject](https://rml.io/specs/rml/#subject-map)
 
 | URI                                                          |
 | ------------------------------------------------------------ |
 | http://transport.linkeddata.es/madrid/metro/stoptimes/$(trip_id)-$(stop_id)-$(arrival_time) |
 
-### Predicate object    
+### [Predicate object](https://rml.io/specs/rml/#predicate-object-map)
 
 | Property       |                Column name***                |                param1                |                param2                |                condition                |
 | :----------- | :----------------------------------  | -----------------------------------  | -----------------------------------  | -----------------------------------  |
