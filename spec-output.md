@@ -40,7 +40,7 @@
 
 "Lorem ipsum dolor .."
 
-### Source
+### [Source](https://rml.io/specs/rml/#logical-source)
 
 | Feature | Value                        |
 | ------- | ---------------------------- |
