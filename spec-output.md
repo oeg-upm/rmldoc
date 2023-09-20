@@ -217,7 +217,7 @@ Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de te
 <details>
   <summary>Example</summary>
 
-  ### Some Javascript
+  ### rml example
   ```java
   map:person_000 <http://purl.org/dc/terms/contributor> <http://xmlns.com/foaf/0.1/Person> ;
 	rdfs:label "John Doe" ;
