@@ -1,5 +1,9 @@
 # RDF Mapping Documentation (RMD)
 
+**Version:**
+
+https://w3id.org/mapping/gtfs/csv/0.1.0
+
 **Authors**:
 
 * [John Doe1 ](John_Doe2@upm.es)
@@ -10,6 +14,8 @@
 **License**:
 
 [![http://insertlicenseURIhere.org](https://img.shields.io/badge/License-Creative%20Commons%20Attribution%204.0%20International%20(CC%20BY%204.0)-blue.svg)](https://creativecommons.org/licenses/by/4.0/)
+
+
 
 ------
 
