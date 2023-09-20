@@ -219,16 +219,27 @@ Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de te
 
   ### rml example
   ```java
-  map:person_000 <http://purl.org/dc/terms/contributor> <http://xmlns.com/foaf/0.1/Person> ;
-	rdfs:label "John Doe" ;
-	<http://xmlns.com/foaf/0.1/mbox> <mailto:john@doe.com> .
+<stoptimes_0> a rr:TriplesMap;
 
-map:person_001 <http://purl.org/dc/terms/contributor> <http://xmlns.com/foaf/0.1/Person> ;
-	rdfs:label "Jane Doe" ;
-	<http://xmlns.com/foaf/0.1/homepage> <https://janedoe.com> .
-
-map:rules_000 <http://purl.org/dc/terms/contributor> map:person_000, map:person_001 ;
-	rdf:type <http://rdfs.org/ns/void#Dataset> .
+	rml:logicalSource [
+		a rml:LogicalSource;
+		rml:source "/data/STOP_TIMES.csv";
+		rml:referenceFormulation ql:CSV
+	];
+	rr:subjectMap [
+		a rr:SubjectMap;
+		rr:template "http://transport.linkeddata.es/madrid/metro/stoptimes/{trip_id}-{stop_id}-{arrival_time}";
+	];
+	rr:predicateObjectMap [
+		rr:predicateMap [
+			a rr:PredicateMap;
+			rr:constant rdf:type;
+		];
+		rr:objectMap [
+			a rr:ObjectMap;
+			rr:constant gtfs:StopTime;
+		];
+	].
   ```
 </details>
 
