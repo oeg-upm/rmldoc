@@ -76,7 +76,7 @@ https://w3id.org/mapping/gtfs/csv/0.1.0
 <details>
   <summary>RML example</summary>
 
-  ```java
+  ```rdf
 <stoptimes_0> a rr:TriplesMap;
 
 	rml:logicalSource [
