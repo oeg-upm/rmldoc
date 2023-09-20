@@ -5,7 +5,7 @@
 * [John Doe1 ](John_Doe2@upm.es)
 * [John Doe2](John_Doe2@upm.es)
 * John Doe3
-* **[John Doe4](https://github.com/jatoledo) - [ja.toledo@upm.es](mailto:johndoe4@upm.es)**
+* **[John Doe4](https://github.com/jatoledo) - [ja.toledo@upm.es](mailto:ja.toledo@upm.es)**
 
 **License**:
 
