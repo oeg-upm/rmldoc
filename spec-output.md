@@ -54,7 +54,7 @@
 
 ### [Predicate object](https://rml.io/specs/rml/#predicate-object-map)
 
-| Property       |                Column name***                |                param1                |                param2                |                condition                |
+| Property       |                Collation                |                param1                |                param2                |                condition                |
 | :----------- | :----------------------------------  | -----------------------------------  | -----------------------------------  | -----------------------------------  |
 | a     | gtfs:StopTime |  |  |  |
 | gtfs:arrivalTime     | arrival_time                                                 |  |  |  |
