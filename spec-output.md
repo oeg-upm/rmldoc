@@ -48,9 +48,9 @@ https://w3id.org/mapping/gtfs/csv/0.1.0
 
 ### [Source](https://rml.io/specs/rml/#logical-source)
 
-| Feature | Value                        |
-| ------- | ---------------------------- |
-| sources | ['/data/STOP_TIMES.csv~csv'] |
+| Feature | Value               |
+| ------- | ------------------- |
+| sources | data/STOP_TIMES.csv |
 
 ### [Subject](https://rml.io/specs/rml/#subject-map)
 
@@ -107,4 +107,4 @@ https://w3id.org/mapping/gtfs/csv/0.1.0
 
 ----
 
-Copyright © 2023 Jhon Toledo Barreto | Universidad Politécnica de Madrid
+Copyright © 2023 *[Ontology Engineering Group](https://oeg.fi.upm.es/)*, *[Universidad Politécnica de Madrid](https://www.upm.es/internacional)*.
