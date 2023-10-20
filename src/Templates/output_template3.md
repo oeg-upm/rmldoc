@@ -32,11 +32,11 @@ http://transport.linkeddata.es/madrid/metro/stoptimes/$(trip_id)-$(stop_id)-$(ar
 ```
 
 ### Predicate object    
-| Property       |                Collation.                   |                DataType                |                Reference                |                innerRef                |                OuterRef                |
-| :----------- | :----------------------------------  | -----------------------------------  | -----------------------------------  | -----------------------------------  | -----------------------------------  |
-| gtfs:arrivalTime    | $(arrival_time) |  xsd:duration |   |   |   |
-| gtfs:departureTime    | $(departure_time) |  xsd:duration |             |            |            |
-| gtfs:trip |  |  | trips | $(trip_id) | $(trip_id) |
+| Predicate |                Object                |
+| :----------- | :----------------------------------  |
+| gtfs:arrivalTime    | $(arrival_time) |
+| gtfs:departureTime    | $(departure_time) |
+| gtfs:trip |  |
 
 
 ```mermaid
