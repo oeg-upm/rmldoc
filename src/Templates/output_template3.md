@@ -40,6 +40,8 @@ http://transport.linkeddata.es/madrid/metro/stoptimes/$(trip_id)-$(stop_id)-$(ar
 
 
 ```mermaid
+%%{ init : { "theme" : "forest", "flowchart" : { "curve" : "linear" }}}%%
+
 flowchart LR
     S["http://transport.linkeddata.es/madrid/metro/stoptimes/$(trip_id)-$(stop_id)-$(arrival_time)"] -->|"http://vocab.gtfs.org/terms#arrivalTime"| o1("$(arrival_time)")
 	S["http://transport.linkeddata.es/madrid/metro/stoptimes/$(trip_id)-$(stop_id)-$(arrival_time)"] -->|"http://vocab.gtfs.org/terms#departureTime"| o2("$(departure_time)")
