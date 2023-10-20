@@ -60,7 +60,9 @@ flowchart LR
 
 
 
->[!COMMENT]
-> Example
-> * [art1](http://example.org)
-> * [art2](http://example.org)
+>
+>
+>Example
+>
+>* [art1](http://example.org)
+>* [art2](http://example.org)
