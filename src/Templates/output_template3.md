@@ -60,7 +60,7 @@ flowchart LR
 
 
 
->[!MORELIKETHIS]
+>[!COMMENT]
 > Example
 > * [art1](http://example.org)
 > * [art2](http://example.org)
