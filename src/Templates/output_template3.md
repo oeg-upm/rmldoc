@@ -52,3 +52,9 @@ flowchart LR
 	S["http://transport.linkeddata.es/madrid/metro/stoptimes/$(trip_id)-$(stop_id)-$(arrival_time)"] -->|"http://vocab.gtfs.org/terms#distanceTraveled"| o7("$(shape_dist_traveled)")
     
 ```
+
+```markdown
+   >[!NOTE]
+   >
+   >This is note text.
+```
