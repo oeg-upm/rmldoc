@@ -57,3 +57,10 @@ flowchart LR
 >[!NOTE]
 >
 >This is note text.
+
+
+
+>[!MORELIKETHIS]
+> Example
+> * [art1](http://example.org)
+> * [art2](http://example.org)
