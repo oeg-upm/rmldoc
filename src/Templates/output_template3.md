@@ -53,8 +53,7 @@ flowchart LR
     
 ```
 
-```markdown
-   >[!NOTE]
-   >
-   >This is note text.
-```
+
+>[!NOTE]
+>
+>This is note text.
