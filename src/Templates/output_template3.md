@@ -43,6 +43,7 @@ http://transport.linkeddata.es/madrid/metro/stoptimes/$(trip_id)-$(stop_id)-$(ar
 %%{ init : { "theme" : "forest", "flowchart" : { "curve" : "linear" }}}%%
 
 flowchart LR
+	S["http://transport.linkeddata.es/madrid/metro/stoptimes/$(trip_id)-$(stop_id)-$(arrival_time)"] -->|"http://www.w3.org/1999/02/22-rdf-syntax-ns#type"| o0("http://vocab.gtfs.org/terms#StopTime")
     S["http://transport.linkeddata.es/madrid/metro/stoptimes/$(trip_id)-$(stop_id)-$(arrival_time)"] -->|"http://vocab.gtfs.org/terms#arrivalTime"| o1("$(arrival_time)")
 	S["http://transport.linkeddata.es/madrid/metro/stoptimes/$(trip_id)-$(stop_id)-$(arrival_time)"] -->|"http://vocab.gtfs.org/terms#departureTime"| o2("$(departure_time)")
 	S["http://transport.linkeddata.es/madrid/metro/stoptimes/$(trip_id)-$(stop_id)-$(arrival_time)"] -->|"http://vocab.gtfs.org/terms#stopSequence"| o3("$(stop_sequence)")
