@@ -34,6 +34,9 @@
 ### stoptimes
 **Source**
 
+> [!IMPORTANT]
+> Crucial information necessary for users to succeed.
+
 ```bash
 ['/data/STOP_TIMES.csv']
 ```
@@ -46,9 +49,7 @@
 ```bash
 http://transport.linkeddata.es/madrid/metro/stoptimes/$(trip_id)-$(stop_id)-$(arrival_time)
 ```
-{::comment}
-This text is completely ignored by kramdown - a comment in the text.
-{:/comment}
+
 
 **Predicate Object**
 
