@@ -57,15 +57,19 @@ flowchart LR
     
 ```
 
-**Function**
+**Function: equal**
 
 ```mermaid
 %%{ init : { "theme" : "forest", "flowchart" : { "curve" : "linear" }}}%%
 classDiagram
 direction LR
 stoptimes --> trip : equal
+stoptimes --> stops : equal
 stoptimes : trip_id
+stoptimes : stop_id
 trip:trip_id 
+stops : stop_id
+
 ```
 
 
