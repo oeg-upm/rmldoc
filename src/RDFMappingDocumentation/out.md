@@ -70,115 +70,84 @@
 >3. **Predicate Object**: These describe how the data from the logical source will be used to generate RDF triples, indicating relationships between subjects and objects.
 
 
-## http://example.com/shapePoints_0
+## http://example.com/frequencies_0
 - **Source**
 
-| Feature | Value         | label                 | comment                 |
-| ------- |---------------|-----------------------|-------------------------|
-| Source     | /data/SHAPES.csv | None | None |
-- **Subject**
+```bash
+/data/FREQUENCIES.csv
 
-| URI                                                          | label | comment |
-| ------------------------------------------------------------ | ----- | ------- |
-| http://transport.linkeddata.es/madrid/metro/shape_point/{shape_id}-{shape_pt_sequence} |       |        |
+``` 
+- **Subject**
+```bash
+http://transport.linkeddata.es/madrid/metro/frequency/{trip_id}-{start_time}
+
+``` 
 - **Predicate Object**
 
 | Predicate | Object |
 |:----------|:-------|
-| http://www.w3.org/1999/02/22-rdf-syntax-ns#type | http://vocab.gtfs.org/terms#ShapePoint |
-| http://www.w3.org/2003/01/geo/wgs84_pos#lat | shape_pt_lat |
-| http://www.w3.org/2003/01/geo/wgs84_pos#long | shape_pt_lon |
-| http://vocab.gtfs.org/terms#pointSequence | shape_pt_sequence |
+| http://www.w3.org/1999/02/22-rdf-syntax-ns#type | http://vocab.gtfs.org/terms#Frequency |
+| http://vocab.gtfs.org/terms#startTime | start_time |
+| http://vocab.gtfs.org/terms#endTime | end_time |
+| http://vocab.gtfs.org/terms#headwaySeconds | headway_secs |
+| http://vocab.gtfs.org/terms#exactTimes | exact_times |
+- **The RDF triples generated**
+```mermaid
+%%{ init : { "theme" : "forest", "flowchart" : { "curve" : "linear" }}}%%
+flowchart LR
+S["http://transport.linkeddata.es/madrid/metro/frequency/{trip_id}-{start_time}"] -->|"http://www.w3.org/1999/02/22-rdf-syntax-ns#type"| object1("http://vocab.gtfs.org/terms#Frequency")
+S["http://transport.linkeddata.es/madrid/metro/frequency/{trip_id}-{start_time}"] -->|"http://vocab.gtfs.org/terms#startTime"| object2("start_time")
+S["http://transport.linkeddata.es/madrid/metro/frequency/{trip_id}-{start_time}"] -->|"http://vocab.gtfs.org/terms#endTime"| object3("end_time")
+S["http://transport.linkeddata.es/madrid/metro/frequency/{trip_id}-{start_time}"] -->|"http://vocab.gtfs.org/terms#headwaySeconds"| object4("headway_secs")
+S["http://transport.linkeddata.es/madrid/metro/frequency/{trip_id}-{start_time}"] -->|"http://vocab.gtfs.org/terms#exactTimes"| object5("exact_times")
+    
+``` 
+## http://example.com/stoptimes_0
+- **Source**
+
+```bash
+/data/STOP_TIMES.csv
+
+``` 
+- **Subject**
+```bash
+http://transport.linkeddata.es/madrid/metro/stoptimes/{trip_id}-{stop_id}-{arrival_time}
+
+``` 
+- **Predicate Object**
+
+| Predicate | Object |
+|:----------|:-------|
+| http://www.w3.org/1999/02/22-rdf-syntax-ns#type | http://vocab.gtfs.org/terms#StopTime |
+| http://vocab.gtfs.org/terms#arrivalTime | arrival_time |
+| http://vocab.gtfs.org/terms#departureTime | departure_time |
+| http://vocab.gtfs.org/terms#stopSequence | stop_sequence |
+| http://vocab.gtfs.org/terms#headsign | stop_headsign |
 | http://vocab.gtfs.org/terms#distanceTraveled | shape_dist_traveled |
 - **The RDF triples generated**
 ```mermaid
 %%{ init : { "theme" : "forest", "flowchart" : { "curve" : "linear" }}}%%
 flowchart LR
-S["http://transport.linkeddata.es/madrid/metro/shape_point/{shape_id}-{shape_pt_sequence}"] -->|"http://www.w3.org/1999/02/22-rdf-syntax-ns#type"| object1("http://vocab.gtfs.org/terms#ShapePoint")
-S["http://transport.linkeddata.es/madrid/metro/shape_point/{shape_id}-{shape_pt_sequence}"] -->|"http://www.w3.org/2003/01/geo/wgs84_pos#lat"| object2("shape_pt_lat")
-S["http://transport.linkeddata.es/madrid/metro/shape_point/{shape_id}-{shape_pt_sequence}"] -->|"http://www.w3.org/2003/01/geo/wgs84_pos#long"| object3("shape_pt_lon")
-S["http://transport.linkeddata.es/madrid/metro/shape_point/{shape_id}-{shape_pt_sequence}"] -->|"http://vocab.gtfs.org/terms#pointSequence"| object4("shape_pt_sequence")
-S["http://transport.linkeddata.es/madrid/metro/shape_point/{shape_id}-{shape_pt_sequence}"] -->|"http://vocab.gtfs.org/terms#distanceTraveled"| object5("shape_dist_traveled")
+S["http://transport.linkeddata.es/madrid/metro/stoptimes/{trip_id}-{stop_id}-{arrival_time}"] -->|"http://www.w3.org/1999/02/22-rdf-syntax-ns#type"| object1("http://vocab.gtfs.org/terms#StopTime")
+S["http://transport.linkeddata.es/madrid/metro/stoptimes/{trip_id}-{stop_id}-{arrival_time}"] -->|"http://vocab.gtfs.org/terms#arrivalTime"| object2("arrival_time")
+S["http://transport.linkeddata.es/madrid/metro/stoptimes/{trip_id}-{stop_id}-{arrival_time}"] -->|"http://vocab.gtfs.org/terms#departureTime"| object3("departure_time")
+S["http://transport.linkeddata.es/madrid/metro/stoptimes/{trip_id}-{stop_id}-{arrival_time}"] -->|"http://vocab.gtfs.org/terms#stopSequence"| object4("stop_sequence")
+S["http://transport.linkeddata.es/madrid/metro/stoptimes/{trip_id}-{stop_id}-{arrival_time}"] -->|"http://vocab.gtfs.org/terms#headsign"| object5("stop_headsign")
+S["http://transport.linkeddata.es/madrid/metro/stoptimes/{trip_id}-{stop_id}-{arrival_time}"] -->|"http://vocab.gtfs.org/terms#distanceTraveled"| object6("shape_dist_traveled")
     
-```
-
-## http://example.com/calendar_rules_0
-- **Source**
-
-| Feature | Value         | label                 | comment                 |
-| ------- |---------------|-----------------------|-------------------------|
-| Source     | /data/CALENDAR.csv | None | None |
-- **Subject**
-
-| URI                                                          | label | comment |
-| ------------------------------------------------------------ | ----- | ------- |
-| http://transport.linkeddata.es/madrid/metro/calendar_rules/{service_id} |       |        |
-- **Predicate Object**
-
-| Predicate | Object |
-|:----------|:-------|
-| http://www.w3.org/1999/02/22-rdf-syntax-ns#type | http://vocab.gtfs.org/terms#CalendarRule |
-| http://vocab.gtfs.org/terms#monday | monday |
-| http://vocab.gtfs.org/terms#tuesday | tuesday |
-| http://vocab.gtfs.org/terms#wednesday | wednesday |
-| http://vocab.gtfs.org/terms#thursday | thursday |
-| http://vocab.gtfs.org/terms#friday | friday |
-| http://vocab.gtfs.org/terms#saturday | saturday |
-| http://vocab.gtfs.org/terms#sunday | sunday |
-| http://schema.org/startDate | start_date |
-| http://schema.org/endDate | end_date |
-- **The RDF triples generated**
-```mermaid
-%%{ init : { "theme" : "forest", "flowchart" : { "curve" : "linear" }}}%%
-flowchart LR
-S["http://transport.linkeddata.es/madrid/metro/calendar_rules/{service_id}"] -->|"http://www.w3.org/1999/02/22-rdf-syntax-ns#type"| object1("http://vocab.gtfs.org/terms#CalendarRule")
-S["http://transport.linkeddata.es/madrid/metro/calendar_rules/{service_id}"] -->|"http://vocab.gtfs.org/terms#monday"| object2("monday")
-S["http://transport.linkeddata.es/madrid/metro/calendar_rules/{service_id}"] -->|"http://vocab.gtfs.org/terms#tuesday"| object3("tuesday")
-S["http://transport.linkeddata.es/madrid/metro/calendar_rules/{service_id}"] -->|"http://vocab.gtfs.org/terms#wednesday"| object4("wednesday")
-S["http://transport.linkeddata.es/madrid/metro/calendar_rules/{service_id}"] -->|"http://vocab.gtfs.org/terms#thursday"| object5("thursday")
-S["http://transport.linkeddata.es/madrid/metro/calendar_rules/{service_id}"] -->|"http://vocab.gtfs.org/terms#friday"| object6("friday")
-S["http://transport.linkeddata.es/madrid/metro/calendar_rules/{service_id}"] -->|"http://vocab.gtfs.org/terms#saturday"| object7("saturday")
-S["http://transport.linkeddata.es/madrid/metro/calendar_rules/{service_id}"] -->|"http://vocab.gtfs.org/terms#sunday"| object8("sunday")
-S["http://transport.linkeddata.es/madrid/metro/calendar_rules/{service_id}"] -->|"http://schema.org/startDate"| object9("start_date")
-S["http://transport.linkeddata.es/madrid/metro/calendar_rules/{service_id}"] -->|"http://schema.org/endDate"| object10("end_date")
-    
-```
-
-## http://example.com/services2_0
-- **Source**
-
-| Feature | Value         | label                 | comment                 |
-| ------- |---------------|-----------------------|-------------------------|
-| Source     | /data/CALENDAR_DATES.csv | None | None |
-- **Subject**
-
-| URI                                                          | label | comment |
-| ------------------------------------------------------------ | ----- | ------- |
-| http://transport.linkeddata.es/madrid/metro/services/{service_id} |       |        |
-- **Predicate Object**
-
-| Predicate | Object |
-|:----------|:-------|
-| http://www.w3.org/1999/02/22-rdf-syntax-ns#type | http://vocab.gtfs.org/terms#Service |
-- **The RDF triples generated**
-```mermaid
-%%{ init : { "theme" : "forest", "flowchart" : { "curve" : "linear" }}}%%
-flowchart LR
-S["http://transport.linkeddata.es/madrid/metro/services/{service_id}"] -->|"http://www.w3.org/1999/02/22-rdf-syntax-ns#type"| object1("http://vocab.gtfs.org/terms#Service")
-    
-```
-
+``` 
 ## http://example.com/stops_0
 - **Source**
 
-| Feature | Value         | label                 | comment                 |
-| ------- |---------------|-----------------------|-------------------------|
-| Source     | /data/STOPS.csv | None | None |
-- **Subject**
+```bash
+/data/STOPS.csv
 
-| URI                                                          | label | comment |
-| ------------------------------------------------------------ | ----- | ------- |
-| http://transport.linkeddata.es/madrid/metro/stops/{stop_id} |       |        |
+``` 
+- **Subject**
+```bash
+http://transport.linkeddata.es/madrid/metro/stops/{stop_id}
+
+``` 
 - **Predicate Object**
 
 | Predicate | Object |
@@ -208,53 +177,19 @@ S["http://transport.linkeddata.es/madrid/metro/stops/{stop_id}"] -->|"http://voc
 S["http://transport.linkeddata.es/madrid/metro/stops/{stop_id}"] -->|"http://xmlns.com/foaf/0.1/page"| object9("stop_url")
 S["http://transport.linkeddata.es/madrid/metro/stops/{stop_id}"] -->|"http://vocab.gtfs.org/terms#timeZone"| object10("stop_timezone")
     
-```
-
-## http://example.com/stoptimes_0
-- **Source**
-
-| Feature | Value         | label                 | comment                 |
-| ------- |---------------|-----------------------|-------------------------|
-| Source     | /data/STOP_TIMES.csv | logicalSource label |  logicalSource comment |
-- **Subject**
-
-| URI                                                          | label | comment |
-| ------------------------------------------------------------ | ----- | ------- |
-| http://transport.linkeddata.es/madrid/metro/stoptimes/{trip_id}-{stop_id}-{arrival_time} |       |        |
-- **Predicate Object**
-
-| Predicate | Object |
-|:----------|:-------|
-| http://www.w3.org/1999/02/22-rdf-syntax-ns#type | http://vocab.gtfs.org/terms#StopTime |
-| http://vocab.gtfs.org/terms#arrivalTime | arrival_time |
-| http://vocab.gtfs.org/terms#departureTime | departure_time |
-| http://vocab.gtfs.org/terms#stopSequence | stop_sequence |
-| http://vocab.gtfs.org/terms#headsign | stop_headsign |
-| http://vocab.gtfs.org/terms#distanceTraveled | shape_dist_traveled |
-- **The RDF triples generated**
-```mermaid
-%%{ init : { "theme" : "forest", "flowchart" : { "curve" : "linear" }}}%%
-flowchart LR
-S["http://transport.linkeddata.es/madrid/metro/stoptimes/{trip_id}-{stop_id}-{arrival_time}"] -->|"http://www.w3.org/1999/02/22-rdf-syntax-ns#type"| object1("http://vocab.gtfs.org/terms#StopTime")
-S["http://transport.linkeddata.es/madrid/metro/stoptimes/{trip_id}-{stop_id}-{arrival_time}"] -->|"http://vocab.gtfs.org/terms#arrivalTime"| object2("arrival_time")
-S["http://transport.linkeddata.es/madrid/metro/stoptimes/{trip_id}-{stop_id}-{arrival_time}"] -->|"http://vocab.gtfs.org/terms#departureTime"| object3("departure_time")
-S["http://transport.linkeddata.es/madrid/metro/stoptimes/{trip_id}-{stop_id}-{arrival_time}"] -->|"http://vocab.gtfs.org/terms#stopSequence"| object4("stop_sequence")
-S["http://transport.linkeddata.es/madrid/metro/stoptimes/{trip_id}-{stop_id}-{arrival_time}"] -->|"http://vocab.gtfs.org/terms#headsign"| object5("stop_headsign")
-S["http://transport.linkeddata.es/madrid/metro/stoptimes/{trip_id}-{stop_id}-{arrival_time}"] -->|"http://vocab.gtfs.org/terms#distanceTraveled"| object6("shape_dist_traveled")
-    
-```
-
+``` 
 ## http://example.com/trips_0
 - **Source**
 
-| Feature | Value         | label                 | comment                 |
-| ------- |---------------|-----------------------|-------------------------|
-| Source     | /data/TRIPS.csv | None | None |
-- **Subject**
+```bash
+/data/TRIPS.csv
 
-| URI                                                          | label | comment |
-| ------------------------------------------------------------ | ----- | ------- |
-| http://transport.linkeddata.es/madrid/metro/trips/{trip_id} |       |        |
+``` 
+- **Subject**
+```bash
+http://transport.linkeddata.es/madrid/metro/trips/{trip_id}
+
+``` 
 - **Predicate Object**
 
 | Predicate | Object |
@@ -274,55 +209,67 @@ S["http://transport.linkeddata.es/madrid/metro/trips/{trip_id}"] -->|"http://voc
 S["http://transport.linkeddata.es/madrid/metro/trips/{trip_id}"] -->|"http://vocab.gtfs.org/terms#direction"| object4("direction_id")
 S["http://transport.linkeddata.es/madrid/metro/trips/{trip_id}"] -->|"http://vocab.gtfs.org/terms#block"| object5("block_id")
     
-```
-
-## http://example.com/feed_0
+``` 
+## http://example.com/services1_0
 - **Source**
 
-| Feature | Value         | label                 | comment                 |
-| ------- |---------------|-----------------------|-------------------------|
-| Source     | /data/FEED_INFO.csv | None | None |
-- **Subject**
+```bash
+/data/CALENDAR.csv
 
-| URI                                                          | label | comment |
-| ------------------------------------------------------------ | ----- | ------- |
-| http://transport.linkeddata.es/madrid/metro/feed/{feed_publisher_name} |       |        |
+``` 
+- **Subject**
+```bash
+http://transport.linkeddata.es/madrid/metro/services/{service_id}
+
+``` 
 - **Predicate Object**
 
 | Predicate | Object |
 |:----------|:-------|
-| http://www.w3.org/1999/02/22-rdf-syntax-ns#type | http://vocab.gtfs.org/terms#Feed |
-| http://purl.org/dc/terms/publisher | feed_publisher_name |
-| http://xmlns.com/foaf/0.1/page | feed_publisher_url |
-| http://purl.org/dc/terms/language | feed_lang |
-| http://schema.org/startDate | feed_start_date |
-| http://schema.org/endDate | feed_end_date |
-| http://schema.org/version | feed_version |
+| http://www.w3.org/1999/02/22-rdf-syntax-ns#type | http://vocab.gtfs.org/terms#Service |
 - **The RDF triples generated**
 ```mermaid
 %%{ init : { "theme" : "forest", "flowchart" : { "curve" : "linear" }}}%%
 flowchart LR
-S["http://transport.linkeddata.es/madrid/metro/feed/{feed_publisher_name}"] -->|"http://www.w3.org/1999/02/22-rdf-syntax-ns#type"| object1("http://vocab.gtfs.org/terms#Feed")
-S["http://transport.linkeddata.es/madrid/metro/feed/{feed_publisher_name}"] -->|"http://purl.org/dc/terms/publisher"| object2("feed_publisher_name")
-S["http://transport.linkeddata.es/madrid/metro/feed/{feed_publisher_name}"] -->|"http://xmlns.com/foaf/0.1/page"| object3("feed_publisher_url")
-S["http://transport.linkeddata.es/madrid/metro/feed/{feed_publisher_name}"] -->|"http://purl.org/dc/terms/language"| object4("feed_lang")
-S["http://transport.linkeddata.es/madrid/metro/feed/{feed_publisher_name}"] -->|"http://schema.org/startDate"| object5("feed_start_date")
-S["http://transport.linkeddata.es/madrid/metro/feed/{feed_publisher_name}"] -->|"http://schema.org/endDate"| object6("feed_end_date")
-S["http://transport.linkeddata.es/madrid/metro/feed/{feed_publisher_name}"] -->|"http://schema.org/version"| object7("feed_version")
+S["http://transport.linkeddata.es/madrid/metro/services/{service_id}"] -->|"http://www.w3.org/1999/02/22-rdf-syntax-ns#type"| object1("http://vocab.gtfs.org/terms#Service")
     
-```
+``` 
+## http://example.com/shapes_0
+- **Source**
 
+```bash
+/data/SHAPES.csv
+
+``` 
+- **Subject**
+```bash
+http://transport.linkeddata.es/madrid/metro/shape/{shape_id}
+
+``` 
+- **Predicate Object**
+
+| Predicate | Object |
+|:----------|:-------|
+| http://www.w3.org/1999/02/22-rdf-syntax-ns#type | http://vocab.gtfs.org/terms#Shape |
+- **The RDF triples generated**
+```mermaid
+%%{ init : { "theme" : "forest", "flowchart" : { "curve" : "linear" }}}%%
+flowchart LR
+S["http://transport.linkeddata.es/madrid/metro/shape/{shape_id}"] -->|"http://www.w3.org/1999/02/22-rdf-syntax-ns#type"| object1("http://vocab.gtfs.org/terms#Shape")
+    
+``` 
 ## http://example.com/routes_0
 - **Source**
 
-| Feature | Value         | label                 | comment                 |
-| ------- |---------------|-----------------------|-------------------------|
-| Source     | /data/ROUTES.csv | None | None |
-- **Subject**
+```bash
+/data/ROUTES.csv
 
-| URI                                                          | label | comment |
-| ------------------------------------------------------------ | ----- | ------- |
-| http://transport.linkeddata.es/madrid/metro/routes/{route_id} |       |        |
+``` 
+- **Subject**
+```bash
+http://transport.linkeddata.es/madrid/metro/routes/{route_id}
+
+``` 
 - **Predicate Object**
 
 | Predicate | Object |
@@ -346,19 +293,19 @@ S["http://transport.linkeddata.es/madrid/metro/routes/{route_id}"] -->|"http://v
 S["http://transport.linkeddata.es/madrid/metro/routes/{route_id}"] -->|"http://vocab.gtfs.org/terms#color"| object6("route_color")
 S["http://transport.linkeddata.es/madrid/metro/routes/{route_id}"] -->|"http://vocab.gtfs.org/terms#textColor"| object7("route_text_color")
     
-```
-
+``` 
 ## http://example.com/calendar_date_rules_0
 - **Source**
 
-| Feature | Value         | label                 | comment                 |
-| ------- |---------------|-----------------------|-------------------------|
-| Source     | /data/CALENDAR_DATES.csv | None | None |
-- **Subject**
+```bash
+/data/CALENDAR_DATES.csv
 
-| URI                                                          | label | comment |
-| ------------------------------------------------------------ | ----- | ------- |
-| http://transport.linkeddata.es/madrid/metro/calendar_date_rule/{service_id}-{date} |       |        |
+``` 
+- **Subject**
+```bash
+http://transport.linkeddata.es/madrid/metro/calendar_date_rule/{service_id}-{date}
+
+``` 
 - **Predicate Object**
 
 | Predicate | Object |
@@ -374,75 +321,19 @@ S["http://transport.linkeddata.es/madrid/metro/calendar_date_rule/{service_id}-{
 S["http://transport.linkeddata.es/madrid/metro/calendar_date_rule/{service_id}-{date}"] -->|"http://purl.org/dc/terms/date"| object2("date")
 S["http://transport.linkeddata.es/madrid/metro/calendar_date_rule/{service_id}-{date}"] -->|"http://vocab.gtfs.org/terms#dateAddition"| object3("exception_type")
     
-```
-
-## http://example.com/services1_0
-- **Source**
-
-| Feature | Value         | label                 | comment                 |
-| ------- |---------------|-----------------------|-------------------------|
-| Source     | /data/CALENDAR.csv | None | None |
-- **Subject**
-
-| URI                                                          | label | comment |
-| ------------------------------------------------------------ | ----- | ------- |
-| http://transport.linkeddata.es/madrid/metro/services/{service_id} |       |        |
-- **Predicate Object**
-
-| Predicate | Object |
-|:----------|:-------|
-| http://www.w3.org/1999/02/22-rdf-syntax-ns#type | http://vocab.gtfs.org/terms#Service |
-- **The RDF triples generated**
-```mermaid
-%%{ init : { "theme" : "forest", "flowchart" : { "curve" : "linear" }}}%%
-flowchart LR
-S["http://transport.linkeddata.es/madrid/metro/services/{service_id}"] -->|"http://www.w3.org/1999/02/22-rdf-syntax-ns#type"| object1("http://vocab.gtfs.org/terms#Service")
-    
-```
-
-## http://example.com/frequencies_0
-- **Source**
-
-| Feature | Value         | label                 | comment                 |
-| ------- |---------------|-----------------------|-------------------------|
-| Source     | /data/FREQUENCIES.csv | None | None |
-- **Subject**
-
-| URI                                                          | label | comment |
-| ------------------------------------------------------------ | ----- | ------- |
-| http://transport.linkeddata.es/madrid/metro/frequency/{trip_id}-{start_time} |       |        |
-- **Predicate Object**
-
-| Predicate | Object |
-|:----------|:-------|
-| http://www.w3.org/1999/02/22-rdf-syntax-ns#type | http://vocab.gtfs.org/terms#Frequency |
-| http://vocab.gtfs.org/terms#startTime | start_time |
-| http://vocab.gtfs.org/terms#endTime | end_time |
-| http://vocab.gtfs.org/terms#headwaySeconds | headway_secs |
-| http://vocab.gtfs.org/terms#exactTimes | exact_times |
-- **The RDF triples generated**
-```mermaid
-%%{ init : { "theme" : "forest", "flowchart" : { "curve" : "linear" }}}%%
-flowchart LR
-S["http://transport.linkeddata.es/madrid/metro/frequency/{trip_id}-{start_time}"] -->|"http://www.w3.org/1999/02/22-rdf-syntax-ns#type"| object1("http://vocab.gtfs.org/terms#Frequency")
-S["http://transport.linkeddata.es/madrid/metro/frequency/{trip_id}-{start_time}"] -->|"http://vocab.gtfs.org/terms#startTime"| object2("start_time")
-S["http://transport.linkeddata.es/madrid/metro/frequency/{trip_id}-{start_time}"] -->|"http://vocab.gtfs.org/terms#endTime"| object3("end_time")
-S["http://transport.linkeddata.es/madrid/metro/frequency/{trip_id}-{start_time}"] -->|"http://vocab.gtfs.org/terms#headwaySeconds"| object4("headway_secs")
-S["http://transport.linkeddata.es/madrid/metro/frequency/{trip_id}-{start_time}"] -->|"http://vocab.gtfs.org/terms#exactTimes"| object5("exact_times")
-    
-```
-
+``` 
 ## http://example.com/agency_0
 - **Source**
 
-| Feature | Value         | label                 | comment                 |
-| ------- |---------------|-----------------------|-------------------------|
-| Source     | /data/AGENCY.csv | None | None |
-- **Subject**
+```bash
+/data/AGENCY.csv
 
-| URI                                                          | label | comment |
-| ------------------------------------------------------------ | ----- | ------- |
-| http://transport.linkeddata.es/madrid/agency/{agency_id} |       |        |
+``` 
+- **Subject**
+```bash
+http://transport.linkeddata.es/madrid/agency/{agency_id}
+
+``` 
 - **Predicate Object**
 
 | Predicate | Object |
@@ -466,32 +357,141 @@ S["http://transport.linkeddata.es/madrid/agency/{agency_id}"] -->|"http://purl.o
 S["http://transport.linkeddata.es/madrid/agency/{agency_id}"] -->|"http://xmlns.com/foaf/0.1/phone"| object6("agency_phone")
 S["http://transport.linkeddata.es/madrid/agency/{agency_id}"] -->|"http://vocab.gtfs.org/terms#fareUrl"| object7("agency_fare_url")
     
-```
-
-## http://example.com/shapes_0
+``` 
+## http://example.com/shapePoints_0
 - **Source**
 
-| Feature | Value         | label                 | comment                 |
-| ------- |---------------|-----------------------|-------------------------|
-| Source     | /data/SHAPES.csv | None | None |
-- **Subject**
+```bash
+/data/SHAPES.csv
 
-| URI                                                          | label | comment |
-| ------------------------------------------------------------ | ----- | ------- |
-| http://transport.linkeddata.es/madrid/metro/shape/{shape_id} |       |        |
+``` 
+- **Subject**
+```bash
+http://transport.linkeddata.es/madrid/metro/shape_point/{shape_id}-{shape_pt_sequence}
+
+``` 
 - **Predicate Object**
 
 | Predicate | Object |
 |:----------|:-------|
-| http://www.w3.org/1999/02/22-rdf-syntax-ns#type | http://vocab.gtfs.org/terms#Shape |
+| http://www.w3.org/1999/02/22-rdf-syntax-ns#type | http://vocab.gtfs.org/terms#ShapePoint |
+| http://www.w3.org/2003/01/geo/wgs84_pos#lat | shape_pt_lat |
+| http://www.w3.org/2003/01/geo/wgs84_pos#long | shape_pt_lon |
+| http://vocab.gtfs.org/terms#pointSequence | shape_pt_sequence |
+| http://vocab.gtfs.org/terms#distanceTraveled | shape_dist_traveled |
 - **The RDF triples generated**
 ```mermaid
 %%{ init : { "theme" : "forest", "flowchart" : { "curve" : "linear" }}}%%
 flowchart LR
-S["http://transport.linkeddata.es/madrid/metro/shape/{shape_id}"] -->|"http://www.w3.org/1999/02/22-rdf-syntax-ns#type"| object1("http://vocab.gtfs.org/terms#Shape")
+S["http://transport.linkeddata.es/madrid/metro/shape_point/{shape_id}-{shape_pt_sequence}"] -->|"http://www.w3.org/1999/02/22-rdf-syntax-ns#type"| object1("http://vocab.gtfs.org/terms#ShapePoint")
+S["http://transport.linkeddata.es/madrid/metro/shape_point/{shape_id}-{shape_pt_sequence}"] -->|"http://www.w3.org/2003/01/geo/wgs84_pos#lat"| object2("shape_pt_lat")
+S["http://transport.linkeddata.es/madrid/metro/shape_point/{shape_id}-{shape_pt_sequence}"] -->|"http://www.w3.org/2003/01/geo/wgs84_pos#long"| object3("shape_pt_lon")
+S["http://transport.linkeddata.es/madrid/metro/shape_point/{shape_id}-{shape_pt_sequence}"] -->|"http://vocab.gtfs.org/terms#pointSequence"| object4("shape_pt_sequence")
+S["http://transport.linkeddata.es/madrid/metro/shape_point/{shape_id}-{shape_pt_sequence}"] -->|"http://vocab.gtfs.org/terms#distanceTraveled"| object5("shape_dist_traveled")
     
-```
+``` 
+## http://example.com/calendar_rules_0
+- **Source**
 
+```bash
+/data/CALENDAR.csv
+
+``` 
+- **Subject**
+```bash
+http://transport.linkeddata.es/madrid/metro/calendar_rules/{service_id}
+
+``` 
+- **Predicate Object**
+
+| Predicate | Object |
+|:----------|:-------|
+| http://www.w3.org/1999/02/22-rdf-syntax-ns#type | http://vocab.gtfs.org/terms#CalendarRule |
+| http://vocab.gtfs.org/terms#monday | monday |
+| http://vocab.gtfs.org/terms#tuesday | tuesday |
+| http://vocab.gtfs.org/terms#wednesday | wednesday |
+| http://vocab.gtfs.org/terms#thursday | thursday |
+| http://vocab.gtfs.org/terms#friday | friday |
+| http://vocab.gtfs.org/terms#saturday | saturday |
+| http://vocab.gtfs.org/terms#sunday | sunday |
+| http://schema.org/startDate | start_date |
+| http://schema.org/endDate | end_date |
+- **The RDF triples generated**
+```mermaid
+%%{ init : { "theme" : "forest", "flowchart" : { "curve" : "linear" }}}%%
+flowchart LR
+S["http://transport.linkeddata.es/madrid/metro/calendar_rules/{service_id}"] -->|"http://www.w3.org/1999/02/22-rdf-syntax-ns#type"| object1("http://vocab.gtfs.org/terms#CalendarRule")
+S["http://transport.linkeddata.es/madrid/metro/calendar_rules/{service_id}"] -->|"http://vocab.gtfs.org/terms#monday"| object2("monday")
+S["http://transport.linkeddata.es/madrid/metro/calendar_rules/{service_id}"] -->|"http://vocab.gtfs.org/terms#tuesday"| object3("tuesday")
+S["http://transport.linkeddata.es/madrid/metro/calendar_rules/{service_id}"] -->|"http://vocab.gtfs.org/terms#wednesday"| object4("wednesday")
+S["http://transport.linkeddata.es/madrid/metro/calendar_rules/{service_id}"] -->|"http://vocab.gtfs.org/terms#thursday"| object5("thursday")
+S["http://transport.linkeddata.es/madrid/metro/calendar_rules/{service_id}"] -->|"http://vocab.gtfs.org/terms#friday"| object6("friday")
+S["http://transport.linkeddata.es/madrid/metro/calendar_rules/{service_id}"] -->|"http://vocab.gtfs.org/terms#saturday"| object7("saturday")
+S["http://transport.linkeddata.es/madrid/metro/calendar_rules/{service_id}"] -->|"http://vocab.gtfs.org/terms#sunday"| object8("sunday")
+S["http://transport.linkeddata.es/madrid/metro/calendar_rules/{service_id}"] -->|"http://schema.org/startDate"| object9("start_date")
+S["http://transport.linkeddata.es/madrid/metro/calendar_rules/{service_id}"] -->|"http://schema.org/endDate"| object10("end_date")
+    
+``` 
+## http://example.com/feed_0
+- **Source**
+
+```bash
+/data/FEED_INFO.csv
+
+``` 
+- **Subject**
+```bash
+http://transport.linkeddata.es/madrid/metro/feed/{feed_publisher_name}
+
+``` 
+- **Predicate Object**
+
+| Predicate | Object |
+|:----------|:-------|
+| http://www.w3.org/1999/02/22-rdf-syntax-ns#type | http://vocab.gtfs.org/terms#Feed |
+| http://purl.org/dc/terms/publisher | feed_publisher_name |
+| http://xmlns.com/foaf/0.1/page | feed_publisher_url |
+| http://purl.org/dc/terms/language | feed_lang |
+| http://schema.org/startDate | feed_start_date |
+| http://schema.org/endDate | feed_end_date |
+| http://schema.org/version | feed_version |
+- **The RDF triples generated**
+```mermaid
+%%{ init : { "theme" : "forest", "flowchart" : { "curve" : "linear" }}}%%
+flowchart LR
+S["http://transport.linkeddata.es/madrid/metro/feed/{feed_publisher_name}"] -->|"http://www.w3.org/1999/02/22-rdf-syntax-ns#type"| object1("http://vocab.gtfs.org/terms#Feed")
+S["http://transport.linkeddata.es/madrid/metro/feed/{feed_publisher_name}"] -->|"http://purl.org/dc/terms/publisher"| object2("feed_publisher_name")
+S["http://transport.linkeddata.es/madrid/metro/feed/{feed_publisher_name}"] -->|"http://xmlns.com/foaf/0.1/page"| object3("feed_publisher_url")
+S["http://transport.linkeddata.es/madrid/metro/feed/{feed_publisher_name}"] -->|"http://purl.org/dc/terms/language"| object4("feed_lang")
+S["http://transport.linkeddata.es/madrid/metro/feed/{feed_publisher_name}"] -->|"http://schema.org/startDate"| object5("feed_start_date")
+S["http://transport.linkeddata.es/madrid/metro/feed/{feed_publisher_name}"] -->|"http://schema.org/endDate"| object6("feed_end_date")
+S["http://transport.linkeddata.es/madrid/metro/feed/{feed_publisher_name}"] -->|"http://schema.org/version"| object7("feed_version")
+    
+``` 
+## http://example.com/services2_0
+- **Source**
+
+```bash
+/data/CALENDAR_DATES.csv
+
+``` 
+- **Subject**
+```bash
+http://transport.linkeddata.es/madrid/metro/services/{service_id}
+
+``` 
+- **Predicate Object**
+
+| Predicate | Object |
+|:----------|:-------|
+| http://www.w3.org/1999/02/22-rdf-syntax-ns#type | http://vocab.gtfs.org/terms#Service |
+- **The RDF triples generated**
+```mermaid
+%%{ init : { "theme" : "forest", "flowchart" : { "curve" : "linear" }}}%%
+flowchart LR
+S["http://transport.linkeddata.es/madrid/metro/services/{service_id}"] -->|"http://www.w3.org/1999/02/22-rdf-syntax-ns#type"| object1("http://vocab.gtfs.org/terms#Service")
+    
+``` 
 
 
 

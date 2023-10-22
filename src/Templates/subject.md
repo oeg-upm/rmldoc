@@ -1,7 +1,7 @@
 - **Subject**
-
-| URI                                                          | label | comment |
-| ------------------------------------------------------------ | ----- | ------- |
+```bash
 {% for s in subject -%}
-| {{ s['template'] }} |       |        |
+{{ s['template'] }}
 {%+ endfor %}
+``` 
+

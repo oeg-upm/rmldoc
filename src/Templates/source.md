@@ -1,7 +1,8 @@
 - **Source**
 
-| Feature | Value         | label                 | comment                 |
-| ------- |---------------|-----------------------|-------------------------|
+```bash
 {% for s in source -%}
-| {{ "Source" }}     | {{ s['source'] }} | {{ s['label'] }} | {{ s['comment'] }} |
+{{ s['source'] }}
 {%+ endfor %}
+``` 
+
