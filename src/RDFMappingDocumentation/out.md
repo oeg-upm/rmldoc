@@ -70,7 +70,39 @@
 >3. **Predicate Object**: These describe how the data from the logical source will be used to generate RDF triples, indicating relationships between subjects and objects.
 
 
-## http://example.com/frequencies_0
+## shapePoints_0
+- **Source**
+
+```bash
+/data/SHAPES.csv
+
+``` 
+- **Subject**
+```bash
+http://transport.linkeddata.es/madrid/metro/shape_point/{shape_id}-{shape_pt_sequence}
+
+``` 
+- **Predicate Object**
+
+| Predicate | Object |
+|:----------|:-------|
+| http://www.w3.org/1999/02/22-rdf-syntax-ns#type | http://vocab.gtfs.org/terms#ShapePoint |
+| http://www.w3.org/2003/01/geo/wgs84_pos#lat | shape_pt_lat |
+| http://www.w3.org/2003/01/geo/wgs84_pos#long | shape_pt_lon |
+| http://vocab.gtfs.org/terms#pointSequence | shape_pt_sequence |
+| http://vocab.gtfs.org/terms#distanceTraveled | shape_dist_traveled |
+- **The RDF triples generated**
+```mermaid
+%%{ init : { "theme" : "forest", "flowchart" : { "curve" : "linear" }}}%%
+flowchart LR
+S["http://transport.linkeddata.es/madrid/metro/shape_point/{shape_id}-{shape_pt_sequence}"] -->|"http://www.w3.org/1999/02/22-rdf-syntax-ns#type"| object1("http://vocab.gtfs.org/terms#ShapePoint")
+S["http://transport.linkeddata.es/madrid/metro/shape_point/{shape_id}-{shape_pt_sequence}"] -->|"http://www.w3.org/2003/01/geo/wgs84_pos#lat"| object2("shape_pt_lat")
+S["http://transport.linkeddata.es/madrid/metro/shape_point/{shape_id}-{shape_pt_sequence}"] -->|"http://www.w3.org/2003/01/geo/wgs84_pos#long"| object3("shape_pt_lon")
+S["http://transport.linkeddata.es/madrid/metro/shape_point/{shape_id}-{shape_pt_sequence}"] -->|"http://vocab.gtfs.org/terms#pointSequence"| object4("shape_pt_sequence")
+S["http://transport.linkeddata.es/madrid/metro/shape_point/{shape_id}-{shape_pt_sequence}"] -->|"http://vocab.gtfs.org/terms#distanceTraveled"| object5("shape_dist_traveled")
+    
+``` 
+## frequencies_0
 - **Source**
 
 ```bash
@@ -102,7 +134,7 @@ S["http://transport.linkeddata.es/madrid/metro/frequency/{trip_id}-{start_time}"
 S["http://transport.linkeddata.es/madrid/metro/frequency/{trip_id}-{start_time}"] -->|"http://vocab.gtfs.org/terms#exactTimes"| object5("exact_times")
     
 ``` 
-## http://example.com/stoptimes_0
+## stoptimes_0
 - **Source**
 
 ```bash
@@ -136,7 +168,127 @@ S["http://transport.linkeddata.es/madrid/metro/stoptimes/{trip_id}-{stop_id}-{ar
 S["http://transport.linkeddata.es/madrid/metro/stoptimes/{trip_id}-{stop_id}-{arrival_time}"] -->|"http://vocab.gtfs.org/terms#distanceTraveled"| object6("shape_dist_traveled")
     
 ``` 
-## http://example.com/stops_0
+## calendar_date_rules_0
+- **Source**
+
+```bash
+/data/CALENDAR_DATES.csv
+
+``` 
+- **Subject**
+```bash
+http://transport.linkeddata.es/madrid/metro/calendar_date_rule/{service_id}-{date}
+
+``` 
+- **Predicate Object**
+
+| Predicate | Object |
+|:----------|:-------|
+| http://www.w3.org/1999/02/22-rdf-syntax-ns#type | http://vocab.gtfs.org/terms#CalendarDateRule |
+| http://purl.org/dc/terms/date | date |
+| http://vocab.gtfs.org/terms#dateAddition | exception_type |
+- **The RDF triples generated**
+```mermaid
+%%{ init : { "theme" : "forest", "flowchart" : { "curve" : "linear" }}}%%
+flowchart LR
+S["http://transport.linkeddata.es/madrid/metro/calendar_date_rule/{service_id}-{date}"] -->|"http://www.w3.org/1999/02/22-rdf-syntax-ns#type"| object1("http://vocab.gtfs.org/terms#CalendarDateRule")
+S["http://transport.linkeddata.es/madrid/metro/calendar_date_rule/{service_id}-{date}"] -->|"http://purl.org/dc/terms/date"| object2("date")
+S["http://transport.linkeddata.es/madrid/metro/calendar_date_rule/{service_id}-{date}"] -->|"http://vocab.gtfs.org/terms#dateAddition"| object3("exception_type")
+    
+``` 
+## trips_0
+- **Source**
+
+```bash
+/data/TRIPS.csv
+
+``` 
+- **Subject**
+```bash
+http://transport.linkeddata.es/madrid/metro/trips/{trip_id}
+
+``` 
+- **Predicate Object**
+
+| Predicate | Object |
+|:----------|:-------|
+| http://www.w3.org/1999/02/22-rdf-syntax-ns#type | http://vocab.gtfs.org/terms#Trip |
+| http://vocab.gtfs.org/terms#headsign | trip_headsign |
+| http://vocab.gtfs.org/terms#shortName | trip_short_name |
+| http://vocab.gtfs.org/terms#direction | direction_id |
+| http://vocab.gtfs.org/terms#block | block_id |
+- **The RDF triples generated**
+```mermaid
+%%{ init : { "theme" : "forest", "flowchart" : { "curve" : "linear" }}}%%
+flowchart LR
+S["http://transport.linkeddata.es/madrid/metro/trips/{trip_id}"] -->|"http://www.w3.org/1999/02/22-rdf-syntax-ns#type"| object1("http://vocab.gtfs.org/terms#Trip")
+S["http://transport.linkeddata.es/madrid/metro/trips/{trip_id}"] -->|"http://vocab.gtfs.org/terms#headsign"| object2("trip_headsign")
+S["http://transport.linkeddata.es/madrid/metro/trips/{trip_id}"] -->|"http://vocab.gtfs.org/terms#shortName"| object3("trip_short_name")
+S["http://transport.linkeddata.es/madrid/metro/trips/{trip_id}"] -->|"http://vocab.gtfs.org/terms#direction"| object4("direction_id")
+S["http://transport.linkeddata.es/madrid/metro/trips/{trip_id}"] -->|"http://vocab.gtfs.org/terms#block"| object5("block_id")
+    
+``` 
+## routes_0
+- **Source**
+
+```bash
+/data/ROUTES.csv
+
+``` 
+- **Subject**
+```bash
+http://transport.linkeddata.es/madrid/metro/routes/{route_id}
+
+``` 
+- **Predicate Object**
+
+| Predicate | Object |
+|:----------|:-------|
+| http://www.w3.org/1999/02/22-rdf-syntax-ns#type | http://vocab.gtfs.org/terms#Route |
+| http://vocab.gtfs.org/terms#shortName | route_short_name |
+| http://vocab.gtfs.org/terms#longName | route_long_name |
+| http://purl.org/dc/terms/description | route_desc |
+| http://vocab.gtfs.org/terms#routeUrl | route_url |
+| http://vocab.gtfs.org/terms#color | route_color |
+| http://vocab.gtfs.org/terms#textColor | route_text_color |
+- **The RDF triples generated**
+```mermaid
+%%{ init : { "theme" : "forest", "flowchart" : { "curve" : "linear" }}}%%
+flowchart LR
+S["http://transport.linkeddata.es/madrid/metro/routes/{route_id}"] -->|"http://www.w3.org/1999/02/22-rdf-syntax-ns#type"| object1("http://vocab.gtfs.org/terms#Route")
+S["http://transport.linkeddata.es/madrid/metro/routes/{route_id}"] -->|"http://vocab.gtfs.org/terms#shortName"| object2("route_short_name")
+S["http://transport.linkeddata.es/madrid/metro/routes/{route_id}"] -->|"http://vocab.gtfs.org/terms#longName"| object3("route_long_name")
+S["http://transport.linkeddata.es/madrid/metro/routes/{route_id}"] -->|"http://purl.org/dc/terms/description"| object4("route_desc")
+S["http://transport.linkeddata.es/madrid/metro/routes/{route_id}"] -->|"http://vocab.gtfs.org/terms#routeUrl"| object5("route_url")
+S["http://transport.linkeddata.es/madrid/metro/routes/{route_id}"] -->|"http://vocab.gtfs.org/terms#color"| object6("route_color")
+S["http://transport.linkeddata.es/madrid/metro/routes/{route_id}"] -->|"http://vocab.gtfs.org/terms#textColor"| object7("route_text_color")
+    
+``` 
+## services2_0
+- **Source**
+
+```bash
+/data/CALENDAR_DATES.csv
+
+``` 
+- **Subject**
+```bash
+http://transport.linkeddata.es/madrid/metro/services/{service_id}
+
+``` 
+- **Predicate Object**
+
+| Predicate | Object |
+|:----------|:-------|
+| http://www.w3.org/1999/02/22-rdf-syntax-ns#type | http://vocab.gtfs.org/terms#Service |
+- **The RDF triples generated**
+```mermaid
+%%{ init : { "theme" : "forest", "flowchart" : { "curve" : "linear" }}}%%
+flowchart LR
+S["http://transport.linkeddata.es/madrid/metro/services/{service_id}"] -->|"http://www.w3.org/1999/02/22-rdf-syntax-ns#type"| object1("http://vocab.gtfs.org/terms#Service")
+    
+``` 
+## stops_0
 - **Source**
 
 ```bash
@@ -178,39 +330,7 @@ S["http://transport.linkeddata.es/madrid/metro/stops/{stop_id}"] -->|"http://xml
 S["http://transport.linkeddata.es/madrid/metro/stops/{stop_id}"] -->|"http://vocab.gtfs.org/terms#timeZone"| object10("stop_timezone")
     
 ``` 
-## http://example.com/trips_0
-- **Source**
-
-```bash
-/data/TRIPS.csv
-
-``` 
-- **Subject**
-```bash
-http://transport.linkeddata.es/madrid/metro/trips/{trip_id}
-
-``` 
-- **Predicate Object**
-
-| Predicate | Object |
-|:----------|:-------|
-| http://www.w3.org/1999/02/22-rdf-syntax-ns#type | http://vocab.gtfs.org/terms#Trip |
-| http://vocab.gtfs.org/terms#headsign | trip_headsign |
-| http://vocab.gtfs.org/terms#shortName | trip_short_name |
-| http://vocab.gtfs.org/terms#direction | direction_id |
-| http://vocab.gtfs.org/terms#block | block_id |
-- **The RDF triples generated**
-```mermaid
-%%{ init : { "theme" : "forest", "flowchart" : { "curve" : "linear" }}}%%
-flowchart LR
-S["http://transport.linkeddata.es/madrid/metro/trips/{trip_id}"] -->|"http://www.w3.org/1999/02/22-rdf-syntax-ns#type"| object1("http://vocab.gtfs.org/terms#Trip")
-S["http://transport.linkeddata.es/madrid/metro/trips/{trip_id}"] -->|"http://vocab.gtfs.org/terms#headsign"| object2("trip_headsign")
-S["http://transport.linkeddata.es/madrid/metro/trips/{trip_id}"] -->|"http://vocab.gtfs.org/terms#shortName"| object3("trip_short_name")
-S["http://transport.linkeddata.es/madrid/metro/trips/{trip_id}"] -->|"http://vocab.gtfs.org/terms#direction"| object4("direction_id")
-S["http://transport.linkeddata.es/madrid/metro/trips/{trip_id}"] -->|"http://vocab.gtfs.org/terms#block"| object5("block_id")
-    
-``` 
-## http://example.com/services1_0
+## services1_0
 - **Source**
 
 ```bash
@@ -234,95 +354,43 @@ flowchart LR
 S["http://transport.linkeddata.es/madrid/metro/services/{service_id}"] -->|"http://www.w3.org/1999/02/22-rdf-syntax-ns#type"| object1("http://vocab.gtfs.org/terms#Service")
     
 ``` 
-## http://example.com/shapes_0
+## feed_0
 - **Source**
 
 ```bash
-/data/SHAPES.csv
+/data/FEED_INFO.csv
 
 ``` 
 - **Subject**
 ```bash
-http://transport.linkeddata.es/madrid/metro/shape/{shape_id}
+http://transport.linkeddata.es/madrid/metro/feed/{feed_publisher_name}
 
 ``` 
 - **Predicate Object**
 
 | Predicate | Object |
 |:----------|:-------|
-| http://www.w3.org/1999/02/22-rdf-syntax-ns#type | http://vocab.gtfs.org/terms#Shape |
+| http://www.w3.org/1999/02/22-rdf-syntax-ns#type | http://vocab.gtfs.org/terms#Feed |
+| http://purl.org/dc/terms/publisher | feed_publisher_name |
+| http://xmlns.com/foaf/0.1/page | feed_publisher_url |
+| http://purl.org/dc/terms/language | feed_lang |
+| http://schema.org/startDate | feed_start_date |
+| http://schema.org/endDate | feed_end_date |
+| http://schema.org/version | feed_version |
 - **The RDF triples generated**
 ```mermaid
 %%{ init : { "theme" : "forest", "flowchart" : { "curve" : "linear" }}}%%
 flowchart LR
-S["http://transport.linkeddata.es/madrid/metro/shape/{shape_id}"] -->|"http://www.w3.org/1999/02/22-rdf-syntax-ns#type"| object1("http://vocab.gtfs.org/terms#Shape")
+S["http://transport.linkeddata.es/madrid/metro/feed/{feed_publisher_name}"] -->|"http://www.w3.org/1999/02/22-rdf-syntax-ns#type"| object1("http://vocab.gtfs.org/terms#Feed")
+S["http://transport.linkeddata.es/madrid/metro/feed/{feed_publisher_name}"] -->|"http://purl.org/dc/terms/publisher"| object2("feed_publisher_name")
+S["http://transport.linkeddata.es/madrid/metro/feed/{feed_publisher_name}"] -->|"http://xmlns.com/foaf/0.1/page"| object3("feed_publisher_url")
+S["http://transport.linkeddata.es/madrid/metro/feed/{feed_publisher_name}"] -->|"http://purl.org/dc/terms/language"| object4("feed_lang")
+S["http://transport.linkeddata.es/madrid/metro/feed/{feed_publisher_name}"] -->|"http://schema.org/startDate"| object5("feed_start_date")
+S["http://transport.linkeddata.es/madrid/metro/feed/{feed_publisher_name}"] -->|"http://schema.org/endDate"| object6("feed_end_date")
+S["http://transport.linkeddata.es/madrid/metro/feed/{feed_publisher_name}"] -->|"http://schema.org/version"| object7("feed_version")
     
 ``` 
-## http://example.com/routes_0
-- **Source**
-
-```bash
-/data/ROUTES.csv
-
-``` 
-- **Subject**
-```bash
-http://transport.linkeddata.es/madrid/metro/routes/{route_id}
-
-``` 
-- **Predicate Object**
-
-| Predicate | Object |
-|:----------|:-------|
-| http://www.w3.org/1999/02/22-rdf-syntax-ns#type | http://vocab.gtfs.org/terms#Route |
-| http://vocab.gtfs.org/terms#shortName | route_short_name |
-| http://vocab.gtfs.org/terms#longName | route_long_name |
-| http://purl.org/dc/terms/description | route_desc |
-| http://vocab.gtfs.org/terms#routeUrl | route_url |
-| http://vocab.gtfs.org/terms#color | route_color |
-| http://vocab.gtfs.org/terms#textColor | route_text_color |
-- **The RDF triples generated**
-```mermaid
-%%{ init : { "theme" : "forest", "flowchart" : { "curve" : "linear" }}}%%
-flowchart LR
-S["http://transport.linkeddata.es/madrid/metro/routes/{route_id}"] -->|"http://www.w3.org/1999/02/22-rdf-syntax-ns#type"| object1("http://vocab.gtfs.org/terms#Route")
-S["http://transport.linkeddata.es/madrid/metro/routes/{route_id}"] -->|"http://vocab.gtfs.org/terms#shortName"| object2("route_short_name")
-S["http://transport.linkeddata.es/madrid/metro/routes/{route_id}"] -->|"http://vocab.gtfs.org/terms#longName"| object3("route_long_name")
-S["http://transport.linkeddata.es/madrid/metro/routes/{route_id}"] -->|"http://purl.org/dc/terms/description"| object4("route_desc")
-S["http://transport.linkeddata.es/madrid/metro/routes/{route_id}"] -->|"http://vocab.gtfs.org/terms#routeUrl"| object5("route_url")
-S["http://transport.linkeddata.es/madrid/metro/routes/{route_id}"] -->|"http://vocab.gtfs.org/terms#color"| object6("route_color")
-S["http://transport.linkeddata.es/madrid/metro/routes/{route_id}"] -->|"http://vocab.gtfs.org/terms#textColor"| object7("route_text_color")
-    
-``` 
-## http://example.com/calendar_date_rules_0
-- **Source**
-
-```bash
-/data/CALENDAR_DATES.csv
-
-``` 
-- **Subject**
-```bash
-http://transport.linkeddata.es/madrid/metro/calendar_date_rule/{service_id}-{date}
-
-``` 
-- **Predicate Object**
-
-| Predicate | Object |
-|:----------|:-------|
-| http://www.w3.org/1999/02/22-rdf-syntax-ns#type | http://vocab.gtfs.org/terms#CalendarDateRule |
-| http://purl.org/dc/terms/date | date |
-| http://vocab.gtfs.org/terms#dateAddition | exception_type |
-- **The RDF triples generated**
-```mermaid
-%%{ init : { "theme" : "forest", "flowchart" : { "curve" : "linear" }}}%%
-flowchart LR
-S["http://transport.linkeddata.es/madrid/metro/calendar_date_rule/{service_id}-{date}"] -->|"http://www.w3.org/1999/02/22-rdf-syntax-ns#type"| object1("http://vocab.gtfs.org/terms#CalendarDateRule")
-S["http://transport.linkeddata.es/madrid/metro/calendar_date_rule/{service_id}-{date}"] -->|"http://purl.org/dc/terms/date"| object2("date")
-S["http://transport.linkeddata.es/madrid/metro/calendar_date_rule/{service_id}-{date}"] -->|"http://vocab.gtfs.org/terms#dateAddition"| object3("exception_type")
-    
-``` 
-## http://example.com/agency_0
+## agency_0
 - **Source**
 
 ```bash
@@ -358,39 +426,7 @@ S["http://transport.linkeddata.es/madrid/agency/{agency_id}"] -->|"http://xmlns.
 S["http://transport.linkeddata.es/madrid/agency/{agency_id}"] -->|"http://vocab.gtfs.org/terms#fareUrl"| object7("agency_fare_url")
     
 ``` 
-## http://example.com/shapePoints_0
-- **Source**
-
-```bash
-/data/SHAPES.csv
-
-``` 
-- **Subject**
-```bash
-http://transport.linkeddata.es/madrid/metro/shape_point/{shape_id}-{shape_pt_sequence}
-
-``` 
-- **Predicate Object**
-
-| Predicate | Object |
-|:----------|:-------|
-| http://www.w3.org/1999/02/22-rdf-syntax-ns#type | http://vocab.gtfs.org/terms#ShapePoint |
-| http://www.w3.org/2003/01/geo/wgs84_pos#lat | shape_pt_lat |
-| http://www.w3.org/2003/01/geo/wgs84_pos#long | shape_pt_lon |
-| http://vocab.gtfs.org/terms#pointSequence | shape_pt_sequence |
-| http://vocab.gtfs.org/terms#distanceTraveled | shape_dist_traveled |
-- **The RDF triples generated**
-```mermaid
-%%{ init : { "theme" : "forest", "flowchart" : { "curve" : "linear" }}}%%
-flowchart LR
-S["http://transport.linkeddata.es/madrid/metro/shape_point/{shape_id}-{shape_pt_sequence}"] -->|"http://www.w3.org/1999/02/22-rdf-syntax-ns#type"| object1("http://vocab.gtfs.org/terms#ShapePoint")
-S["http://transport.linkeddata.es/madrid/metro/shape_point/{shape_id}-{shape_pt_sequence}"] -->|"http://www.w3.org/2003/01/geo/wgs84_pos#lat"| object2("shape_pt_lat")
-S["http://transport.linkeddata.es/madrid/metro/shape_point/{shape_id}-{shape_pt_sequence}"] -->|"http://www.w3.org/2003/01/geo/wgs84_pos#long"| object3("shape_pt_lon")
-S["http://transport.linkeddata.es/madrid/metro/shape_point/{shape_id}-{shape_pt_sequence}"] -->|"http://vocab.gtfs.org/terms#pointSequence"| object4("shape_pt_sequence")
-S["http://transport.linkeddata.es/madrid/metro/shape_point/{shape_id}-{shape_pt_sequence}"] -->|"http://vocab.gtfs.org/terms#distanceTraveled"| object5("shape_dist_traveled")
-    
-``` 
-## http://example.com/calendar_rules_0
+## calendar_rules_0
 - **Source**
 
 ```bash
@@ -432,64 +468,28 @@ S["http://transport.linkeddata.es/madrid/metro/calendar_rules/{service_id}"] -->
 S["http://transport.linkeddata.es/madrid/metro/calendar_rules/{service_id}"] -->|"http://schema.org/endDate"| object10("end_date")
     
 ``` 
-## http://example.com/feed_0
+## shapes_0
 - **Source**
 
 ```bash
-/data/FEED_INFO.csv
+/data/SHAPES.csv
 
 ``` 
 - **Subject**
 ```bash
-http://transport.linkeddata.es/madrid/metro/feed/{feed_publisher_name}
+http://transport.linkeddata.es/madrid/metro/shape/{shape_id}
 
 ``` 
 - **Predicate Object**
 
 | Predicate | Object |
 |:----------|:-------|
-| http://www.w3.org/1999/02/22-rdf-syntax-ns#type | http://vocab.gtfs.org/terms#Feed |
-| http://purl.org/dc/terms/publisher | feed_publisher_name |
-| http://xmlns.com/foaf/0.1/page | feed_publisher_url |
-| http://purl.org/dc/terms/language | feed_lang |
-| http://schema.org/startDate | feed_start_date |
-| http://schema.org/endDate | feed_end_date |
-| http://schema.org/version | feed_version |
+| http://www.w3.org/1999/02/22-rdf-syntax-ns#type | http://vocab.gtfs.org/terms#Shape |
 - **The RDF triples generated**
 ```mermaid
 %%{ init : { "theme" : "forest", "flowchart" : { "curve" : "linear" }}}%%
 flowchart LR
-S["http://transport.linkeddata.es/madrid/metro/feed/{feed_publisher_name}"] -->|"http://www.w3.org/1999/02/22-rdf-syntax-ns#type"| object1("http://vocab.gtfs.org/terms#Feed")
-S["http://transport.linkeddata.es/madrid/metro/feed/{feed_publisher_name}"] -->|"http://purl.org/dc/terms/publisher"| object2("feed_publisher_name")
-S["http://transport.linkeddata.es/madrid/metro/feed/{feed_publisher_name}"] -->|"http://xmlns.com/foaf/0.1/page"| object3("feed_publisher_url")
-S["http://transport.linkeddata.es/madrid/metro/feed/{feed_publisher_name}"] -->|"http://purl.org/dc/terms/language"| object4("feed_lang")
-S["http://transport.linkeddata.es/madrid/metro/feed/{feed_publisher_name}"] -->|"http://schema.org/startDate"| object5("feed_start_date")
-S["http://transport.linkeddata.es/madrid/metro/feed/{feed_publisher_name}"] -->|"http://schema.org/endDate"| object6("feed_end_date")
-S["http://transport.linkeddata.es/madrid/metro/feed/{feed_publisher_name}"] -->|"http://schema.org/version"| object7("feed_version")
-    
-``` 
-## http://example.com/services2_0
-- **Source**
-
-```bash
-/data/CALENDAR_DATES.csv
-
-``` 
-- **Subject**
-```bash
-http://transport.linkeddata.es/madrid/metro/services/{service_id}
-
-``` 
-- **Predicate Object**
-
-| Predicate | Object |
-|:----------|:-------|
-| http://www.w3.org/1999/02/22-rdf-syntax-ns#type | http://vocab.gtfs.org/terms#Service |
-- **The RDF triples generated**
-```mermaid
-%%{ init : { "theme" : "forest", "flowchart" : { "curve" : "linear" }}}%%
-flowchart LR
-S["http://transport.linkeddata.es/madrid/metro/services/{service_id}"] -->|"http://www.w3.org/1999/02/22-rdf-syntax-ns#type"| object1("http://vocab.gtfs.org/terms#Service")
+S["http://transport.linkeddata.es/madrid/metro/shape/{shape_id}"] -->|"http://www.w3.org/1999/02/22-rdf-syntax-ns#type"| object1("http://vocab.gtfs.org/terms#Shape")
     
 ``` 
 

@@ -70,6 +70,7 @@ def subject_map(triples_map):
         ?subjectMap rr:template ?template.
         OPTIONAL {?subjectMap rdfs:label ?label }
         OPTIONAL {?subjectMap rdfs:comment ?comment. }
+        #FILTER (!isBlank(?template))
     }"""
     return query
 
@@ -109,11 +110,11 @@ def workflow(rdf_mapping_path, output_path):
     """TripleMaps"""
     uri_triples_map = g.query(queries.triples_map_query)
     tps_map = {tp.asdict()['TriplesMap'].toPython() for tp in uri_triples_map}
-    # print(tps_map)
+    #print(tps_map)
     mapping_content = ""
     for tp in tps_map:
         # TriplesMap
-        mapping_content += f"## {tp}\n"
+        mapping_content += f"## {tp.split('/')[-1]}\n"
         # LogicalSource
         source = [{"source": str(i.source), "label": str(i.label), "comment": str(i.comment)} for i in
                   g.query(logical_source(tp))]
@@ -127,8 +128,9 @@ def workflow(rdf_mapping_path, output_path):
         pom = [{"predicate": str(i.pr_constant), "object": str(i.ob_constant)} for i in
                g.query(predicate_object_map(tp))]
         mapping_content += pom_template.render(pom=pom)
-        diagram_subject= subject[0]['template']
-        mapping_content += spo_diagram.render(subject=diagram_subject, pom=pom)
+        if subject:
+            diagram_subject = subject[0]['template']
+            mapping_content += spo_diagram.render(subject=diagram_subject, pom=pom)
 
     # parse the content
     #content = template.render(authors=rmd_authors, prefixes=rmd_prefixes, mapping_content=mapping_content)
