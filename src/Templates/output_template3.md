@@ -32,10 +32,8 @@
 
 ## mappings
 ### stoptimes
-**Source**
 
-> [!IMPORTANT]
-> Crucial information necessary for users to succeed.
+**Source**
 
 ```bash
 ['/data/STOP_TIMES.csv']
@@ -43,8 +41,6 @@
 
 **Subject**
 
->[!NOTE]
->Is used to generate subject IRIs from the following template
 
 ```bash
 http://transport.linkeddata.es/madrid/metro/stoptimes/$(trip_id)-$(stop_id)-$(arrival_time)
@@ -94,6 +90,8 @@ stops : stop_id
 
 
 >[!NOTE]
->
->This is note text.
+>Is used to generate subject IRIs from the following template
 
+
+> [!IMPORTANT]
+> Crucial information necessary for users to succeed.
