@@ -95,7 +95,8 @@ stops : stop_id
 > Crucial information necessary for users to succeed.
 
 >[!TIP]
->This is a tip
+>
+>This is a standard TIP.
 
 >[!ADMINISTRATION]
 >This is an ad
