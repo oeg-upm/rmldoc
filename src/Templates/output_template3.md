@@ -31,13 +31,15 @@
 http://transport.linkeddata.es/madrid/metro/stoptimes/$(trip_id)-$(stop_id)-$(arrival_time)
 ```
 
-**Predicate object**    
+**Predicate Object**
 
 | Predicate |                Object                |
 | :----------- | :----------------------------------  |
 | gtfs:arrivalTime    | $(arrival_time) |
 | gtfs:departureTime    | $(departure_time) |
 | gtfs:trip |  |
+
+**The RDF triples generated**
 
 
 ```mermaid
