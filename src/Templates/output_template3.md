@@ -19,19 +19,20 @@
 
 # mappings
 ## stoptimes
-### Source
+**Source**
 
 ```bash
 ['/data/STOP_TIMES.csv']
 ```
 
-### Subject
+**Subject**
 
 ```bash
 http://transport.linkeddata.es/madrid/metro/stoptimes/$(trip_id)-$(stop_id)-$(arrival_time)
 ```
 
-### Predicate object    
+**Predicate object**    
+
 | Predicate |                Object                |
 | :----------- | :----------------------------------  |
 | gtfs:arrivalTime    | $(arrival_time) |
