@@ -237,15 +237,6 @@ S["http://transport.linkeddata.es/madrid/metro/stops/{stop_id}"] -->|"http://voc
 ## stoptimes_0
 - **Source**
 
----
-**NOTE**
-
-It works with aaaaaaaaaaaaaaaa
-
----
-
-  
-
 ```bash
 /data/STOP_TIMES.csv
 
