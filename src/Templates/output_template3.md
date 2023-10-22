@@ -91,10 +91,20 @@ stops : stop_id
 >[!NOTE]
 >Is used to generate subject IRIs from the following template
 
-
 > [!IMPORTANT]
 > Crucial information necessary for users to succeed.
 
+>[!TIP]
+>This is a tip
+
+>[!ADMINISTRATION]
+>This is an ad
+
+>[!INFO]
+>info
+
+>[!SUCCESS]
+>success
 
 > This is a blockquote with two paragraphs. Lorem ipsum dolor sit amet,
 > consectetuer adipiscing elit. Aliquam hendrerit mi posuere lectus.
