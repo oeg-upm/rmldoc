@@ -27,6 +27,9 @@
 
 **Subject**
 
+>[!NOTE]
+>Is used to generate subject IRIs from the follow template
+
 ```bash
 http://transport.linkeddata.es/madrid/metro/stoptimes/$(trip_id)-$(stop_id)-$(arrival_time)
 ```
