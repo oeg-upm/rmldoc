@@ -94,37 +94,3 @@ stops : stop_id
 
 ```
 
-
->[!NOTE]
->Is used to generate subject IRIs from the following template
-
-> [!IMPORTANT]
-> Crucial information necessary for users to succeed.
-
->[!TIP]
->
->This is a standard TIP.
-
->[!ADMINISTRATION]
->This is an ad
-
->[!INFO]
->info
-
->[!SUCCESS]
->success
-
-> This is a blockquote with two paragraphs. Lorem ipsum dolor sit amet,
-> consectetuer adipiscing elit. Aliquam hendrerit mi posuere lectus.
-> Vestibulum enim wisi, viverra nec, fringilla in, laoreet vitae, risus.
-> 
-> Donec sit amet nisl. Aliquam semper ipsum sit amet velit. Suspendisse
-> id sem consectetuer libero luctus adipiscing.
-Markdown allows you to be lazy and only put the > before the first line of a hard-wrapped paragraph:
-
-> This is a blockquote with two paragraphs. Lorem ipsum dolor sit amet,
-consectetuer adipiscing elit. Aliquam hendrerit mi posuere lectus.
-Vestibulum enim wisi, viverra nec, fringilla in, laoreet vitae, risus.
-
-> Donec sit amet nisl. Aliquam semper ipsum sit amet velit. Suspendisse
-id sem consectetuer libero luctus adipiscing.
