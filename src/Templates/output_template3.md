@@ -1,5 +1,18 @@
+# RDF Mapping Documentation (RMD)
 
-# Prefixes
+**Version:**
+
+**Authors**:
+
+**License**:
+
+[![http://insertlicenseURIhere.org](https://img.shields.io/badge/License-Creative%20Commons%20Attribution%204.0%20International%20(CC%20BY%204.0)-blue.svg)](https://creativecommons.org/licenses/by/4.0/)
+
+------
+
+
+## **Namespaces used in the document**
+
 | Prefix       |               IRI.                   |
 | :----------- | :----------------------------------  |
 | rr     | http://www.w3.org/ns/r2rml# |
@@ -17,8 +30,8 @@
 | rdf     | http://www.w3.org/1999/02/22-rdf-syntax-ns# |
 
 
-# mappings
-## stoptimes
+## mappings
+### stoptimes
 **Source**
 
 ```bash
@@ -33,6 +46,9 @@
 ```bash
 http://transport.linkeddata.es/madrid/metro/stoptimes/$(trip_id)-$(stop_id)-$(arrival_time)
 ```
+{::comment}
+This text is completely ignored by kramdown - a comment in the text.
+{:/comment}
 
 **Predicate Object**
 
