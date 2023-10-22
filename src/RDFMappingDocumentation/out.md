@@ -110,7 +110,6 @@ S["http://transport.linkeddata.es/madrid/metro/stoptimes/{trip_id}-{stop_id}-{ar
 - **Function**
 
 ```mermaid
-%%{ init : { "theme" : "forest", "flowchart" : { "curve" : "linear" }}}%%
 flowchart LR;
 	subgraph function:equal["equal(trip_id,trip_id)"]
 		direction LR
