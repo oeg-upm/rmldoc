@@ -77,14 +77,3 @@ stops : stop_id
 >
 >This is note text.
 
-
-
->
->
->Example
->
->* [art1](http://example.org)
->* [art2](http://example.org)
-> ```xml
-> <a>aslklask</a>
-> ```
