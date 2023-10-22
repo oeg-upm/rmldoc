@@ -1,4 +1,4 @@
-### Predicate object
+- **Predicate Object**
 
 | Property       | Column |
 | :----------- |:-------|

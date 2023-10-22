@@ -99,6 +99,7 @@ def workflow(rdf_mapping_path, output_path):
     source_template = environment.get_template("source.md")
     subject_template = environment.get_template("subject.md")
     pom_template = environment.get_template("predicate_object.md")
+    spo_diagram = environment.get_template("diagram.md")
     # Prefix
     rmd_prefixes = g.namespaces()
     # Authors
@@ -126,6 +127,8 @@ def workflow(rdf_mapping_path, output_path):
         pom = [{"predicate": str(i.pr_constant), "object": str(i.ob_constant)} for i in
                g.query(predicate_object_map(tp))]
         mapping_content += pom_template.render(pom=pom)
+        diagram_subject= subject[0]['template']
+        mapping_content += spo_diagram.render(subject=diagram_subject, pom=pom)
 
     # parse the content
     #content = template.render(authors=rmd_authors, prefixes=rmd_prefixes, mapping_content=mapping_content)
