@@ -1,7 +1,7 @@
 - **Predicate Object**
 
-| Property       | Column |
-| :----------- |:-------|
+| Predicate | Object |
+|:----------|:-------|
 {% for po in pom -%}
 | {{ po['predicate'] }} | {{ po['object'] }} |
 {%+ endfor %}
