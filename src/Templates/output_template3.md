@@ -33,21 +33,20 @@
 ## mappings
 ### stoptimes
 
-**Source**
+- **Source**
 
 ```bash
 ['/data/STOP_TIMES.csv']
 ```
 
-**Subject**
+- **Subject**
 
 
 ```bash
 http://transport.linkeddata.es/madrid/metro/stoptimes/$(trip_id)-$(stop_id)-$(arrival_time)
 ```
 
-
-**Predicate Object**
+- **Predicate Object**
 
 | Predicate |                Object                |
 | :----------- | :----------------------------------  |
@@ -55,7 +54,7 @@ http://transport.linkeddata.es/madrid/metro/stoptimes/$(trip_id)-$(stop_id)-$(ar
 | gtfs:departureTime    | $(departure_time) |
 | gtfs:trip |  |
 
-**The RDF triples generated**
+- **The RDF triples generated**
 
 
 ```mermaid
@@ -73,7 +72,7 @@ flowchart LR
     
 ```
 
-**Function: equal**
+- **Function: equal**
 
 ```mermaid
 %%{ init : { "theme" : "forest", "flowchart" : { "curve" : "linear" }}}%%
