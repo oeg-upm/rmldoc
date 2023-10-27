@@ -76,12 +76,12 @@
 ```bash
 /data/STOP_TIMES.csv
 
-``` 
+```
 - **Subject**
 ```bash
 http://transport.linkeddata.es/madrid/metro/stoptimes/{trip_id}-{stop_id}-{arrival_time}
 
-``` 
+```
 - **Predicate Object**
 
 | Predicate | Object |
@@ -103,7 +103,7 @@ S["http://transport.linkeddata.es/madrid/metro/stoptimes/{trip_id}-{stop_id}-{ar
 S["http://transport.linkeddata.es/madrid/metro/stoptimes/{trip_id}-{stop_id}-{arrival_time}"] -->|"http://vocab.gtfs.org/terms#headsign"| object5("stop_headsign")
 S["http://transport.linkeddata.es/madrid/metro/stoptimes/{trip_id}-{stop_id}-{arrival_time}"] -->|"http://vocab.gtfs.org/terms#distanceTraveled"| object6("shape_dist_traveled")
     
-``` 
+```
 - **joinCondition**: This is used for specifying conditions for joining different data sources or tables.
 ```mermaid
 %%{ init : { "theme" : "forest", "flowchart" : { "curve" : "stepBefore" }}}%%
@@ -122,19 +122,35 @@ stops_0: stop_id
 <<TriplesMap>> stoptimes_0 
 <<TriplesMap>> stops_0
    
-``` 
+```
+```mermaid
+%%{ init : { "theme" : "forest", "flowchart" : { "curve" : "linear" }}}%%
+
+flowchart LR
+
+    S["http://transport.linkeddata.es/madrid/metro/stoptimes/{trip_id}-{stop_id}-{arrival_time}"] .- B
+    subgraph pi["equal(stoptimes.trip_id,trip.trip_id)"]
+    B("gtfs:trip")
+    end
+    B .-> o0("http://transport.linkeddata.es/madrid/metro/trips/{trip_id}")
+
+```
+
+
+
 ## shapePoints_0
+
 - **Source**
 
 ```bash
 /data/SHAPES.csv
 
-``` 
+```
 - **Subject**
 ```bash
 http://transport.linkeddata.es/madrid/metro/shape_point/{shape_id}-{shape_pt_sequence}
 
-``` 
+```
 - **Predicate Object**
 
 | Predicate | Object |
@@ -154,26 +170,26 @@ S["http://transport.linkeddata.es/madrid/metro/shape_point/{shape_id}-{shape_pt_
 S["http://transport.linkeddata.es/madrid/metro/shape_point/{shape_id}-{shape_pt_sequence}"] -->|"http://vocab.gtfs.org/terms#pointSequence"| object4("shape_pt_sequence")
 S["http://transport.linkeddata.es/madrid/metro/shape_point/{shape_id}-{shape_pt_sequence}"] -->|"http://vocab.gtfs.org/terms#distanceTraveled"| object5("shape_dist_traveled")
     
-``` 
+```
 - **joinCondition**: This is used for specifying conditions for joining different data sources or tables.
 ```mermaid
 %%{ init : { "theme" : "forest", "flowchart" : { "curve" : "stepBefore" }}}%%
 classDiagram
 direction LR
    
-``` 
+```
 ## trips_0
 - **Source**
 
 ```bash
 /data/TRIPS.csv
 
-``` 
+```
 - **Subject**
 ```bash
 http://transport.linkeddata.es/madrid/metro/trips/{trip_id}
 
-``` 
+```
 - **Predicate Object**
 
 | Predicate | Object |
@@ -193,7 +209,7 @@ S["http://transport.linkeddata.es/madrid/metro/trips/{trip_id}"] -->|"http://voc
 S["http://transport.linkeddata.es/madrid/metro/trips/{trip_id}"] -->|"http://vocab.gtfs.org/terms#direction"| object4("direction_id")
 S["http://transport.linkeddata.es/madrid/metro/trips/{trip_id}"] -->|"http://vocab.gtfs.org/terms#block"| object5("block_id")
     
-``` 
+```
 - **joinCondition**: This is used for specifying conditions for joining different data sources or tables.
 ```mermaid
 %%{ init : { "theme" : "forest", "flowchart" : { "curve" : "stepBefore" }}}%%
@@ -236,19 +252,19 @@ shapes_0: shape_id
 <<TriplesMap>> trips_0 
 <<TriplesMap>> shapes_0
    
-``` 
+```
 ## services2_0
 - **Source**
 
 ```bash
 /data/CALENDAR_DATES.csv
 
-``` 
+```
 - **Subject**
 ```bash
 http://transport.linkeddata.es/madrid/metro/services/{service_id}
 
-``` 
+```
 - **Predicate Object**
 
 | Predicate | Object |
@@ -260,7 +276,7 @@ http://transport.linkeddata.es/madrid/metro/services/{service_id}
 flowchart LR
 S["http://transport.linkeddata.es/madrid/metro/services/{service_id}"] -->|"http://www.w3.org/1999/02/22-rdf-syntax-ns#type"| object1("http://vocab.gtfs.org/terms#Service")
     
-``` 
+```
 - **joinCondition**: This is used for specifying conditions for joining different data sources or tables.
 ```mermaid
 %%{ init : { "theme" : "forest", "flowchart" : { "curve" : "stepBefore" }}}%%
@@ -273,19 +289,19 @@ calendar_date_rules_0: service_id
 <<TriplesMap>> services2_0 
 <<TriplesMap>> calendar_date_rules_0
    
-``` 
+```
 ## stops_0
 - **Source**
 
 ```bash
 /data/STOPS.csv
 
-``` 
+```
 - **Subject**
 ```bash
 http://transport.linkeddata.es/madrid/metro/stops/{stop_id}
 
-``` 
+```
 - **Predicate Object**
 
 | Predicate | Object |
@@ -315,7 +331,7 @@ S["http://transport.linkeddata.es/madrid/metro/stops/{stop_id}"] -->|"http://voc
 S["http://transport.linkeddata.es/madrid/metro/stops/{stop_id}"] -->|"http://xmlns.com/foaf/0.1/page"| object9("stop_url")
 S["http://transport.linkeddata.es/madrid/metro/stops/{stop_id}"] -->|"http://vocab.gtfs.org/terms#timeZone"| object10("stop_timezone")
     
-``` 
+```
 - **joinCondition**: This is used for specifying conditions for joining different data sources or tables.
 ```mermaid
 %%{ init : { "theme" : "forest", "flowchart" : { "curve" : "stepBefore" }}}%%
@@ -328,19 +344,19 @@ stops_0: stop_id
 <<TriplesMap>> stops_0 
 <<TriplesMap>> stops_0
    
-``` 
+```
 ## calendar_date_rules_0
 - **Source**
 
 ```bash
 /data/CALENDAR_DATES.csv
 
-``` 
+```
 - **Subject**
 ```bash
 http://transport.linkeddata.es/madrid/metro/calendar_date_rule/{service_id}-{date}
 
-``` 
+```
 - **Predicate Object**
 
 | Predicate | Object |
@@ -356,26 +372,26 @@ S["http://transport.linkeddata.es/madrid/metro/calendar_date_rule/{service_id}-{
 S["http://transport.linkeddata.es/madrid/metro/calendar_date_rule/{service_id}-{date}"] -->|"http://purl.org/dc/terms/date"| object2("date")
 S["http://transport.linkeddata.es/madrid/metro/calendar_date_rule/{service_id}-{date}"] -->|"http://vocab.gtfs.org/terms#dateAddition"| object3("exception_type")
     
-``` 
+```
 - **joinCondition**: This is used for specifying conditions for joining different data sources or tables.
 ```mermaid
 %%{ init : { "theme" : "forest", "flowchart" : { "curve" : "stepBefore" }}}%%
 classDiagram
 direction LR
    
-``` 
+```
 ## routes_0
 - **Source**
 
 ```bash
 /data/ROUTES.csv
 
-``` 
+```
 - **Subject**
 ```bash
 http://transport.linkeddata.es/madrid/metro/routes/{route_id}
 
-``` 
+```
 - **Predicate Object**
 
 | Predicate | Object |
@@ -399,7 +415,7 @@ S["http://transport.linkeddata.es/madrid/metro/routes/{route_id}"] -->|"http://v
 S["http://transport.linkeddata.es/madrid/metro/routes/{route_id}"] -->|"http://vocab.gtfs.org/terms#color"| object6("route_color")
 S["http://transport.linkeddata.es/madrid/metro/routes/{route_id}"] -->|"http://vocab.gtfs.org/terms#textColor"| object7("route_text_color")
     
-``` 
+```
 - **joinCondition**: This is used for specifying conditions for joining different data sources or tables.
 ```mermaid
 %%{ init : { "theme" : "forest", "flowchart" : { "curve" : "stepBefore" }}}%%
@@ -412,19 +428,19 @@ agency_0: agency_id
 <<TriplesMap>> routes_0 
 <<TriplesMap>> agency_0
    
-``` 
+```
 ## agency_0
 - **Source**
 
 ```bash
 /data/AGENCY.csv
 
-``` 
+```
 - **Subject**
 ```bash
 http://transport.linkeddata.es/madrid/agency/{agency_id}
 
-``` 
+```
 - **Predicate Object**
 
 | Predicate | Object |
@@ -448,26 +464,26 @@ S["http://transport.linkeddata.es/madrid/agency/{agency_id}"] -->|"http://purl.o
 S["http://transport.linkeddata.es/madrid/agency/{agency_id}"] -->|"http://xmlns.com/foaf/0.1/phone"| object6("agency_phone")
 S["http://transport.linkeddata.es/madrid/agency/{agency_id}"] -->|"http://vocab.gtfs.org/terms#fareUrl"| object7("agency_fare_url")
     
-``` 
+```
 - **joinCondition**: This is used for specifying conditions for joining different data sources or tables.
 ```mermaid
 %%{ init : { "theme" : "forest", "flowchart" : { "curve" : "stepBefore" }}}%%
 classDiagram
 direction LR
    
-``` 
+```
 ## feed_0
 - **Source**
 
 ```bash
 /data/FEED_INFO.csv
 
-``` 
+```
 - **Subject**
 ```bash
 http://transport.linkeddata.es/madrid/metro/feed/{feed_publisher_name}
 
-``` 
+```
 - **Predicate Object**
 
 | Predicate | Object |
@@ -491,26 +507,26 @@ S["http://transport.linkeddata.es/madrid/metro/feed/{feed_publisher_name}"] -->|
 S["http://transport.linkeddata.es/madrid/metro/feed/{feed_publisher_name}"] -->|"http://schema.org/endDate"| object6("feed_end_date")
 S["http://transport.linkeddata.es/madrid/metro/feed/{feed_publisher_name}"] -->|"http://schema.org/version"| object7("feed_version")
     
-``` 
+```
 - **joinCondition**: This is used for specifying conditions for joining different data sources or tables.
 ```mermaid
 %%{ init : { "theme" : "forest", "flowchart" : { "curve" : "stepBefore" }}}%%
 classDiagram
 direction LR
    
-``` 
+```
 ## frequencies_0
 - **Source**
 
 ```bash
 /data/FREQUENCIES.csv
 
-``` 
+```
 - **Subject**
 ```bash
 http://transport.linkeddata.es/madrid/metro/frequency/{trip_id}-{start_time}
 
-``` 
+```
 - **Predicate Object**
 
 | Predicate | Object |
@@ -530,7 +546,7 @@ S["http://transport.linkeddata.es/madrid/metro/frequency/{trip_id}-{start_time}"
 S["http://transport.linkeddata.es/madrid/metro/frequency/{trip_id}-{start_time}"] -->|"http://vocab.gtfs.org/terms#headwaySeconds"| object4("headway_secs")
 S["http://transport.linkeddata.es/madrid/metro/frequency/{trip_id}-{start_time}"] -->|"http://vocab.gtfs.org/terms#exactTimes"| object5("exact_times")
     
-``` 
+```
 - **joinCondition**: This is used for specifying conditions for joining different data sources or tables.
 ```mermaid
 %%{ init : { "theme" : "forest", "flowchart" : { "curve" : "stepBefore" }}}%%
@@ -543,19 +559,19 @@ trips_0: trip_id
 <<TriplesMap>> frequencies_0 
 <<TriplesMap>> trips_0
    
-``` 
+```
 ## shapes_0
 - **Source**
 
 ```bash
 /data/SHAPES.csv
 
-``` 
+```
 - **Subject**
 ```bash
 http://transport.linkeddata.es/madrid/metro/shape/{shape_id}
 
-``` 
+```
 - **Predicate Object**
 
 | Predicate | Object |
@@ -567,7 +583,7 @@ http://transport.linkeddata.es/madrid/metro/shape/{shape_id}
 flowchart LR
 S["http://transport.linkeddata.es/madrid/metro/shape/{shape_id}"] -->|"http://www.w3.org/1999/02/22-rdf-syntax-ns#type"| object1("http://vocab.gtfs.org/terms#Shape")
     
-``` 
+```
 - **joinCondition**: This is used for specifying conditions for joining different data sources or tables.
 ```mermaid
 %%{ init : { "theme" : "forest", "flowchart" : { "curve" : "stepBefore" }}}%%
@@ -580,19 +596,19 @@ shapePoints_0: shape_id
 <<TriplesMap>> shapes_0 
 <<TriplesMap>> shapePoints_0
    
-``` 
+```
 ## calendar_rules_0
 - **Source**
 
 ```bash
 /data/CALENDAR.csv
 
-``` 
+```
 - **Subject**
 ```bash
 http://transport.linkeddata.es/madrid/metro/calendar_rules/{service_id}
 
-``` 
+```
 - **Predicate Object**
 
 | Predicate | Object |
@@ -622,26 +638,26 @@ S["http://transport.linkeddata.es/madrid/metro/calendar_rules/{service_id}"] -->
 S["http://transport.linkeddata.es/madrid/metro/calendar_rules/{service_id}"] -->|"http://schema.org/startDate"| object9("start_date")
 S["http://transport.linkeddata.es/madrid/metro/calendar_rules/{service_id}"] -->|"http://schema.org/endDate"| object10("end_date")
     
-``` 
+```
 - **joinCondition**: This is used for specifying conditions for joining different data sources or tables.
 ```mermaid
 %%{ init : { "theme" : "forest", "flowchart" : { "curve" : "stepBefore" }}}%%
 classDiagram
 direction LR
    
-``` 
+```
 ## services1_0
 - **Source**
 
 ```bash
 /data/CALENDAR.csv
 
-``` 
+```
 - **Subject**
 ```bash
 http://transport.linkeddata.es/madrid/metro/services/{service_id}
 
-``` 
+```
 - **Predicate Object**
 
 | Predicate | Object |
@@ -653,7 +669,7 @@ http://transport.linkeddata.es/madrid/metro/services/{service_id}
 flowchart LR
 S["http://transport.linkeddata.es/madrid/metro/services/{service_id}"] -->|"http://www.w3.org/1999/02/22-rdf-syntax-ns#type"| object1("http://vocab.gtfs.org/terms#Service")
     
-``` 
+```
 - **joinCondition**: This is used for specifying conditions for joining different data sources or tables.
 ```mermaid
 %%{ init : { "theme" : "forest", "flowchart" : { "curve" : "stepBefore" }}}%%
@@ -666,9 +682,11 @@ calendar_rules_0: service_id
 <<TriplesMap>> services1_0 
 <<TriplesMap>> calendar_rules_0
    
-``` 
+```
 
+```mermaid
 
+```
 
 
 ----
