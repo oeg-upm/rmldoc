@@ -103,29 +103,29 @@ http://transport.linkeddata.es/madrid/metro/stops/{stop_id}
 | Predicate | Object |
 |:----------|:-------|
 | http://www.w3.org/1999/02/22-rdf-syntax-ns#type | http://vocab.gtfs.org/terms#Stop |
-| http://vocab.gtfs.org/terms#code | stop_code |
-| http://purl.org/dc/terms/identifier | stop_id |
-| http://xmlns.com/foaf/0.1/name | stop_name |
-| http://purl.org/dc/terms/description | stop_desc |
-| http://www.w3.org/2003/01/geo/wgs84_pos#lat | stop_lat |
-| http://www.w3.org/2003/01/geo/wgs84_pos#long | stop_lon |
-| http://vocab.gtfs.org/terms#zone | zone_id |
-| http://xmlns.com/foaf/0.1/page | stop_url |
-| http://vocab.gtfs.org/terms#timeZone | stop_timezone |
+| http://vocab.gtfs.org/terms#code | {stop_code} |
+| http://purl.org/dc/terms/identifier | {stop_id} |
+| http://xmlns.com/foaf/0.1/name | {stop_name} |
+| http://purl.org/dc/terms/description | {stop_desc} |
+| http://www.w3.org/2003/01/geo/wgs84_pos#lat | {stop_lat} |
+| http://www.w3.org/2003/01/geo/wgs84_pos#long | {stop_lon} |
+| http://vocab.gtfs.org/terms#zone | {zone_id} |
+| http://xmlns.com/foaf/0.1/page | {stop_url} |
+| http://vocab.gtfs.org/terms#timeZone | {stop_timezone} |
 - **The RDF triples generated**
 ```mermaid
 %%{ init : { "theme" : "forest", "flowchart" : { "curve" : "linear" }}}%%
 flowchart LR
 S["http://transport.linkeddata.es/madrid/metro/stops/{stop_id}"] -->|"http://www.w3.org/1999/02/22-rdf-syntax-ns#type"| object1("http://vocab.gtfs.org/terms#Stop")
-S["http://transport.linkeddata.es/madrid/metro/stops/{stop_id}"] -->|"http://vocab.gtfs.org/terms#code"| object2("stop_code")
-S["http://transport.linkeddata.es/madrid/metro/stops/{stop_id}"] -->|"http://purl.org/dc/terms/identifier"| object3("stop_id")
-S["http://transport.linkeddata.es/madrid/metro/stops/{stop_id}"] -->|"http://xmlns.com/foaf/0.1/name"| object4("stop_name")
-S["http://transport.linkeddata.es/madrid/metro/stops/{stop_id}"] -->|"http://purl.org/dc/terms/description"| object5("stop_desc")
-S["http://transport.linkeddata.es/madrid/metro/stops/{stop_id}"] -->|"http://www.w3.org/2003/01/geo/wgs84_pos#lat"| object6("stop_lat")
-S["http://transport.linkeddata.es/madrid/metro/stops/{stop_id}"] -->|"http://www.w3.org/2003/01/geo/wgs84_pos#long"| object7("stop_lon")
-S["http://transport.linkeddata.es/madrid/metro/stops/{stop_id}"] -->|"http://vocab.gtfs.org/terms#zone"| object8("zone_id")
-S["http://transport.linkeddata.es/madrid/metro/stops/{stop_id}"] -->|"http://xmlns.com/foaf/0.1/page"| object9("stop_url")
-S["http://transport.linkeddata.es/madrid/metro/stops/{stop_id}"] -->|"http://vocab.gtfs.org/terms#timeZone"| object10("stop_timezone")
+S["http://transport.linkeddata.es/madrid/metro/stops/{stop_id}"] -->|"gtfs:code"| object2("{stop_code}")
+S["http://transport.linkeddata.es/madrid/metro/stops/{stop_id}"] -->|"dct:identifier"| object3("{stop_id}")
+S["http://transport.linkeddata.es/madrid/metro/stops/{stop_id}"] -->|"foaf:name"| object4("{stop_name}")
+S["http://transport.linkeddata.es/madrid/metro/stops/{stop_id}"] -->|"dct:description"| object5("{stop_desc}")
+S["http://transport.linkeddata.es/madrid/metro/stops/{stop_id}"] -->|"geo1:lat"| object6("{stop_lat}")
+S["http://transport.linkeddata.es/madrid/metro/stops/{stop_id}"] -->|"geo1:long"| object7("{stop_lon}")
+S["http://transport.linkeddata.es/madrid/metro/stops/{stop_id}"] -->|"gtfs:zone"| object8("{zone_id}")
+S["http://transport.linkeddata.es/madrid/metro/stops/{stop_id}"] -->|"foaf:page"| object9("{stop_url}")
+S["http://transport.linkeddata.es/madrid/metro/stops/{stop_id}"] -->|"gtfs:timeZone"| object10("{stop_timezone}")
     
 ```
 - **joinCondition**: This is used for specifying conditions for joining different data sources or tables.
