@@ -130,7 +130,7 @@ S["http://transport.linkeddata.es/madrid/metro/stops/{stop_id}"] -->|"gtfs:timeZ
 ```
 - **joinCondition**: This is used for specifying conditions for joining different data sources or tables.
 
-  ```
+  ```bash
   /data/STOP_TIMES.csv
   ```
 
