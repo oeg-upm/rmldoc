@@ -21,7 +21,7 @@
 @prefix map: <http://mapping.example.com/> .
 
 map:person_000 <http://purl.org/dc/terms/contributor> <http://xmlns.com/foaf/0.1/Person> ;
-	rdfs:label "John Doe" ;
+	rdfs:label "Jhon Toledo Barreto" ;
 	<http://xmlns.com/foaf/0.1/mbox> <mailto:john@doe.com> .
 
 <stoptimes_0> a rr:TriplesMap;
