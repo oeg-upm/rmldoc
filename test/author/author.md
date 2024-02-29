@@ -63,7 +63,7 @@ http://transport.linkeddata.es/madrid/metro/shape_point/{shape_id}-{shape_pt_seq
 | http://vocab.gtfs.org/terms#distanceTraveled | {shape_dist_traveled} |
 - **The RDF triples generated**
 ```mermaid
-%%{ init : { "theme" : "forest", "flowchart" : { "curve" : "linear" }}}%%
+
 flowchart LR
 S["http://transport.linkeddata.es/madrid/metro/shape_point/{shape_id}-{shape_pt_sequence}"] -->|"a"| object1("gtfs:ShapePoint")
 S["http://transport.linkeddata.es/madrid/metro/shape_point/{shape_id}-{shape_pt_sequence}"] -->|"geo1:lat"| object2("{shape_pt_lat}")
