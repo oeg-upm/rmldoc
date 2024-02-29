@@ -1,4 +1,4 @@
-# RML Documentation (RMLDOC)
+# RML Documentation (RMLdoc)
 
 **Version:**
 
@@ -18,20 +18,20 @@
 
 | Prefix       |               IRI.                   |
 | :----------- | :----------------------------------  |
-| map     | http://mapping.example.com/ |
-| rml     | http://semweb.mmlab.be/ns/rml# |
-| d2rq     | http://www.wiwiss.fu-berlin.de/suhl/bizer/D2RQ/0.1# |
-| ql     | http://semweb.mmlab.be/ns/ql# |
-| schema1     | http://schema.org/ |
-| dct     | http://purl.org/dc/terms/ |
-| geo1     | http://www.w3.org/2003/01/geo/wgs84_pos# |
 | fnml     | http://semweb.mmlab.be/ns/fnml# |
 | rr     | http://www.w3.org/ns/r2rml# |
-| grel     | http://users.ugent.be/~bjdmeest/function/grel.ttl# |
-| gtfs     | http://vocab.gtfs.org/terms# |
-| comp     | http://semweb.mmlab.be/ns/rml-compression# |
+| map     | http://mapping.example.com/ |
 | rev     | http://purl.org/stuff/rev# |
+| rml     | http://semweb.mmlab.be/ns/rml# |
+| geo1     | http://www.w3.org/2003/01/geo/wgs84_pos# |
+| gtfs     | http://vocab.gtfs.org/terms# |
 | formats     | http://www.w3.org/ns/formats/ |
+| grel     | http://users.ugent.be/~bjdmeest/function/grel.ttl# |
+| d2rq     | http://www.wiwiss.fu-berlin.de/suhl/bizer/D2RQ/0.1# |
+| dct     | http://purl.org/dc/terms/ |
+| comp     | http://semweb.mmlab.be/ns/rml-compression# |
+| schema1     | http://schema.org/ |
+| ql     | http://semweb.mmlab.be/ns/ql# |
 
 
 
@@ -42,120 +42,7 @@
 >3. **Predicate Object**: These describe how the data from the logical source will be used to generate RDF triples, indicating relationships between subjects and objects.
 
 
-## shapePoints_0
-- **Source**
-
-```bash
-/data/SHAPES.csv
-``` 
-- **Subject**
-```bash
-http://transport.linkeddata.es/madrid/metro/shape_point/{shape_id}-{shape_pt_sequence}
-``` 
-- **Predicate Object**
-
-| Predicate | Object |
-|:----------|:-------|
-| http://www.w3.org/1999/02/22-rdf-syntax-ns#type | gtfs:ShapePoint |
-| http://www.w3.org/2003/01/geo/wgs84_pos#lat | {shape_pt_lat} |
-| http://www.w3.org/2003/01/geo/wgs84_pos#long | {shape_pt_lon} |
-| http://vocab.gtfs.org/terms#pointSequence | {shape_pt_sequence} |
-| http://vocab.gtfs.org/terms#distanceTraveled | {shape_dist_traveled} |
-- **The RDF triples generated**
-```mermaid
-%%{ init : { "theme" : "neutral", "flowchart" : { "curve" : "linear" }}}%%
-flowchart LR
-S["http://transport.linkeddata.es/madrid/metro/shape_point/{shape_id}-{shape_pt_sequence}"] -->|"a"| object1("gtfs:ShapePoint")
-S["http://transport.linkeddata.es/madrid/metro/shape_point/{shape_id}-{shape_pt_sequence}"] -->|"geo1:lat"| object2("{shape_pt_lat}")
-S["http://transport.linkeddata.es/madrid/metro/shape_point/{shape_id}-{shape_pt_sequence}"] -->|"geo1:long"| object3("{shape_pt_lon}")
-S["http://transport.linkeddata.es/madrid/metro/shape_point/{shape_id}-{shape_pt_sequence}"] -->|"gtfs:pointSequence"| object4("{shape_pt_sequence}")
-S["http://transport.linkeddata.es/madrid/metro/shape_point/{shape_id}-{shape_pt_sequence}"] -->|"gtfs:distanceTraveled"| object5("{shape_dist_traveled}")
-    
-``` 
-- **joinCondition**: is used to specify the conditions under which two data sources or tables should be joined when creating RDF triples through mappings.
- ## routes_0
-- **Source**
-
-```bash
-/data/ROUTES.csv
-``` 
-- **Subject**
-```bash
-http://transport.linkeddata.es/madrid/metro/routes/{route_id}
-``` 
-- **Predicate Object**
-
-| Predicate | Object |
-|:----------|:-------|
-| http://www.w3.org/1999/02/22-rdf-syntax-ns#type | gtfs:Route |
-| http://vocab.gtfs.org/terms#shortName | {route_short_name} |
-| http://vocab.gtfs.org/terms#longName | {route_long_name} |
-| http://purl.org/dc/terms/description | {route_desc} |
-| http://vocab.gtfs.org/terms#routeType | {http://transport.linkeddata.es/resource/RouteType/{route_type}} |
-| http://vocab.gtfs.org/terms#routeUrl | {route_url} |
-| http://vocab.gtfs.org/terms#color | {route_color} |
-| http://vocab.gtfs.org/terms#textColor | {route_text_color} |
-- **The RDF triples generated**
-```mermaid
-%%{ init : { "theme" : "forest", "flowchart" : { "curve" : "linear" }}}%%
-flowchart LR
-S["http://transport.linkeddata.es/madrid/metro/routes/{route_id}"] -->|"a"| object1("gtfs:Route")
-S["http://transport.linkeddata.es/madrid/metro/routes/{route_id}"] -->|"gtfs:shortName"| object2("{route_short_name}")
-S["http://transport.linkeddata.es/madrid/metro/routes/{route_id}"] -->|"gtfs:longName"| object3("{route_long_name}")
-S["http://transport.linkeddata.es/madrid/metro/routes/{route_id}"] -->|"dct:description"| object4("{route_desc}")
-S["http://transport.linkeddata.es/madrid/metro/routes/{route_id}"] -->|"gtfs:routeType"| object5("{http://transport.linkeddata.es/resource/RouteType/{route_type}}")
-S["http://transport.linkeddata.es/madrid/metro/routes/{route_id}"] -->|"gtfs:routeUrl"| object6("{route_url}")
-S["http://transport.linkeddata.es/madrid/metro/routes/{route_id}"] -->|"gtfs:color"| object7("{route_color}")
-S["http://transport.linkeddata.es/madrid/metro/routes/{route_id}"] -->|"gtfs:textColor"| object8("{route_text_color}")
-    
-``` 
-- **joinCondition**: is used to specify the conditions under which two data sources or tables should be joined when creating RDF triples through mappings.
-
-Function: **equal(agency_id, agency_id)** conditions for joining.
- 
-```mermaid
-%%{ init : { "theme" : "forest", "flowchart" : { "curve" : "linear" }}}%%
-
-flowchart LR
-S1["http://transport.linkeddata.es/madrid/metro/routes/{route_id}"] -->|"gtfs:agency"| object1("http://transport.linkeddata.es/madrid/agency/{agency_id}")
-
-``` 
-
- ## shapes_0
-- **Source**
-
-```bash
-/data/SHAPES.csv
-``` 
-- **Subject**
-```bash
-http://transport.linkeddata.es/madrid/metro/shape/{shape_id}
-``` 
-- **Predicate Object**
-
-| Predicate | Object |
-|:----------|:-------|
-| http://www.w3.org/1999/02/22-rdf-syntax-ns#type | gtfs:Shape |
-- **The RDF triples generated**
-```mermaid
-%%{ init : { "theme" : "forest", "flowchart" : { "curve" : "linear" }}}%%
-flowchart LR
-S["http://transport.linkeddata.es/madrid/metro/shape/{shape_id}"] -->|"a"| object1("gtfs:Shape")
-    
-``` 
-- **joinCondition**: is used to specify the conditions under which two data sources or tables should be joined when creating RDF triples through mappings.
-
-Function: **equal(shape_id, shape_id)** conditions for joining.
- 
-```mermaid
-%%{ init : { "theme" : "forest", "flowchart" : { "curve" : "linear" }}}%%
-
-flowchart LR
-S1["http://transport.linkeddata.es/madrid/metro/shape/{shape_id}"] -->|"gtfs:shapePoint"| object1("http://transport.linkeddata.es/madrid/metro/shape_point/{shape_id}-{shape_pt_sequence}")
-
-``` 
-
- ## services1_0
+## services1_0
 - **Source**
 
 ```bash
@@ -266,42 +153,7 @@ S4["http://transport.linkeddata.es/madrid/metro/trips/{trip_id}"] -->|"gtfs:shap
 
 ``` 
 
- ## agency_0
-- **Source**
-
-```bash
-/data/AGENCY.csv
-``` 
-- **Subject**
-```bash
-http://transport.linkeddata.es/madrid/agency/{agency_id}
-``` 
-- **Predicate Object**
-
-| Predicate | Object |
-|:----------|:-------|
-| http://www.w3.org/1999/02/22-rdf-syntax-ns#type | gtfs:Agency |
-| http://xmlns.com/foaf/0.1/page | {agency_url} |
-| http://xmlns.com/foaf/0.1/name | {agency_name} |
-| http://vocab.gtfs.org/terms#timeZone | {agency_timezone} |
-| http://purl.org/dc/terms/language | {agency_lang} |
-| http://xmlns.com/foaf/0.1/phone | {agency_phone} |
-| http://vocab.gtfs.org/terms#fareUrl | {agency_fare_url} |
-- **The RDF triples generated**
-```mermaid
-%%{ init : { "theme" : "forest", "flowchart" : { "curve" : "linear" }}}%%
-flowchart LR
-S["http://transport.linkeddata.es/madrid/agency/{agency_id}"] -->|"a"| object1("gtfs:Agency")
-S["http://transport.linkeddata.es/madrid/agency/{agency_id}"] -->|"foaf:page"| object2("{agency_url}")
-S["http://transport.linkeddata.es/madrid/agency/{agency_id}"] -->|"foaf:name"| object3("{agency_name}")
-S["http://transport.linkeddata.es/madrid/agency/{agency_id}"] -->|"gtfs:timeZone"| object4("{agency_timezone}")
-S["http://transport.linkeddata.es/madrid/agency/{agency_id}"] -->|"dct:language"| object5("{agency_lang}")
-S["http://transport.linkeddata.es/madrid/agency/{agency_id}"] -->|"foaf:phone"| object6("{agency_phone}")
-S["http://transport.linkeddata.es/madrid/agency/{agency_id}"] -->|"gtfs:fareUrl"| object7("{agency_fare_url}")
-    
-``` 
-- **joinCondition**: is used to specify the conditions under which two data sources or tables should be joined when creating RDF triples through mappings.
- ## calendar_date_rules_0
+ ## services2_0
 - **Source**
 
 ```bash
@@ -309,108 +161,101 @@ S["http://transport.linkeddata.es/madrid/agency/{agency_id}"] -->|"gtfs:fareUrl"
 ``` 
 - **Subject**
 ```bash
-http://transport.linkeddata.es/madrid/metro/calendar_date_rule/{service_id}-{date}
+http://transport.linkeddata.es/madrid/metro/services/{service_id}
 ``` 
 - **Predicate Object**
 
 | Predicate | Object |
 |:----------|:-------|
-| http://www.w3.org/1999/02/22-rdf-syntax-ns#type | gtfs:CalendarDateRule |
-| http://purl.org/dc/terms/date | {date} |
-| http://vocab.gtfs.org/terms#dateAddition | {exception_type} |
+| http://www.w3.org/1999/02/22-rdf-syntax-ns#type | gtfs:Service |
 - **The RDF triples generated**
 ```mermaid
 %%{ init : { "theme" : "forest", "flowchart" : { "curve" : "linear" }}}%%
 flowchart LR
-S["http://transport.linkeddata.es/madrid/metro/calendar_date_rule/{service_id}-{date}"] -->|"a"| object1("gtfs:CalendarDateRule")
-S["http://transport.linkeddata.es/madrid/metro/calendar_date_rule/{service_id}-{date}"] -->|"dct:date"| object2("{date}")
-S["http://transport.linkeddata.es/madrid/metro/calendar_date_rule/{service_id}-{date}"] -->|"gtfs:dateAddition"| object3("{exception_type}")
-    
-``` 
-- **joinCondition**: is used to specify the conditions under which two data sources or tables should be joined when creating RDF triples through mappings.
- ## calendar_rules_0
-- **Source**
-
-```bash
-/data/CALENDAR.csv
-``` 
-- **Subject**
-```bash
-http://transport.linkeddata.es/madrid/metro/calendar_rules/{service_id}
-``` 
-- **Predicate Object**
-
-| Predicate | Object |
-|:----------|:-------|
-| http://www.w3.org/1999/02/22-rdf-syntax-ns#type | gtfs:CalendarRule |
-| http://vocab.gtfs.org/terms#monday | {monday} |
-| http://vocab.gtfs.org/terms#tuesday | {tuesday} |
-| http://vocab.gtfs.org/terms#wednesday | {wednesday} |
-| http://vocab.gtfs.org/terms#thursday | {thursday} |
-| http://vocab.gtfs.org/terms#friday | {friday} |
-| http://vocab.gtfs.org/terms#saturday | {saturday} |
-| http://vocab.gtfs.org/terms#sunday | {sunday} |
-| http://schema.org/startDate | {start_date} |
-| http://schema.org/endDate | {end_date} |
-- **The RDF triples generated**
-```mermaid
-%%{ init : { "theme" : "forest", "flowchart" : { "curve" : "linear" }}}%%
-flowchart LR
-S["http://transport.linkeddata.es/madrid/metro/calendar_rules/{service_id}"] -->|"a"| object1("gtfs:CalendarRule")
-S["http://transport.linkeddata.es/madrid/metro/calendar_rules/{service_id}"] -->|"gtfs:monday"| object2("{monday}")
-S["http://transport.linkeddata.es/madrid/metro/calendar_rules/{service_id}"] -->|"gtfs:tuesday"| object3("{tuesday}")
-S["http://transport.linkeddata.es/madrid/metro/calendar_rules/{service_id}"] -->|"gtfs:wednesday"| object4("{wednesday}")
-S["http://transport.linkeddata.es/madrid/metro/calendar_rules/{service_id}"] -->|"gtfs:thursday"| object5("{thursday}")
-S["http://transport.linkeddata.es/madrid/metro/calendar_rules/{service_id}"] -->|"gtfs:friday"| object6("{friday}")
-S["http://transport.linkeddata.es/madrid/metro/calendar_rules/{service_id}"] -->|"gtfs:saturday"| object7("{saturday}")
-S["http://transport.linkeddata.es/madrid/metro/calendar_rules/{service_id}"] -->|"gtfs:sunday"| object8("{sunday}")
-S["http://transport.linkeddata.es/madrid/metro/calendar_rules/{service_id}"] -->|"schema1:startDate"| object9("{start_date}")
-S["http://transport.linkeddata.es/madrid/metro/calendar_rules/{service_id}"] -->|"schema1:endDate"| object10("{end_date}")
-    
-``` 
-- **joinCondition**: is used to specify the conditions under which two data sources or tables should be joined when creating RDF triples through mappings.
- ## frequencies_0
-- **Source**
-
-```bash
-/data/FREQUENCIES.csv
-``` 
-- **Subject**
-```bash
-http://transport.linkeddata.es/madrid/metro/frequency/{trip_id}-{start_time}
-``` 
-- **Predicate Object**
-
-| Predicate | Object |
-|:----------|:-------|
-| http://www.w3.org/1999/02/22-rdf-syntax-ns#type | gtfs:Frequency |
-| http://vocab.gtfs.org/terms#startTime | {start_time} |
-| http://vocab.gtfs.org/terms#endTime | {end_time} |
-| http://vocab.gtfs.org/terms#headwaySeconds | {headway_secs} |
-| http://vocab.gtfs.org/terms#exactTimes | {exact_times} |
-- **The RDF triples generated**
-```mermaid
-%%{ init : { "theme" : "forest", "flowchart" : { "curve" : "linear" }}}%%
-flowchart LR
-S["http://transport.linkeddata.es/madrid/metro/frequency/{trip_id}-{start_time}"] -->|"a"| object1("gtfs:Frequency")
-S["http://transport.linkeddata.es/madrid/metro/frequency/{trip_id}-{start_time}"] -->|"gtfs:startTime"| object2("{start_time}")
-S["http://transport.linkeddata.es/madrid/metro/frequency/{trip_id}-{start_time}"] -->|"gtfs:endTime"| object3("{end_time}")
-S["http://transport.linkeddata.es/madrid/metro/frequency/{trip_id}-{start_time}"] -->|"gtfs:headwaySeconds"| object4("{headway_secs}")
-S["http://transport.linkeddata.es/madrid/metro/frequency/{trip_id}-{start_time}"] -->|"gtfs:exactTimes"| object5("{exact_times}")
+S["http://transport.linkeddata.es/madrid/metro/services/{service_id}"] -->|"a"| object1("gtfs:Service")
     
 ``` 
 - **joinCondition**: is used to specify the conditions under which two data sources or tables should be joined when creating RDF triples through mappings.
 
-Function: **equal(trip_id, trip_id)** conditions for joining.
+Function: **equal(service_id, service_id)** conditions for joining.
  
 ```mermaid
 %%{ init : { "theme" : "forest", "flowchart" : { "curve" : "linear" }}}%%
 
 flowchart LR
-S1["http://transport.linkeddata.es/madrid/metro/frequency/{trip_id}-{start_time}"] -->|"gtfs:trip"| object1("http://transport.linkeddata.es/madrid/metro/trips/{trip_id}")
+S1["http://transport.linkeddata.es/madrid/metro/services/{service_id}"] -->|"gtfs:serviceRule"| object1("http://transport.linkeddata.es/madrid/metro/calendar_date_rule/{service_id}-{date}")
 
 ``` 
 
+ ## shapes_0
+- **Source**
+
+```bash
+/data/SHAPES.csv
+``` 
+- **Subject**
+```bash
+http://transport.linkeddata.es/madrid/metro/shape/{shape_id}
+``` 
+- **Predicate Object**
+
+| Predicate | Object |
+|:----------|:-------|
+| http://www.w3.org/1999/02/22-rdf-syntax-ns#type | gtfs:Shape |
+- **The RDF triples generated**
+```mermaid
+%%{ init : { "theme" : "forest", "flowchart" : { "curve" : "linear" }}}%%
+flowchart LR
+S["http://transport.linkeddata.es/madrid/metro/shape/{shape_id}"] -->|"a"| object1("gtfs:Shape")
+    
+``` 
+- **joinCondition**: is used to specify the conditions under which two data sources or tables should be joined when creating RDF triples through mappings.
+
+Function: **equal(shape_id, shape_id)** conditions for joining.
+ 
+```mermaid
+%%{ init : { "theme" : "forest", "flowchart" : { "curve" : "linear" }}}%%
+
+flowchart LR
+S1["http://transport.linkeddata.es/madrid/metro/shape/{shape_id}"] -->|"gtfs:shapePoint"| object1("http://transport.linkeddata.es/madrid/metro/shape_point/{shape_id}-{shape_pt_sequence}")
+
+``` 
+
+ ## feed_0
+- **Source**
+
+```bash
+/data/FEED_INFO.csv
+``` 
+- **Subject**
+```bash
+http://transport.linkeddata.es/madrid/metro/feed/{feed_publisher_name}
+``` 
+- **Predicate Object**
+
+| Predicate | Object |
+|:----------|:-------|
+| http://www.w3.org/1999/02/22-rdf-syntax-ns#type | gtfs:Feed |
+| http://purl.org/dc/terms/publisher | {feed_publisher_name} |
+| http://xmlns.com/foaf/0.1/page | {feed_publisher_url} |
+| http://purl.org/dc/terms/language | {feed_lang} |
+| http://schema.org/startDate | {feed_start_date} |
+| http://schema.org/endDate | {feed_end_date} |
+| http://schema.org/version | {feed_version} |
+- **The RDF triples generated**
+```mermaid
+%%{ init : { "theme" : "forest", "flowchart" : { "curve" : "linear" }}}%%
+flowchart LR
+S["http://transport.linkeddata.es/madrid/metro/feed/{feed_publisher_name}"] -->|"a"| object1("gtfs:Feed")
+S["http://transport.linkeddata.es/madrid/metro/feed/{feed_publisher_name}"] -->|"dct:publisher"| object2("{feed_publisher_name}")
+S["http://transport.linkeddata.es/madrid/metro/feed/{feed_publisher_name}"] -->|"foaf:page"| object3("{feed_publisher_url}")
+S["http://transport.linkeddata.es/madrid/metro/feed/{feed_publisher_name}"] -->|"dct:language"| object4("{feed_lang}")
+S["http://transport.linkeddata.es/madrid/metro/feed/{feed_publisher_name}"] -->|"schema1:startDate"| object5("{feed_start_date}")
+S["http://transport.linkeddata.es/madrid/metro/feed/{feed_publisher_name}"] -->|"schema1:endDate"| object6("{feed_end_date}")
+S["http://transport.linkeddata.es/madrid/metro/feed/{feed_publisher_name}"] -->|"schema1:version"| object7("{feed_version}")
+    
+``` 
+- **joinCondition**: is used to specify the conditions under which two data sources or tables should be joined when creating RDF triples through mappings.
  ## stops_0
 - **Source**
 
@@ -467,7 +312,162 @@ S1["http://transport.linkeddata.es/madrid/metro/stops/{stop_id}"] -->|"gtfs:pare
 
 ``` 
 
- ## services2_0
+ ## agency_0
+- **Source**
+
+```bash
+/data/AGENCY.csv
+``` 
+- **Subject**
+```bash
+http://transport.linkeddata.es/madrid/agency/{agency_id}
+``` 
+- **Predicate Object**
+
+| Predicate | Object |
+|:----------|:-------|
+| http://www.w3.org/1999/02/22-rdf-syntax-ns#type | gtfs:Agency |
+| http://xmlns.com/foaf/0.1/page | {agency_url} |
+| http://xmlns.com/foaf/0.1/name | {agency_name} |
+| http://vocab.gtfs.org/terms#timeZone | {agency_timezone} |
+| http://purl.org/dc/terms/language | {agency_lang} |
+| http://xmlns.com/foaf/0.1/phone | {agency_phone} |
+| http://vocab.gtfs.org/terms#fareUrl | {agency_fare_url} |
+- **The RDF triples generated**
+```mermaid
+%%{ init : { "theme" : "forest", "flowchart" : { "curve" : "linear" }}}%%
+flowchart LR
+S["http://transport.linkeddata.es/madrid/agency/{agency_id}"] -->|"a"| object1("gtfs:Agency")
+S["http://transport.linkeddata.es/madrid/agency/{agency_id}"] -->|"foaf:page"| object2("{agency_url}")
+S["http://transport.linkeddata.es/madrid/agency/{agency_id}"] -->|"foaf:name"| object3("{agency_name}")
+S["http://transport.linkeddata.es/madrid/agency/{agency_id}"] -->|"gtfs:timeZone"| object4("{agency_timezone}")
+S["http://transport.linkeddata.es/madrid/agency/{agency_id}"] -->|"dct:language"| object5("{agency_lang}")
+S["http://transport.linkeddata.es/madrid/agency/{agency_id}"] -->|"foaf:phone"| object6("{agency_phone}")
+S["http://transport.linkeddata.es/madrid/agency/{agency_id}"] -->|"gtfs:fareUrl"| object7("{agency_fare_url}")
+    
+``` 
+- **joinCondition**: is used to specify the conditions under which two data sources or tables should be joined when creating RDF triples through mappings.
+ ## shapePoints_0
+- **Source**
+
+```bash
+/data/SHAPES.csv
+``` 
+- **Subject**
+```bash
+http://transport.linkeddata.es/madrid/metro/shape_point/{shape_id}-{shape_pt_sequence}
+``` 
+- **Predicate Object**
+
+| Predicate | Object |
+|:----------|:-------|
+| http://www.w3.org/1999/02/22-rdf-syntax-ns#type | gtfs:ShapePoint |
+| http://www.w3.org/2003/01/geo/wgs84_pos#lat | {shape_pt_lat} |
+| http://www.w3.org/2003/01/geo/wgs84_pos#long | {shape_pt_lon} |
+| http://vocab.gtfs.org/terms#pointSequence | {shape_pt_sequence} |
+| http://vocab.gtfs.org/terms#distanceTraveled | {shape_dist_traveled} |
+- **The RDF triples generated**
+```mermaid
+%%{ init : { "theme" : "forest", "flowchart" : { "curve" : "linear" }}}%%
+flowchart LR
+S["http://transport.linkeddata.es/madrid/metro/shape_point/{shape_id}-{shape_pt_sequence}"] -->|"a"| object1("gtfs:ShapePoint")
+S["http://transport.linkeddata.es/madrid/metro/shape_point/{shape_id}-{shape_pt_sequence}"] -->|"geo1:lat"| object2("{shape_pt_lat}")
+S["http://transport.linkeddata.es/madrid/metro/shape_point/{shape_id}-{shape_pt_sequence}"] -->|"geo1:long"| object3("{shape_pt_lon}")
+S["http://transport.linkeddata.es/madrid/metro/shape_point/{shape_id}-{shape_pt_sequence}"] -->|"gtfs:pointSequence"| object4("{shape_pt_sequence}")
+S["http://transport.linkeddata.es/madrid/metro/shape_point/{shape_id}-{shape_pt_sequence}"] -->|"gtfs:distanceTraveled"| object5("{shape_dist_traveled}")
+    
+``` 
+- **joinCondition**: is used to specify the conditions under which two data sources or tables should be joined when creating RDF triples through mappings.
+ ## calendar_rules_0
+- **Source**
+
+```bash
+/data/CALENDAR.csv
+``` 
+- **Subject**
+```bash
+http://transport.linkeddata.es/madrid/metro/calendar_rules/{service_id}
+``` 
+- **Predicate Object**
+
+| Predicate | Object |
+|:----------|:-------|
+| http://www.w3.org/1999/02/22-rdf-syntax-ns#type | gtfs:CalendarRule |
+| http://vocab.gtfs.org/terms#monday | {monday} |
+| http://vocab.gtfs.org/terms#tuesday | {tuesday} |
+| http://vocab.gtfs.org/terms#wednesday | {wednesday} |
+| http://vocab.gtfs.org/terms#thursday | {thursday} |
+| http://vocab.gtfs.org/terms#friday | {friday} |
+| http://vocab.gtfs.org/terms#saturday | {saturday} |
+| http://vocab.gtfs.org/terms#sunday | {sunday} |
+| http://schema.org/startDate | {start_date} |
+| http://schema.org/endDate | {end_date} |
+- **The RDF triples generated**
+```mermaid
+%%{ init : { "theme" : "forest", "flowchart" : { "curve" : "linear" }}}%%
+flowchart LR
+S["http://transport.linkeddata.es/madrid/metro/calendar_rules/{service_id}"] -->|"a"| object1("gtfs:CalendarRule")
+S["http://transport.linkeddata.es/madrid/metro/calendar_rules/{service_id}"] -->|"gtfs:monday"| object2("{monday}")
+S["http://transport.linkeddata.es/madrid/metro/calendar_rules/{service_id}"] -->|"gtfs:tuesday"| object3("{tuesday}")
+S["http://transport.linkeddata.es/madrid/metro/calendar_rules/{service_id}"] -->|"gtfs:wednesday"| object4("{wednesday}")
+S["http://transport.linkeddata.es/madrid/metro/calendar_rules/{service_id}"] -->|"gtfs:thursday"| object5("{thursday}")
+S["http://transport.linkeddata.es/madrid/metro/calendar_rules/{service_id}"] -->|"gtfs:friday"| object6("{friday}")
+S["http://transport.linkeddata.es/madrid/metro/calendar_rules/{service_id}"] -->|"gtfs:saturday"| object7("{saturday}")
+S["http://transport.linkeddata.es/madrid/metro/calendar_rules/{service_id}"] -->|"gtfs:sunday"| object8("{sunday}")
+S["http://transport.linkeddata.es/madrid/metro/calendar_rules/{service_id}"] -->|"schema1:startDate"| object9("{start_date}")
+S["http://transport.linkeddata.es/madrid/metro/calendar_rules/{service_id}"] -->|"schema1:endDate"| object10("{end_date}")
+    
+``` 
+- **joinCondition**: is used to specify the conditions under which two data sources or tables should be joined when creating RDF triples through mappings.
+ ## routes_0
+- **Source**
+
+```bash
+/data/ROUTES.csv
+``` 
+- **Subject**
+```bash
+http://transport.linkeddata.es/madrid/metro/routes/{route_id}
+``` 
+- **Predicate Object**
+
+| Predicate | Object |
+|:----------|:-------|
+| http://www.w3.org/1999/02/22-rdf-syntax-ns#type | gtfs:Route |
+| http://vocab.gtfs.org/terms#shortName | {route_short_name} |
+| http://vocab.gtfs.org/terms#longName | {route_long_name} |
+| http://purl.org/dc/terms/description | {route_desc} |
+| http://vocab.gtfs.org/terms#routeType | {http://transport.linkeddata.es/resource/RouteType/{route_type}} |
+| http://vocab.gtfs.org/terms#routeUrl | {route_url} |
+| http://vocab.gtfs.org/terms#color | {route_color} |
+| http://vocab.gtfs.org/terms#textColor | {route_text_color} |
+- **The RDF triples generated**
+```mermaid
+%%{ init : { "theme" : "forest", "flowchart" : { "curve" : "linear" }}}%%
+flowchart LR
+S["http://transport.linkeddata.es/madrid/metro/routes/{route_id}"] -->|"a"| object1("gtfs:Route")
+S["http://transport.linkeddata.es/madrid/metro/routes/{route_id}"] -->|"gtfs:shortName"| object2("{route_short_name}")
+S["http://transport.linkeddata.es/madrid/metro/routes/{route_id}"] -->|"gtfs:longName"| object3("{route_long_name}")
+S["http://transport.linkeddata.es/madrid/metro/routes/{route_id}"] -->|"dct:description"| object4("{route_desc}")
+S["http://transport.linkeddata.es/madrid/metro/routes/{route_id}"] -->|"gtfs:routeType"| object5("{http://transport.linkeddata.es/resource/RouteType/{route_type}}")
+S["http://transport.linkeddata.es/madrid/metro/routes/{route_id}"] -->|"gtfs:routeUrl"| object6("{route_url}")
+S["http://transport.linkeddata.es/madrid/metro/routes/{route_id}"] -->|"gtfs:color"| object7("{route_color}")
+S["http://transport.linkeddata.es/madrid/metro/routes/{route_id}"] -->|"gtfs:textColor"| object8("{route_text_color}")
+    
+``` 
+- **joinCondition**: is used to specify the conditions under which two data sources or tables should be joined when creating RDF triples through mappings.
+
+Function: **equal(agency_id, agency_id)** conditions for joining.
+ 
+```mermaid
+%%{ init : { "theme" : "forest", "flowchart" : { "curve" : "linear" }}}%%
+
+flowchart LR
+S1["http://transport.linkeddata.es/madrid/metro/routes/{route_id}"] -->|"gtfs:agency"| object1("http://transport.linkeddata.es/madrid/agency/{agency_id}")
+
+``` 
+
+ ## calendar_date_rules_0
 - **Source**
 
 ```bash
@@ -475,64 +475,22 @@ S1["http://transport.linkeddata.es/madrid/metro/stops/{stop_id}"] -->|"gtfs:pare
 ``` 
 - **Subject**
 ```bash
-http://transport.linkeddata.es/madrid/metro/services/{service_id}
+http://transport.linkeddata.es/madrid/metro/calendar_date_rule/{service_id}-{date}
 ``` 
 - **Predicate Object**
 
 | Predicate | Object |
 |:----------|:-------|
-| http://www.w3.org/1999/02/22-rdf-syntax-ns#type | gtfs:Service |
+| http://www.w3.org/1999/02/22-rdf-syntax-ns#type | gtfs:CalendarDateRule |
+| http://purl.org/dc/terms/date | {date} |
+| http://vocab.gtfs.org/terms#dateAddition | {exception_type} |
 - **The RDF triples generated**
 ```mermaid
 %%{ init : { "theme" : "forest", "flowchart" : { "curve" : "linear" }}}%%
 flowchart LR
-S["http://transport.linkeddata.es/madrid/metro/services/{service_id}"] -->|"a"| object1("gtfs:Service")
-    
-``` 
-- **joinCondition**: is used to specify the conditions under which two data sources or tables should be joined when creating RDF triples through mappings.
-
-Function: **equal(service_id, service_id)** conditions for joining.
- 
-```mermaid
-%%{ init : { "theme" : "forest", "flowchart" : { "curve" : "linear" }}}%%
-
-flowchart LR
-S1["http://transport.linkeddata.es/madrid/metro/services/{service_id}"] -->|"gtfs:serviceRule"| object1("http://transport.linkeddata.es/madrid/metro/calendar_date_rule/{service_id}-{date}")
-
-``` 
-
- ## feed_0
-- **Source**
-
-```bash
-/data/FEED_INFO.csv
-``` 
-- **Subject**
-```bash
-http://transport.linkeddata.es/madrid/metro/feed/{feed_publisher_name}
-``` 
-- **Predicate Object**
-
-| Predicate | Object |
-|:----------|:-------|
-| http://www.w3.org/1999/02/22-rdf-syntax-ns#type | gtfs:Feed |
-| http://purl.org/dc/terms/publisher | {feed_publisher_name} |
-| http://xmlns.com/foaf/0.1/page | {feed_publisher_url} |
-| http://purl.org/dc/terms/language | {feed_lang} |
-| http://schema.org/startDate | {feed_start_date} |
-| http://schema.org/endDate | {feed_end_date} |
-| http://schema.org/version | {feed_version} |
-- **The RDF triples generated**
-```mermaid
-%%{ init : { "theme" : "forest", "flowchart" : { "curve" : "linear" }}}%%
-flowchart LR
-S["http://transport.linkeddata.es/madrid/metro/feed/{feed_publisher_name}"] -->|"a"| object1("gtfs:Feed")
-S["http://transport.linkeddata.es/madrid/metro/feed/{feed_publisher_name}"] -->|"dct:publisher"| object2("{feed_publisher_name}")
-S["http://transport.linkeddata.es/madrid/metro/feed/{feed_publisher_name}"] -->|"foaf:page"| object3("{feed_publisher_url}")
-S["http://transport.linkeddata.es/madrid/metro/feed/{feed_publisher_name}"] -->|"dct:language"| object4("{feed_lang}")
-S["http://transport.linkeddata.es/madrid/metro/feed/{feed_publisher_name}"] -->|"schema1:startDate"| object5("{feed_start_date}")
-S["http://transport.linkeddata.es/madrid/metro/feed/{feed_publisher_name}"] -->|"schema1:endDate"| object6("{feed_end_date}")
-S["http://transport.linkeddata.es/madrid/metro/feed/{feed_publisher_name}"] -->|"schema1:version"| object7("{feed_version}")
+S["http://transport.linkeddata.es/madrid/metro/calendar_date_rule/{service_id}-{date}"] -->|"a"| object1("gtfs:CalendarDateRule")
+S["http://transport.linkeddata.es/madrid/metro/calendar_date_rule/{service_id}-{date}"] -->|"dct:date"| object2("{date}")
+S["http://transport.linkeddata.es/madrid/metro/calendar_date_rule/{service_id}-{date}"] -->|"gtfs:dateAddition"| object3("{exception_type}")
     
 ``` 
 - **joinCondition**: is used to specify the conditions under which two data sources or tables should be joined when creating RDF triples through mappings.
@@ -592,6 +550,48 @@ Function: **equal(stop_id, stop_id)** conditions for joining.
 
 flowchart LR
 S2["http://transport.linkeddata.es/madrid/metro/stoptimes/{trip_id}-{stop_id}-{arrival_time}"] -->|"gtfs:stop"| object2("http://transport.linkeddata.es/madrid/metro/stops/{stop_id}")
+
+``` 
+
+ ## frequencies_0
+- **Source**
+
+```bash
+/data/FREQUENCIES.csv
+``` 
+- **Subject**
+```bash
+http://transport.linkeddata.es/madrid/metro/frequency/{trip_id}-{start_time}
+``` 
+- **Predicate Object**
+
+| Predicate | Object |
+|:----------|:-------|
+| http://www.w3.org/1999/02/22-rdf-syntax-ns#type | gtfs:Frequency |
+| http://vocab.gtfs.org/terms#startTime | {start_time} |
+| http://vocab.gtfs.org/terms#endTime | {end_time} |
+| http://vocab.gtfs.org/terms#headwaySeconds | {headway_secs} |
+| http://vocab.gtfs.org/terms#exactTimes | {exact_times} |
+- **The RDF triples generated**
+```mermaid
+%%{ init : { "theme" : "forest", "flowchart" : { "curve" : "linear" }}}%%
+flowchart LR
+S["http://transport.linkeddata.es/madrid/metro/frequency/{trip_id}-{start_time}"] -->|"a"| object1("gtfs:Frequency")
+S["http://transport.linkeddata.es/madrid/metro/frequency/{trip_id}-{start_time}"] -->|"gtfs:startTime"| object2("{start_time}")
+S["http://transport.linkeddata.es/madrid/metro/frequency/{trip_id}-{start_time}"] -->|"gtfs:endTime"| object3("{end_time}")
+S["http://transport.linkeddata.es/madrid/metro/frequency/{trip_id}-{start_time}"] -->|"gtfs:headwaySeconds"| object4("{headway_secs}")
+S["http://transport.linkeddata.es/madrid/metro/frequency/{trip_id}-{start_time}"] -->|"gtfs:exactTimes"| object5("{exact_times}")
+    
+``` 
+- **joinCondition**: is used to specify the conditions under which two data sources or tables should be joined when creating RDF triples through mappings.
+
+Function: **equal(trip_id, trip_id)** conditions for joining.
+ 
+```mermaid
+%%{ init : { "theme" : "forest", "flowchart" : { "curve" : "linear" }}}%%
+
+flowchart LR
+S1["http://transport.linkeddata.es/madrid/metro/frequency/{trip_id}-{start_time}"] -->|"gtfs:trip"| object1("http://transport.linkeddata.es/madrid/metro/trips/{trip_id}")
 
 ``` 
 
