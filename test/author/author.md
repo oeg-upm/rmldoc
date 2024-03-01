@@ -106,7 +106,7 @@ http://transport.linkeddata.es/madrid/metro/calendar_rules/{service_id}
 | http://schema.org/endDate | {end_date} |
 - **RDF triples pattern**
 ```mermaid
-%%{ init : { "theme" : "forest", "flowchart" : { "curve" : "linear" }}}%%
+%%{ init : { "theme" : "base", "flowchart" : { "curve" : "linear" }}}%%
 flowchart LR
 S["http://transport.linkeddata.es/madrid/metro/calendar_rules/{service_id}"] -->|"a"| object1("gtfs:CalendarRule")
 S["http://transport.linkeddata.es/madrid/metro/calendar_rules/{service_id}"] -->|"gtfs:monday"| object2("{monday}")
