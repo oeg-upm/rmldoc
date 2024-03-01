@@ -23,7 +23,7 @@ def prefix_short_cuts(graph, uri):
 
 
 def is_valid_uri(uri):
-    if '{'in str(uri):
+    if '{' in str(uri):
         return False
     try:
         result = urlparse(uri)
@@ -35,3 +35,7 @@ def is_valid_uri(uri):
 def is_markdown_file(file_path):
     _, file_extension = os.path.splitext(file_path)
     return file_extension.lower() == '.md'
+
+
+def get_file_name(file_path):
+    return os.path.basename(file_path)
