@@ -4,10 +4,13 @@ import os
 
 from setuptools import find_packages, setup
 
-install_requires = [
-    "rdflib>=6.0.2",
-    "jinja2==3.1.2"
-]
+with open("requirements.txt") as r:
+    install_requires = list(filter(None, r.read().split("\n")[0:]))
+
+#install_requires = [
+#    "rdflib>=6.0.2",
+#    "jinja2==3.1.2"
+#]
 
 
 # Utility function to read the README file.
