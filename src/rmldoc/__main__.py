@@ -11,7 +11,7 @@ import argparse
 import logging
 import codecs
 from .queries import *
-from jinja2 import Environment, FileSystemLoader
+from jinja2 import Environment, FileSystemLoader,PackageLoader
 from .utils import *
 
 log = logging.getLogger("rmd_main")
@@ -145,10 +145,7 @@ def workflow(rdf_mapping_path, output_path):
     g = rdflib.Graph()
     g.parse(rdf_mapping_path, format=rdflib.util.guess_format(rdf_mapping_path))  # .ttl format
     #environment = Environment(loader=FileSystemLoader("../templates/"))
-    #environment = Environment(loader=FileSystemLoader("rmldoc/Templates/"))
-    template_dir = os.path.join(os.path.dirname(__file__), 'Templates/')
-    print(template_dir)
-    environment = Environment(loader=FileSystemLoader(template_dir))
+    environment =  Environment(loader=PackageLoader('rmldoc', 'Templates'))
     template = environment.get_template("rmd.md")
     source_template = environment.get_template("source.md")
     subject_template = environment.get_template("subject.md")
