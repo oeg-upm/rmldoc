@@ -10,9 +10,9 @@ import rdflib
 import argparse
 import logging
 import codecs
-import queries
+from .queries import *
 from jinja2 import Environment, FileSystemLoader
-import utils
+from .utils import *
 
 log = logging.getLogger("rmd_main")
 log.setLevel(logging.INFO)
@@ -155,12 +155,12 @@ def workflow(rdf_mapping_path, output_path):
     # rmd_prefixes = g.namespaces()
     rmd_prefixes = get_namespaces(g)
     # Authors
-    my_authors = g.query(queries.authors)
+    my_authors = g.query(authors)
     rmd_authors = [{"author": str(author.name), "mbox": str(author.mbox)} for author in my_authors]
 
     # mappings
     """TripleMaps"""
-    uri_triples_map = g.query(queries.triples_map_query)
+    uri_triples_map = g.query(triples_map_query)
     tps_map = {tp.asdict()['triplesMap'].toPython() for tp in uri_triples_map}
     mapping_content = ""
 
@@ -180,11 +180,11 @@ def workflow(rdf_mapping_path, output_path):
 
         # pom = [{"label": str(i.label), "comment": str(i.comment)} for i in g.query(predicate_object_map(tp))]
         # predicateObjectMap
-        pom = [{"predicate": str(i.pr_constant), "object": str(utils.prefix_short_cuts(g, i.ob_constant))} for i in
+        pom = [{"predicate": str(i.pr_constant), "object": str(prefix_short_cuts(g, i.ob_constant))} for i in
                g.query(predicate_object_map(tp))]
 
-        pom_diagram = [{"predicate": str(utils.prefix_short_cuts(g, i.pr_constant)),
-                        "object": str(utils.prefix_short_cuts(g, i.ob_constant))} for i in
+        pom_diagram = [{"predicate": str(prefix_short_cuts(g, i.pr_constant)),
+                        "object": str(prefix_short_cuts(g, i.ob_constant))} for i in
                        g.query(predicate_object_map(tp))]
 
         mapping_content += pom_template.render(pom=pom)
@@ -195,7 +195,7 @@ def workflow(rdf_mapping_path, output_path):
 
         # join diagram
         join_condition_diagram = [
-            {"predicate": str(utils.prefix_short_cuts(g, i.predicate)),
+            {"predicate": str(prefix_short_cuts(g, i.predicate)),
              "parentTriplesMap": str(i.parentTriplesMap).split('/')[-1],
              "child": str(i.child), "parent": str(i.parent), 'template': str(i.o_template),
              'subject': str(i.s_template)} for i in
@@ -206,7 +206,7 @@ def workflow(rdf_mapping_path, output_path):
 
     # parse the content
     # content = template.render(authors=rmd_authors, prefixes=rmd_prefixes, mapping_content=mapping_content)
-    content = template.render(mapping_file=utils.get_file_name(rdf_mapping_path), authors=rmd_authors, prefixes=rmd_prefixes,
+    content = template.render(mapping_file=get_file_name(rdf_mapping_path), authors=rmd_authors, prefixes=rmd_prefixes,
                               mapping_content=mapping_content)
 
     # Write results
