@@ -18,11 +18,13 @@ classifiers = [
     "Programming Language :: Python",
     "Programming Language :: Python :: 3",
 ]
+[tool.poetry.files]
+include = ["rmldoc/Templates/*.md"]
 
 [project.scripts]
 realpython = "rmldoc.__main__:main"
 
-include = ["rmldoc/Templates/*.md"]
+
 
 [project.optional-dependencies]
 dev = ["pip-tools", "pytest"]
