@@ -50,10 +50,10 @@ optional arguments:
 To generate documentation for your RML mappings, use the following command:
 
 ```bash
-rmldoc -i path/to/rml/mappings.rml - o path/to/output/directory
+rmldoc -i path/to/rml/mappings.rml - o path/to/output/directory/mappings.md
 ```
 
-Replace `path/to/rml/mappings.rml` with the path to your RML mapping file and `path/to/output/directory` with the directory where you want the documentation to be generated.
+Replace `path/to/rml/mappings.rml` with the path to your RML mapping file and `path/to/output/directory/mappings.md` with the file where you want the documentation to be generated.
 
 
 
