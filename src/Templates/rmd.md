@@ -2,8 +2,13 @@
 {# -- block authors--#}
 {% block authors %}
 {% for author in authors -%}
+    {% if author['author']!='' %}
 * {{ author['author']}}
-{%+ endfor %}
+   {% endif %}
+{%- endfor %}
+{% endblock %}
+{% block mapping_file %}
+{{ mapping_file }}
 {% endblock %}
 {# -- block prefixes-- #}
 {% block prefixes %}
