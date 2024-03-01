@@ -147,6 +147,7 @@ def workflow(rdf_mapping_path, output_path):
     #environment = Environment(loader=FileSystemLoader("../templates/"))
     #environment = Environment(loader=FileSystemLoader("rmldoc/Templates/"))
     template_dir = os.path.join(os.path.dirname(__file__), 'Templates/')
+    print(template_dir)
     environment = Environment(loader=FileSystemLoader(template_dir))
     template = environment.get_template("rmd.md")
     source_template = environment.get_template("source.md")
