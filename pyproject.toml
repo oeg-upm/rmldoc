@@ -20,5 +20,11 @@ classifiers = [
 ]
 [project.scripts]
 realpython = "rmldoc.__main__:main"
+
+dependencies = [
+  'jinja2',
+  'rdflib',
+]
+
 [project.optional-dependencies]
 dev = ["pip-tools", "pytest"]
