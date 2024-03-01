@@ -144,7 +144,7 @@ def get_namespaces(g):
 def workflow(rdf_mapping_path, output_path):
     g = rdflib.Graph()
     g.parse(rdf_mapping_path, format=rdflib.util.guess_format(rdf_mapping_path))  # .ttl format
-    environment = Environment(loader=FileSystemLoader("../templates/"))
+    environment = Environment(loader=FileSystemLoader("../Templates/"))
     template = environment.get_template("rmd.md")
     source_template = environment.get_template("source.md")
     subject_template = environment.get_template("subject.md")
