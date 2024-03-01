@@ -22,10 +22,6 @@ requires-python = '>=3.9'
 [project.scripts]
 realpython = "rmldoc.__main__:main"
 
-dependencies = [
-  'jinja2=3.1.2',
-  'rdflib=6.3.2',
-]
 
 [project.optional-dependencies]
 dev = ["pip-tools", "pytest"]
