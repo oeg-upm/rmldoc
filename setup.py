@@ -1,7 +1,7 @@
 from setuptools import setup, find_packages
 
 setup(
-    name='RMLdoc',
+    name='rmldoc',
     version='0.1',
     packages=find_packages(),
     description='Rmldoc is a tool that generates documentation of RML mappings',
