@@ -1,4 +1,4 @@
-# RDF Mapping Documentation (RMD) Specification Document
+# RML Mapping Documentation (RMLdoc) Specification Document-Draft
 **Version:** 0.1.0
 **Date:** 2023-10-03
 
