@@ -145,8 +145,9 @@ def workflow(rdf_mapping_path, output_path):
     g = rdflib.Graph()
     g.parse(rdf_mapping_path, format=rdflib.util.guess_format(rdf_mapping_path))  # .ttl format
     #environment = Environment(loader=FileSystemLoader("../templates/"))
-    print(os.path.dirname(__file__))
-    environment = Environment(loader=FileSystemLoader("rmldoc/Templates/"))
+    #environment = Environment(loader=FileSystemLoader("rmldoc/Templates/"))
+    template_dir = os.path.join(os.path.dirname(__file__), 'Templates/')
+    environment = Environment(loader=FileSystemLoader(template_dir))
     template = environment.get_template("rmd.md")
     source_template = environment.get_template("source.md")
     subject_template = environment.get_template("subject.md")
