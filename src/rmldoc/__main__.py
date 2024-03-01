@@ -11,7 +11,7 @@ import argparse
 import logging
 import codecs
 from .queries import *
-from jinja2 import Environment, FileSystemLoader,PackageLoader
+from jinja2 import Environment, FileSystemLoader, PackageLoader
 from .utils import *
 
 log = logging.getLogger("rmd_main")
@@ -27,6 +27,8 @@ def write_doc(content, output_path):
     :param content:
     :return:
     """
+    if not is_markdown_file(output_path):
+        output_path = output_path + ".md"
     f = codecs.open(output_path, 'w', "utf-8")
     f.write(content)
     f.close()
@@ -144,7 +146,7 @@ def get_namespaces(g):
 def workflow(rdf_mapping_path, output_path):
     g = rdflib.Graph()
     g.parse(rdf_mapping_path, format=rdflib.util.guess_format(rdf_mapping_path))  # .ttl format
-    #environment = Environment(loader=FileSystemLoader("../templates/"))
+    # environment = Environment(loader=FileSystemLoader("../templates/"))
     path = os.path.join(os.path.dirname(__file__), 'Templates/')
     templateLoader = FileSystemLoader(searchpath=path)
     environment = Environment(loader=templateLoader)
@@ -225,11 +227,12 @@ def define_args():
                         help="Path to save the generated document. Default output output.md")
     return parser
 
+
 def main():
     args = define_args().parse_args()
     log.info("RML Mapping Documentation(RMLdoc)")
     workflow(args.input_mapping_path, args.output_path)
 
+
 if __name__ == "__main__":
     main()
-    
