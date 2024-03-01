@@ -34,7 +34,6 @@ version = {}
 with open("src/rmldoc/__init__.py") as fp:
     exec(fp.read(), version)
 
-# Original setup created by Vedant Diwanji
 setup(
     name="rmldoc",
     version="0.1.0",
@@ -48,7 +47,7 @@ setup(
         "License :: OSI Approved :: Apache Software License",
         "Development Status :: 3 - Alpha",
         "Programming Language :: Python",
-        "Programming Language :: Python :: 3.9",
+        "Programming Language :: Python :: 3.8",
         "Intended Audience :: Science/Research",
         "Operating System :: Unix",
     ],

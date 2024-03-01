@@ -225,8 +225,11 @@ def define_args():
                         help="Path to save the generated document. Default output output.md")
     return parser
 
-
-if __name__ == "__main__":
+def main():
     args = define_args().parse_args()
     log.info("RML Mapping Documentation(RMLdoc)")
     workflow(args.input_mapping_path, args.output_path)
+
+if __name__ == "__main__":
+    main()
+    
