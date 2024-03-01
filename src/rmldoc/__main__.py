@@ -187,22 +187,22 @@ def workflow(rdf_mapping_path, output_path):
         pom = [{"predicate": str(i.pr_constant), "object": str(prefix_short_cuts(g, i.ob_constant))} for i in
                g.query(predicate_object_map(tp))]
 
-        pom_diagram = [{"predicate": str(prefix_short_cuts(g, i.pr_constant)),
-                        "object": str(prefix_short_cuts(g, i.ob_constant))} for i in
+        pom_diagram = [{"predicate": str(prefix_short_cuts(g, (str(i.pr_constant)).replace('"', "'"))),
+                        "object": str(prefix_short_cuts(g, (str(i.ob_constant)).replace('"', "'")))} for i in
                        g.query(predicate_object_map(tp))]
 
         mapping_content += pom_template.render(pom=pom)
         if subject:
             # PO diagram
-            diagram_subject = subject[0]['template']
+            diagram_subject = str(subject[0]['template']).replace('"', "'")
             mapping_content += spo_diagram.render(subject=diagram_subject, pom=pom_diagram)
 
         # join diagram
         join_condition_diagram = [
             {"predicate": str(prefix_short_cuts(g, i.predicate)),
              "parentTriplesMap": str(i.parentTriplesMap).split('/')[-1],
-             "child": str(i.child), "parent": str(i.parent), 'template': str(i.o_template),
-             'subject': str(i.s_template)} for i in
+             "child": str(i.child), "parent": str(i.parent), 'template': str(i.o_template).replace('"', "'"),
+             'subject': str(i.s_template).replace('"', "'")} for i in
             g.query(join_condition(tp))]
 
         # print(join_condition_diagram)
