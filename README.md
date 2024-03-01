@@ -21,13 +21,8 @@ pip install rmldoc
 
 ### From source
 
-To install RMLdoc, simply clone this repository and install the necessary dependencies:
+To install RMLdoc, simply clone this repository and cd in the main folder. Then install the package:
 
-```bash
-pip install -r requirements.txt
-```
-
-Then install the package:
 ```
 pip install -e .
 ```
