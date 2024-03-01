@@ -52,7 +52,7 @@ setup(
         "Intended Audience :: Science/Research",
         "Operating System :: Unix",
     ],
-    entry_points={"console_scripts": ["rmldoc = rmldoc.__main__:cli"]},
+    entry_points={"console_scripts": ["rmldoc = rmldoc.__main__:main"]},
     package_dir={"": "src"},
     packages=find_packages(where="src", exclude=["rmldoc.tests*"]),
     package_data={"rmldoc": find_package_data("src/rmldoc")},
