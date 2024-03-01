@@ -6,7 +6,7 @@ from setuptools import find_packages, setup
 
 install_requires = [
     "rdflib>=6.0.2",
-    "jinja2==3.1.2"
+    "Jinja2>=3.1.2"
 ]
 
 
@@ -28,11 +28,6 @@ def find_package_data(dirname):
 
     items = find_paths(dirname)
     return [os.path.relpath(path, dirname) for path in items]
-
-
-version = {}
-with open("src/rmldoc/__init__.py") as fp:
-    exec(fp.read(), version)
 
 setup(
     name="rmldoc",
