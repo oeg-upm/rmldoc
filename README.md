@@ -2,5 +2,36 @@
 
 # RMLdoc
 
+RMLdoc is a tool designed to simplify the process of generating documentation for RML (RDF Mapping Language) mappings. It automates the documentation generation process, allowing users to easily understand and share the mappings defined within their projects.
+
+## Features
+
+- **Automated Documentation Generation**: RMLdoc automatically generates documentation for RML mappings, eliminating the need for manual documentation efforts.
+- **Clear and Readable Output**: The generated documentation provides clear and concise descriptions of the logical sources, subject maps, predicate-object maps, and other components defined within the RML mappings.
+- **Command-Line Interface (CLI)**: RMLdoc provides a simple command-line interface for easy integration into existing workflows and build processes.
+
+## Installation
+
+To install RMLdoc, simply clone this repository and install the necessary dependencies:
+
+```bash
+InProgress
+```
+## Usage
+
+To generate documentation for your RML mappings, use the following command:
+
+```bash
+InProgress
+```
+
+Replace `path/to/rml/mappings.rml` with the path to your RML mapping file and `path/to/output/directory` with the directory where you want the documentation to be generated.
+
+
+
+## Contributing
+
+Contributions to RMLdoc are welcome! If you encounter any issues or have suggestions for improvements, please open an issue or submit a pull request on GitHub.
+
 
 
