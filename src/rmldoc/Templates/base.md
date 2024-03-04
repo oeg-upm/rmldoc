@@ -28,5 +28,5 @@
 
 ----
 {% block copyright %}
-**Copyright © 2024** *[Ontology Engineering Group](https://oeg.fi.upm.es/)*, *[Universidad Politécnica de Madrid](https://www.upm.es/internacional)*.
+**Copyright © 2024** *[RMLdoc](https://oeg-upm.github.io/rmldoc/)*.
 {% endblock %}
