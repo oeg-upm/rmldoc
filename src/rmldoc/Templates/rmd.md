@@ -1,4 +1,11 @@
 {% extends "base.md" %}
+{% block version -%}
+{% for v in version -%}
+   {% if v['version']!='' %}
+* {{ v['version']}}
+   {% endif %}
+{%- endfor %}
+{%- endblock %}
 {# -- block authors--#}
 {% block authors %}
 {% for author in authors -%}
