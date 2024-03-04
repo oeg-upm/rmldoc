@@ -1,4 +1,4 @@
-- **RDF triples pattern**
+- **RDF triples**
 ```mermaid
 %%{ init : { "theme" : "base", "flowchart" : { "curve" : "linear" }}}%%
 flowchart LR
