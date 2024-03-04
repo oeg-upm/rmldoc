@@ -17,12 +17,19 @@
 @prefix void: <http://rdfs.org/ns/void#>.
 @prefix fnml: <http://semweb.mmlab.be/ns/fnml#>.
 @prefix grel: <http://users.ugent.be/~bjdmeest/function/grel.ttl#>.
+@prefix dcat: <http://www.w3.org/ns/dcat#> .
 @base <http://example.com/ns#>.
 @prefix map: <http://mapping.example.com/> .
 
 map:person_000 <http://purl.org/dc/terms/contributor> <http://xmlns.com/foaf/0.1/Person> ;
 	rdfs:label "Jhon Toledo Barreto" ;
 	<http://xmlns.com/foaf/0.1/mbox> <mailto:john@doe.com> .
+
+map:person_001 <http://purl.org/dc/terms/contributor> <http://xmlns.com/foaf/0.1/Person> ;
+	rdfs:label "Ana Iglesias-Molina" .
+
+map:rules_000 rdf:type <http://rdfs.org/ns/void#dataset>;
+    dcat:version "0.1.0".
 
 <stoptimes_0> a rr:TriplesMap;
     rdfs:label "stoptimes" ;

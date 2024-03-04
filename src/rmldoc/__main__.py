@@ -157,6 +157,10 @@ def workflow(rdf_mapping_path, output_path):
     pom_template = environment.get_template("predicate_object.md")
     spo_diagram = environment.get_template("diagram.md")
     join_diagram = environment.get_template("function.md")
+    # Version
+    rml_version = g.query(dataset_version)
+    rml_version = [{"version": str(vr.version)} for vr in rml_version]
+
     # Prefix
     # rmd_prefixes = g.namespaces()
     rmd_prefixes = get_namespaces(g)
@@ -212,9 +216,10 @@ def workflow(rdf_mapping_path, output_path):
 
     # parse the content
     # content = template.render(authors=rmd_authors, prefixes=rmd_prefixes, mapping_content=mapping_content)
-    content = template.render(mapping_file=get_file_name(rdf_mapping_path), authors=rmd_authors, prefixes=rmd_prefixes,
+    content = template.render(version=rml_version, mapping_file=get_file_name(rdf_mapping_path),
+                              authors=rmd_authors,
+                              prefixes=rmd_prefixes,
                               mapping_content=mapping_content)
-
     # Write results
     write_doc(content, output_path)
 

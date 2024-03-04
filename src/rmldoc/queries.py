@@ -19,3 +19,13 @@ WHERE {
     FILTER (?TriplesMapClass IN (rml:TriplesMap, rr:TriplesMap))
 }
 """
+
+dataset_version = """
+
+PREFIX dcat: <http://www.w3.org/ns/dcat#>
+SELECT ?version
+WHERE {
+    ?triplesMap a dcat:Dataset;
+    dcat:version ?version.
+}
+"""
