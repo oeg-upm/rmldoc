@@ -1,7 +1,10 @@
 - **joinCondition**:
 {% for j in join_list %}
-Function: **equal({{ j['child'] }}, {{ j['parent'] }})** conditions for joining.
- 
+
+  Source triple pattern: <{{ subject }}>
+  Target triple pattern: <{{ j['parentTriplesMap'] }}>
+  Function: **equal({{ j['child'] }}, {{ j['parent'] }})**
+
 ```mermaid
 %%{ init : { "theme" : "base", "flowchart" : { "curve" : "linear" }}}%%
 
