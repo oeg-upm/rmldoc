@@ -1,6 +1,6 @@
 - **joinCondition**:
 {% for j in join_list %}
-       Function: **equal({{ j['child'] }}, {{ j['parent'] }})** conditions for joining.
+Function: **equal({{ j['child'] }}, {{ j['parent'] }})** conditions for joining.
  
 ```mermaid
 %%{ init : { "theme" : "base", "flowchart" : { "curve" : "linear" }}}%%
