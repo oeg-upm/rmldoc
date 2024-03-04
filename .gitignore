@@ -1,4 +1,5 @@
 *.ttl
+.DS_Store
 output.md
 # Byte-compiled / optimized / DLL files
 __pycache__/
