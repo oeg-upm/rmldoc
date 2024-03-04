@@ -23,20 +23,20 @@ author.ttl
 
 | Prefix       |               IRI.                   |
 | :----------- | :----------------------------------  |
-| ql     | http://semweb.mmlab.be/ns/ql# |
-| d2rq     | http://www.wiwiss.fu-berlin.de/suhl/bizer/D2RQ/0.1# |
+| comp     | http://semweb.mmlab.be/ns/rml-compression# |
+| geo1     | http://www.w3.org/2003/01/geo/wgs84_pos# |
 | formats     | http://www.w3.org/ns/formats/ |
 | grel     | http://users.ugent.be/~bjdmeest/function/grel.ttl# |
-| rr     | http://www.w3.org/ns/r2rml# |
-| geo1     | http://www.w3.org/2003/01/geo/wgs84_pos# |
-| gtfs     | http://vocab.gtfs.org/terms# |
 | map     | http://mapping.example.com/ |
-| comp     | http://semweb.mmlab.be/ns/rml-compression# |
-| dct     | http://purl.org/dc/terms/ |
 | fnml     | http://semweb.mmlab.be/ns/fnml# |
+| rml     | http://semweb.mmlab.be/ns/rml# |
 | rev     | http://purl.org/stuff/rev# |
 | schema1     | http://schema.org/ |
-| rml     | http://semweb.mmlab.be/ns/rml# |
+| dct     | http://purl.org/dc/terms/ |
+| rr     | http://www.w3.org/ns/r2rml# |
+| ql     | http://semweb.mmlab.be/ns/ql# |
+| gtfs     | http://vocab.gtfs.org/terms# |
+| d2rq     | http://www.wiwiss.fu-berlin.de/suhl/bizer/D2RQ/0.1# |
 
 
 
@@ -48,6 +48,87 @@ author.ttl
 >4. **JoinCondition**: is used to specify the conditions under which two data sources or tables should be joined when creating RDF triples through mappings.
 
 
+## routes_0
+- **Source**
+
+```bash
+/data/ROUTES.csv
+``` 
+- **Subject**
+```bash
+http://transport.linkeddata.es/madrid/metro/routes/{route_id}
+``` 
+- **Predicate Object**
+
+| Predicate | Object |
+|:----------|:-------|
+| http://www.w3.org/1999/02/22-rdf-syntax-ns#type | gtfs:Route |
+| http://vocab.gtfs.org/terms#shortName | {route_short_name} |
+| http://vocab.gtfs.org/terms#longName | {route_long_name} |
+| http://purl.org/dc/terms/description | {route_desc} |
+| http://vocab.gtfs.org/terms#routeType | {http://transport.linkeddata.es/resource/RouteType/{route_type}} |
+| http://vocab.gtfs.org/terms#routeUrl | {route_url} |
+| http://vocab.gtfs.org/terms#color | {route_color} |
+| http://vocab.gtfs.org/terms#textColor | {route_text_color} |
+- **RDF triples**
+```mermaid
+%%{ init : { "theme" : "base", "flowchart" : { "curve" : "linear" }}}%%
+flowchart LR
+S["http://transport.linkeddata.es/madrid/metro/routes/{route_id}"] -->|"a"| object1("gtfs:Route")
+S["http://transport.linkeddata.es/madrid/metro/routes/{route_id}"] -->|"gtfs:shortName"| object2("{route_short_name}")
+S["http://transport.linkeddata.es/madrid/metro/routes/{route_id}"] -->|"gtfs:longName"| object3("{route_long_name}")
+S["http://transport.linkeddata.es/madrid/metro/routes/{route_id}"] -->|"dct:description"| object4("{route_desc}")
+S["http://transport.linkeddata.es/madrid/metro/routes/{route_id}"] -->|"gtfs:routeType"| object5("{http://transport.linkeddata.es/resource/RouteType/{route_type}}")
+S["http://transport.linkeddata.es/madrid/metro/routes/{route_id}"] -->|"gtfs:routeUrl"| object6("{route_url}")
+S["http://transport.linkeddata.es/madrid/metro/routes/{route_id}"] -->|"gtfs:color"| object7("{route_color}")
+S["http://transport.linkeddata.es/madrid/metro/routes/{route_id}"] -->|"gtfs:textColor"| object8("{route_text_color}")
+    
+``` 
+- **joinCondition**:
+
+
+    Source triple pattern: <routes_0>
+    Target triple pattern: <agency_0>
+    Function: **equal(agency_id, agency_id)**
+
+```mermaid
+%%{ init : { "theme" : "base", "flowchart" : { "curve" : "linear" }}}%%
+
+flowchart LR
+S1["http://transport.linkeddata.es/madrid/metro/routes/{route_id}"] -->|"gtfs:agency"| object1("http://transport.linkeddata.es/madrid/agency/{agency_id}")
+
+``` 
+
+ ## shapePoints_0
+- **Source**
+
+```bash
+/data/SHAPES.csv
+``` 
+- **Subject**
+```bash
+http://transport.linkeddata.es/madrid/metro/shape_point/{shape_id}-{shape_pt_sequence}
+``` 
+- **Predicate Object**
+
+| Predicate | Object |
+|:----------|:-------|
+| http://www.w3.org/1999/02/22-rdf-syntax-ns#type | gtfs:ShapePoint |
+| http://www.w3.org/2003/01/geo/wgs84_pos#lat | {shape_pt_lat} |
+| http://www.w3.org/2003/01/geo/wgs84_pos#long | {shape_pt_lon} |
+| http://vocab.gtfs.org/terms#pointSequence | {shape_pt_sequence} |
+| http://vocab.gtfs.org/terms#distanceTraveled | {shape_dist_traveled} |
+- **RDF triples**
+```mermaid
+%%{ init : { "theme" : "base", "flowchart" : { "curve" : "linear" }}}%%
+flowchart LR
+S["http://transport.linkeddata.es/madrid/metro/shape_point/{shape_id}-{shape_pt_sequence}"] -->|"a"| object1("gtfs:ShapePoint")
+S["http://transport.linkeddata.es/madrid/metro/shape_point/{shape_id}-{shape_pt_sequence}"] -->|"geo1:lat"| object2("{shape_pt_lat}")
+S["http://transport.linkeddata.es/madrid/metro/shape_point/{shape_id}-{shape_pt_sequence}"] -->|"geo1:long"| object3("{shape_pt_lon}")
+S["http://transport.linkeddata.es/madrid/metro/shape_point/{shape_id}-{shape_pt_sequence}"] -->|"gtfs:pointSequence"| object4("{shape_pt_sequence}")
+S["http://transport.linkeddata.es/madrid/metro/shape_point/{shape_id}-{shape_pt_sequence}"] -->|"gtfs:distanceTraveled"| object5("{shape_dist_traveled}")
+    
+``` 
 ## services2_0
 - **Source**
 
@@ -73,9 +154,9 @@ S["http://transport.linkeddata.es/madrid/metro/services/{service_id}"] -->|"a"| 
 - **joinCondition**:
 
 
-  - Source triple pattern: <services2_0>
-  - Target triple pattern: <calendar_date_rules_0>
-  - Function: **equal(service_id, service_id)**
+    Source triple pattern: <services2_0>
+    Target triple pattern: <calendar_date_rules_0>
+    Function: **equal(service_id, service_id)**
 
 ```mermaid
 %%{ init : { "theme" : "base", "flowchart" : { "curve" : "linear" }}}%%
@@ -85,72 +166,33 @@ S1["http://transport.linkeddata.es/madrid/metro/services/{service_id}"] -->|"gtf
 
 ``` 
 
- ## stoptimes_0
+ ## calendar_date_rules_0
 - **Source**
 
 ```bash
-/data/STOP_TIMES.csv
+/data/CALENDAR_DATES.csv
 ``` 
 - **Subject**
 ```bash
-http://transport.linkeddata.es/madrid/metro/stoptimes/{trip_id}-{stop_id}-{arrival_time}
+http://transport.linkeddata.es/madrid/metro/calendar_date_rule/{service_id}-{date}
 ``` 
 - **Predicate Object**
 
 | Predicate | Object |
 |:----------|:-------|
-| http://www.w3.org/1999/02/22-rdf-syntax-ns#type | gtfs:StopTime |
-| http://vocab.gtfs.org/terms#arrivalTime | {arrival_time} |
-| http://vocab.gtfs.org/terms#departureTime | {departure_time} |
-| http://vocab.gtfs.org/terms#stopSequence | {stop_sequence} |
-| http://vocab.gtfs.org/terms#headsign | {stop_headsign} |
-| http://vocab.gtfs.org/terms#pickupType | {http://transport.linkeddata.es/resource/PickupType/{pickup_type}} |
-| http://vocab.gtfs.org/terms#dropOffType | {http://transport.linkeddata.es/resource/DropOffType/{drop_off_type}} |
-| http://vocab.gtfs.org/terms#distanceTraveled | {shape_dist_traveled} |
+| http://www.w3.org/1999/02/22-rdf-syntax-ns#type | gtfs:CalendarDateRule |
+| http://purl.org/dc/terms/date | {date} |
+| http://vocab.gtfs.org/terms#dateAddition | {exception_type} |
 - **RDF triples**
 ```mermaid
 %%{ init : { "theme" : "base", "flowchart" : { "curve" : "linear" }}}%%
 flowchart LR
-S["http://transport.linkeddata.es/madrid/metro/stoptimes/{trip_id}-{stop_id}-{arrival_time}"] -->|"a"| object1("gtfs:StopTime")
-S["http://transport.linkeddata.es/madrid/metro/stoptimes/{trip_id}-{stop_id}-{arrival_time}"] -->|"gtfs:arrivalTime"| object2("{arrival_time}")
-S["http://transport.linkeddata.es/madrid/metro/stoptimes/{trip_id}-{stop_id}-{arrival_time}"] -->|"gtfs:departureTime"| object3("{departure_time}")
-S["http://transport.linkeddata.es/madrid/metro/stoptimes/{trip_id}-{stop_id}-{arrival_time}"] -->|"gtfs:stopSequence"| object4("{stop_sequence}")
-S["http://transport.linkeddata.es/madrid/metro/stoptimes/{trip_id}-{stop_id}-{arrival_time}"] -->|"gtfs:headsign"| object5("{stop_headsign}")
-S["http://transport.linkeddata.es/madrid/metro/stoptimes/{trip_id}-{stop_id}-{arrival_time}"] -->|"gtfs:pickupType"| object6("{http://transport.linkeddata.es/resource/PickupType/{pickup_type}}")
-S["http://transport.linkeddata.es/madrid/metro/stoptimes/{trip_id}-{stop_id}-{arrival_time}"] -->|"gtfs:dropOffType"| object7("{http://transport.linkeddata.es/resource/DropOffType/{drop_off_type}}")
-S["http://transport.linkeddata.es/madrid/metro/stoptimes/{trip_id}-{stop_id}-{arrival_time}"] -->|"gtfs:distanceTraveled"| object8("{shape_dist_traveled}")
+S["http://transport.linkeddata.es/madrid/metro/calendar_date_rule/{service_id}-{date}"] -->|"a"| object1("gtfs:CalendarDateRule")
+S["http://transport.linkeddata.es/madrid/metro/calendar_date_rule/{service_id}-{date}"] -->|"dct:date"| object2("{date}")
+S["http://transport.linkeddata.es/madrid/metro/calendar_date_rule/{service_id}-{date}"] -->|"gtfs:dateAddition"| object3("{exception_type}")
     
 ``` 
-- **joinCondition**:
-
-
-  - Source triple pattern: <stoptimes_0>
-  - Target triple pattern: <trips_0>
-  - Function: **equal(trip_id, trip_id)**
-
-```mermaid
-%%{ init : { "theme" : "base", "flowchart" : { "curve" : "linear" }}}%%
-
-flowchart LR
-S1["http://transport.linkeddata.es/madrid/metro/stoptimes/{trip_id}-{stop_id}-{arrival_time}"] -->|"gtfs:trip"| object1("http://transport.linkeddata.es/madrid/metro/trips/{trip_id}")
-
-``` 
-
-
-
-  - Source triple pattern: <stoptimes_0>
-  - Target triple pattern: <stops_0>
-  - Function: **equal(stop_id, stop_id)**
-
-```mermaid
-%%{ init : { "theme" : "base", "flowchart" : { "curve" : "linear" }}}%%
-
-flowchart LR
-S2["http://transport.linkeddata.es/madrid/metro/stoptimes/{trip_id}-{stop_id}-{arrival_time}"] -->|"gtfs:stop"| object2("http://transport.linkeddata.es/madrid/metro/stops/{stop_id}")
-
-``` 
-
- ## feed_0
+## feed_0
 - **Source**
 
 ```bash
@@ -217,9 +259,9 @@ S["http://transport.linkeddata.es/madrid/metro/frequency/{trip_id}-{start_time}"
 - **joinCondition**:
 
 
-  - Source triple pattern: <frequencies_0>
-  - Target triple pattern: <trips_0>
-  - Function: **equal(trip_id, trip_id)**
+    Source triple pattern: <frequencies_0>
+    Target triple pattern: <trips_0>
+    Function: **equal(trip_id, trip_id)**
 
 ```mermaid
 %%{ init : { "theme" : "base", "flowchart" : { "curve" : "linear" }}}%%
@@ -264,9 +306,9 @@ S["http://transport.linkeddata.es/madrid/metro/trips/{trip_id}"] -->|"gtfs:wheel
 - **joinCondition**:
 
 
-  - Source triple pattern: <trips_0>
-  - Target triple pattern: <services1_0>
-  - Function: **equal(service_id, service_id)**
+    Source triple pattern: <trips_0>
+    Target triple pattern: <services1_0>
+    Function: **equal(service_id, service_id)**
 
 ```mermaid
 %%{ init : { "theme" : "base", "flowchart" : { "curve" : "linear" }}}%%
@@ -278,9 +320,9 @@ S1["http://transport.linkeddata.es/madrid/metro/trips/{trip_id}"] -->|"gtfs:serv
 
 
 
-  - Source triple pattern: <trips_0>
-  - Target triple pattern: <services2_0>
-  - Function: **equal(service_id, service_id)**
+    Source triple pattern: <trips_0>
+    Target triple pattern: <services2_0>
+    Function: **equal(service_id, service_id)**
 
 ```mermaid
 %%{ init : { "theme" : "base", "flowchart" : { "curve" : "linear" }}}%%
@@ -292,9 +334,9 @@ S2["http://transport.linkeddata.es/madrid/metro/trips/{trip_id}"] -->|"gtfs:serv
 
 
 
-  - Source triple pattern: <trips_0>
-  - Target triple pattern: <routes_0>
-  - Function: **equal(route_id, route_id)**
+    Source triple pattern: <trips_0>
+    Target triple pattern: <routes_0>
+    Function: **equal(route_id, route_id)**
 
 ```mermaid
 %%{ init : { "theme" : "base", "flowchart" : { "curve" : "linear" }}}%%
@@ -306,9 +348,9 @@ S3["http://transport.linkeddata.es/madrid/metro/trips/{trip_id}"] -->|"gtfs:rout
 
 
 
-  - Source triple pattern: <trips_0>
-  - Target triple pattern: <shapes_0>
-  - Function: **equal(shape_id, shape_id)**
+    Source triple pattern: <trips_0>
+    Target triple pattern: <shapes_0>
+    Function: **equal(shape_id, shape_id)**
 
 ```mermaid
 %%{ init : { "theme" : "base", "flowchart" : { "curve" : "linear" }}}%%
@@ -318,63 +360,7 @@ S4["http://transport.linkeddata.es/madrid/metro/trips/{trip_id}"] -->|"gtfs:shap
 
 ``` 
 
- ## shapePoints_0
-- **Source**
-
-```bash
-/data/SHAPES.csv
-``` 
-- **Subject**
-```bash
-http://transport.linkeddata.es/madrid/metro/shape_point/{shape_id}-{shape_pt_sequence}
-``` 
-- **Predicate Object**
-
-| Predicate | Object |
-|:----------|:-------|
-| http://www.w3.org/1999/02/22-rdf-syntax-ns#type | gtfs:ShapePoint |
-| http://www.w3.org/2003/01/geo/wgs84_pos#lat | {shape_pt_lat} |
-| http://www.w3.org/2003/01/geo/wgs84_pos#long | {shape_pt_lon} |
-| http://vocab.gtfs.org/terms#pointSequence | {shape_pt_sequence} |
-| http://vocab.gtfs.org/terms#distanceTraveled | {shape_dist_traveled} |
-- **RDF triples**
-```mermaid
-%%{ init : { "theme" : "base", "flowchart" : { "curve" : "linear" }}}%%
-flowchart LR
-S["http://transport.linkeddata.es/madrid/metro/shape_point/{shape_id}-{shape_pt_sequence}"] -->|"a"| object1("gtfs:ShapePoint")
-S["http://transport.linkeddata.es/madrid/metro/shape_point/{shape_id}-{shape_pt_sequence}"] -->|"geo1:lat"| object2("{shape_pt_lat}")
-S["http://transport.linkeddata.es/madrid/metro/shape_point/{shape_id}-{shape_pt_sequence}"] -->|"geo1:long"| object3("{shape_pt_lon}")
-S["http://transport.linkeddata.es/madrid/metro/shape_point/{shape_id}-{shape_pt_sequence}"] -->|"gtfs:pointSequence"| object4("{shape_pt_sequence}")
-S["http://transport.linkeddata.es/madrid/metro/shape_point/{shape_id}-{shape_pt_sequence}"] -->|"gtfs:distanceTraveled"| object5("{shape_dist_traveled}")
-    
-``` 
-## calendar_date_rules_0
-- **Source**
-
-```bash
-/data/CALENDAR_DATES.csv
-``` 
-- **Subject**
-```bash
-http://transport.linkeddata.es/madrid/metro/calendar_date_rule/{service_id}-{date}
-``` 
-- **Predicate Object**
-
-| Predicate | Object |
-|:----------|:-------|
-| http://www.w3.org/1999/02/22-rdf-syntax-ns#type | gtfs:CalendarDateRule |
-| http://purl.org/dc/terms/date | {date} |
-| http://vocab.gtfs.org/terms#dateAddition | {exception_type} |
-- **RDF triples**
-```mermaid
-%%{ init : { "theme" : "base", "flowchart" : { "curve" : "linear" }}}%%
-flowchart LR
-S["http://transport.linkeddata.es/madrid/metro/calendar_date_rule/{service_id}-{date}"] -->|"a"| object1("gtfs:CalendarDateRule")
-S["http://transport.linkeddata.es/madrid/metro/calendar_date_rule/{service_id}-{date}"] -->|"dct:date"| object2("{date}")
-S["http://transport.linkeddata.es/madrid/metro/calendar_date_rule/{service_id}-{date}"] -->|"gtfs:dateAddition"| object3("{exception_type}")
-    
-``` 
-## calendar_rules_0
+ ## services1_0
 - **Source**
 
 ```bash
@@ -382,39 +368,172 @@ S["http://transport.linkeddata.es/madrid/metro/calendar_date_rule/{service_id}-{
 ``` 
 - **Subject**
 ```bash
-http://transport.linkeddata.es/madrid/metro/calendar_rules/{service_id}
+http://transport.linkeddata.es/madrid/metro/services/{service_id}
 ``` 
 - **Predicate Object**
 
 | Predicate | Object |
 |:----------|:-------|
-| http://www.w3.org/1999/02/22-rdf-syntax-ns#type | gtfs:CalendarRule |
-| http://vocab.gtfs.org/terms#monday | {monday} |
-| http://vocab.gtfs.org/terms#tuesday | {tuesday} |
-| http://vocab.gtfs.org/terms#wednesday | {wednesday} |
-| http://vocab.gtfs.org/terms#thursday | {thursday} |
-| http://vocab.gtfs.org/terms#friday | {friday} |
-| http://vocab.gtfs.org/terms#saturday | {saturday} |
-| http://vocab.gtfs.org/terms#sunday | {sunday} |
-| http://schema.org/startDate | {start_date} |
-| http://schema.org/endDate | {end_date} |
+| http://www.w3.org/1999/02/22-rdf-syntax-ns#type | gtfs:Service |
 - **RDF triples**
 ```mermaid
 %%{ init : { "theme" : "base", "flowchart" : { "curve" : "linear" }}}%%
 flowchart LR
-S["http://transport.linkeddata.es/madrid/metro/calendar_rules/{service_id}"] -->|"a"| object1("gtfs:CalendarRule")
-S["http://transport.linkeddata.es/madrid/metro/calendar_rules/{service_id}"] -->|"gtfs:monday"| object2("{monday}")
-S["http://transport.linkeddata.es/madrid/metro/calendar_rules/{service_id}"] -->|"gtfs:tuesday"| object3("{tuesday}")
-S["http://transport.linkeddata.es/madrid/metro/calendar_rules/{service_id}"] -->|"gtfs:wednesday"| object4("{wednesday}")
-S["http://transport.linkeddata.es/madrid/metro/calendar_rules/{service_id}"] -->|"gtfs:thursday"| object5("{thursday}")
-S["http://transport.linkeddata.es/madrid/metro/calendar_rules/{service_id}"] -->|"gtfs:friday"| object6("{friday}")
-S["http://transport.linkeddata.es/madrid/metro/calendar_rules/{service_id}"] -->|"gtfs:saturday"| object7("{saturday}")
-S["http://transport.linkeddata.es/madrid/metro/calendar_rules/{service_id}"] -->|"gtfs:sunday"| object8("{sunday}")
-S["http://transport.linkeddata.es/madrid/metro/calendar_rules/{service_id}"] -->|"schema1:startDate"| object9("{start_date}")
-S["http://transport.linkeddata.es/madrid/metro/calendar_rules/{service_id}"] -->|"schema1:endDate"| object10("{end_date}")
+S["http://transport.linkeddata.es/madrid/metro/services/{service_id}"] -->|"a"| object1("gtfs:Service")
     
 ``` 
-## stops_0
+- **joinCondition**:
+
+
+    Source triple pattern: <services1_0>
+    Target triple pattern: <calendar_rules_0>
+    Function: **equal(service_id, service_id)**
+
+```mermaid
+%%{ init : { "theme" : "base", "flowchart" : { "curve" : "linear" }}}%%
+
+flowchart LR
+S1["http://transport.linkeddata.es/madrid/metro/services/{service_id}"] -->|"gtfs:serviceRule"| object1("http://transport.linkeddata.es/madrid/metro/calendar_rules/{service_id}")
+
+``` 
+
+ ## shapes_0
+- **Source**
+
+```bash
+/data/SHAPES.csv
+``` 
+- **Subject**
+```bash
+http://transport.linkeddata.es/madrid/metro/shape/{shape_id}
+``` 
+- **Predicate Object**
+
+| Predicate | Object |
+|:----------|:-------|
+| http://www.w3.org/1999/02/22-rdf-syntax-ns#type | gtfs:Shape |
+- **RDF triples**
+```mermaid
+%%{ init : { "theme" : "base", "flowchart" : { "curve" : "linear" }}}%%
+flowchart LR
+S["http://transport.linkeddata.es/madrid/metro/shape/{shape_id}"] -->|"a"| object1("gtfs:Shape")
+    
+``` 
+- **joinCondition**:
+
+
+    Source triple pattern: <shapes_0>
+    Target triple pattern: <shapePoints_0>
+    Function: **equal(shape_id, shape_id)**
+
+```mermaid
+%%{ init : { "theme" : "base", "flowchart" : { "curve" : "linear" }}}%%
+
+flowchart LR
+S1["http://transport.linkeddata.es/madrid/metro/shape/{shape_id}"] -->|"gtfs:shapePoint"| object1("http://transport.linkeddata.es/madrid/metro/shape_point/{shape_id}-{shape_pt_sequence}")
+
+``` 
+
+ ## agency_0
+- **Source**
+
+```bash
+/data/AGENCY.csv
+``` 
+- **Subject**
+```bash
+http://transport.linkeddata.es/madrid/agency/{agency_id}
+``` 
+- **Predicate Object**
+
+| Predicate | Object |
+|:----------|:-------|
+| http://www.w3.org/1999/02/22-rdf-syntax-ns#type | gtfs:Agency |
+| http://xmlns.com/foaf/0.1/page | {agency_url} |
+| http://xmlns.com/foaf/0.1/name | {agency_name} |
+| http://vocab.gtfs.org/terms#timeZone | {agency_timezone} |
+| http://purl.org/dc/terms/language | {agency_lang} |
+| http://xmlns.com/foaf/0.1/phone | {agency_phone} |
+| http://vocab.gtfs.org/terms#fareUrl | {agency_fare_url} |
+- **RDF triples**
+```mermaid
+%%{ init : { "theme" : "base", "flowchart" : { "curve" : "linear" }}}%%
+flowchart LR
+S["http://transport.linkeddata.es/madrid/agency/{agency_id}"] -->|"a"| object1("gtfs:Agency")
+S["http://transport.linkeddata.es/madrid/agency/{agency_id}"] -->|"foaf:page"| object2("{agency_url}")
+S["http://transport.linkeddata.es/madrid/agency/{agency_id}"] -->|"foaf:name"| object3("{agency_name}")
+S["http://transport.linkeddata.es/madrid/agency/{agency_id}"] -->|"gtfs:timeZone"| object4("{agency_timezone}")
+S["http://transport.linkeddata.es/madrid/agency/{agency_id}"] -->|"dct:language"| object5("{agency_lang}")
+S["http://transport.linkeddata.es/madrid/agency/{agency_id}"] -->|"foaf:phone"| object6("{agency_phone}")
+S["http://transport.linkeddata.es/madrid/agency/{agency_id}"] -->|"gtfs:fareUrl"| object7("{agency_fare_url}")
+    
+``` 
+## stoptimes_0
+- **Source**
+
+```bash
+/data/STOP_TIMES.csv
+``` 
+- **Subject**
+```bash
+http://transport.linkeddata.es/madrid/metro/stoptimes/{trip_id}-{stop_id}-{arrival_time}
+``` 
+- **Predicate Object**
+
+| Predicate | Object |
+|:----------|:-------|
+| http://www.w3.org/1999/02/22-rdf-syntax-ns#type | gtfs:StopTime |
+| http://vocab.gtfs.org/terms#arrivalTime | {arrival_time} |
+| http://vocab.gtfs.org/terms#departureTime | {departure_time} |
+| http://vocab.gtfs.org/terms#stopSequence | {stop_sequence} |
+| http://vocab.gtfs.org/terms#headsign | {stop_headsign} |
+| http://vocab.gtfs.org/terms#pickupType | {http://transport.linkeddata.es/resource/PickupType/{pickup_type}} |
+| http://vocab.gtfs.org/terms#dropOffType | {http://transport.linkeddata.es/resource/DropOffType/{drop_off_type}} |
+| http://vocab.gtfs.org/terms#distanceTraveled | {shape_dist_traveled} |
+- **RDF triples**
+```mermaid
+%%{ init : { "theme" : "base", "flowchart" : { "curve" : "linear" }}}%%
+flowchart LR
+S["http://transport.linkeddata.es/madrid/metro/stoptimes/{trip_id}-{stop_id}-{arrival_time}"] -->|"a"| object1("gtfs:StopTime")
+S["http://transport.linkeddata.es/madrid/metro/stoptimes/{trip_id}-{stop_id}-{arrival_time}"] -->|"gtfs:arrivalTime"| object2("{arrival_time}")
+S["http://transport.linkeddata.es/madrid/metro/stoptimes/{trip_id}-{stop_id}-{arrival_time}"] -->|"gtfs:departureTime"| object3("{departure_time}")
+S["http://transport.linkeddata.es/madrid/metro/stoptimes/{trip_id}-{stop_id}-{arrival_time}"] -->|"gtfs:stopSequence"| object4("{stop_sequence}")
+S["http://transport.linkeddata.es/madrid/metro/stoptimes/{trip_id}-{stop_id}-{arrival_time}"] -->|"gtfs:headsign"| object5("{stop_headsign}")
+S["http://transport.linkeddata.es/madrid/metro/stoptimes/{trip_id}-{stop_id}-{arrival_time}"] -->|"gtfs:pickupType"| object6("{http://transport.linkeddata.es/resource/PickupType/{pickup_type}}")
+S["http://transport.linkeddata.es/madrid/metro/stoptimes/{trip_id}-{stop_id}-{arrival_time}"] -->|"gtfs:dropOffType"| object7("{http://transport.linkeddata.es/resource/DropOffType/{drop_off_type}}")
+S["http://transport.linkeddata.es/madrid/metro/stoptimes/{trip_id}-{stop_id}-{arrival_time}"] -->|"gtfs:distanceTraveled"| object8("{shape_dist_traveled}")
+    
+``` 
+- **joinCondition**:
+
+
+    Source triple pattern: <stoptimes_0>
+    Target triple pattern: <trips_0>
+    Function: **equal(trip_id, trip_id)**
+
+```mermaid
+%%{ init : { "theme" : "base", "flowchart" : { "curve" : "linear" }}}%%
+
+flowchart LR
+S1["http://transport.linkeddata.es/madrid/metro/stoptimes/{trip_id}-{stop_id}-{arrival_time}"] -->|"gtfs:trip"| object1("http://transport.linkeddata.es/madrid/metro/trips/{trip_id}")
+
+``` 
+
+
+
+    Source triple pattern: <stoptimes_0>
+    Target triple pattern: <stops_0>
+    Function: **equal(stop_id, stop_id)**
+
+```mermaid
+%%{ init : { "theme" : "base", "flowchart" : { "curve" : "linear" }}}%%
+
+flowchart LR
+S2["http://transport.linkeddata.es/madrid/metro/stoptimes/{trip_id}-{stop_id}-{arrival_time}"] -->|"gtfs:stop"| object2("http://transport.linkeddata.es/madrid/metro/stops/{stop_id}")
+
+``` 
+
+ ## stops_0
 - **Source**
 
 ```bash
@@ -461,9 +580,9 @@ S["http://transport.linkeddata.es/madrid/metro/stops/{stop_id}"] -->|"gtfs:wheel
 - **joinCondition**:
 
 
-  - Source triple pattern: <stops_0>
-  - Target triple pattern: <stops_0>
-  - Function: **equal(parent_station, stop_id)**
+    Source triple pattern: <stops_0>
+    Target triple pattern: <stops_0>
+    Function: **equal(parent_station, stop_id)**
 
 ```mermaid
 %%{ init : { "theme" : "base", "flowchart" : { "curve" : "linear" }}}%%
@@ -473,92 +592,7 @@ S1["http://transport.linkeddata.es/madrid/metro/stops/{stop_id}"] -->|"gtfs:pare
 
 ``` 
 
- ## routes_0
-- **Source**
-
-```bash
-/data/ROUTES.csv
-``` 
-- **Subject**
-```bash
-http://transport.linkeddata.es/madrid/metro/routes/{route_id}
-``` 
-- **Predicate Object**
-
-| Predicate | Object |
-|:----------|:-------|
-| http://www.w3.org/1999/02/22-rdf-syntax-ns#type | gtfs:Route |
-| http://vocab.gtfs.org/terms#shortName | {route_short_name} |
-| http://vocab.gtfs.org/terms#longName | {route_long_name} |
-| http://purl.org/dc/terms/description | {route_desc} |
-| http://vocab.gtfs.org/terms#routeType | {http://transport.linkeddata.es/resource/RouteType/{route_type}} |
-| http://vocab.gtfs.org/terms#routeUrl | {route_url} |
-| http://vocab.gtfs.org/terms#color | {route_color} |
-| http://vocab.gtfs.org/terms#textColor | {route_text_color} |
-- **RDF triples**
-```mermaid
-%%{ init : { "theme" : "base", "flowchart" : { "curve" : "linear" }}}%%
-flowchart LR
-S["http://transport.linkeddata.es/madrid/metro/routes/{route_id}"] -->|"a"| object1("gtfs:Route")
-S["http://transport.linkeddata.es/madrid/metro/routes/{route_id}"] -->|"gtfs:shortName"| object2("{route_short_name}")
-S["http://transport.linkeddata.es/madrid/metro/routes/{route_id}"] -->|"gtfs:longName"| object3("{route_long_name}")
-S["http://transport.linkeddata.es/madrid/metro/routes/{route_id}"] -->|"dct:description"| object4("{route_desc}")
-S["http://transport.linkeddata.es/madrid/metro/routes/{route_id}"] -->|"gtfs:routeType"| object5("{http://transport.linkeddata.es/resource/RouteType/{route_type}}")
-S["http://transport.linkeddata.es/madrid/metro/routes/{route_id}"] -->|"gtfs:routeUrl"| object6("{route_url}")
-S["http://transport.linkeddata.es/madrid/metro/routes/{route_id}"] -->|"gtfs:color"| object7("{route_color}")
-S["http://transport.linkeddata.es/madrid/metro/routes/{route_id}"] -->|"gtfs:textColor"| object8("{route_text_color}")
-    
-``` 
-- **joinCondition**:
-
-
-  - Source triple pattern: <routes_0>
-  - Target triple pattern: <agency_0>
-  - Function: **equal(agency_id, agency_id)**
-
-```mermaid
-%%{ init : { "theme" : "base", "flowchart" : { "curve" : "linear" }}}%%
-
-flowchart LR
-S1["http://transport.linkeddata.es/madrid/metro/routes/{route_id}"] -->|"gtfs:agency"| object1("http://transport.linkeddata.es/madrid/agency/{agency_id}")
-
-``` 
-
- ## agency_0
-- **Source**
-
-```bash
-/data/AGENCY.csv
-``` 
-- **Subject**
-```bash
-http://transport.linkeddata.es/madrid/agency/{agency_id}
-``` 
-- **Predicate Object**
-
-| Predicate | Object |
-|:----------|:-------|
-| http://www.w3.org/1999/02/22-rdf-syntax-ns#type | gtfs:Agency |
-| http://xmlns.com/foaf/0.1/page | {agency_url} |
-| http://xmlns.com/foaf/0.1/name | {agency_name} |
-| http://vocab.gtfs.org/terms#timeZone | {agency_timezone} |
-| http://purl.org/dc/terms/language | {agency_lang} |
-| http://xmlns.com/foaf/0.1/phone | {agency_phone} |
-| http://vocab.gtfs.org/terms#fareUrl | {agency_fare_url} |
-- **RDF triples**
-```mermaid
-%%{ init : { "theme" : "base", "flowchart" : { "curve" : "linear" }}}%%
-flowchart LR
-S["http://transport.linkeddata.es/madrid/agency/{agency_id}"] -->|"a"| object1("gtfs:Agency")
-S["http://transport.linkeddata.es/madrid/agency/{agency_id}"] -->|"foaf:page"| object2("{agency_url}")
-S["http://transport.linkeddata.es/madrid/agency/{agency_id}"] -->|"foaf:name"| object3("{agency_name}")
-S["http://transport.linkeddata.es/madrid/agency/{agency_id}"] -->|"gtfs:timeZone"| object4("{agency_timezone}")
-S["http://transport.linkeddata.es/madrid/agency/{agency_id}"] -->|"dct:language"| object5("{agency_lang}")
-S["http://transport.linkeddata.es/madrid/agency/{agency_id}"] -->|"foaf:phone"| object6("{agency_phone}")
-S["http://transport.linkeddata.es/madrid/agency/{agency_id}"] -->|"gtfs:fareUrl"| object7("{agency_fare_url}")
-    
-``` 
-## services1_0
+ ## calendar_rules_0
 - **Source**
 
 ```bash
@@ -566,73 +600,39 @@ S["http://transport.linkeddata.es/madrid/agency/{agency_id}"] -->|"gtfs:fareUrl"
 ``` 
 - **Subject**
 ```bash
-http://transport.linkeddata.es/madrid/metro/services/{service_id}
+http://transport.linkeddata.es/madrid/metro/calendar_rules/{service_id}
 ``` 
 - **Predicate Object**
 
 | Predicate | Object |
 |:----------|:-------|
-| http://www.w3.org/1999/02/22-rdf-syntax-ns#type | gtfs:Service |
+| http://www.w3.org/1999/02/22-rdf-syntax-ns#type | gtfs:CalendarRule |
+| http://vocab.gtfs.org/terms#monday | {monday} |
+| http://vocab.gtfs.org/terms#tuesday | {tuesday} |
+| http://vocab.gtfs.org/terms#wednesday | {wednesday} |
+| http://vocab.gtfs.org/terms#thursday | {thursday} |
+| http://vocab.gtfs.org/terms#friday | {friday} |
+| http://vocab.gtfs.org/terms#saturday | {saturday} |
+| http://vocab.gtfs.org/terms#sunday | {sunday} |
+| http://schema.org/startDate | {start_date} |
+| http://schema.org/endDate | {end_date} |
 - **RDF triples**
 ```mermaid
 %%{ init : { "theme" : "base", "flowchart" : { "curve" : "linear" }}}%%
 flowchart LR
-S["http://transport.linkeddata.es/madrid/metro/services/{service_id}"] -->|"a"| object1("gtfs:Service")
+S["http://transport.linkeddata.es/madrid/metro/calendar_rules/{service_id}"] -->|"a"| object1("gtfs:CalendarRule")
+S["http://transport.linkeddata.es/madrid/metro/calendar_rules/{service_id}"] -->|"gtfs:monday"| object2("{monday}")
+S["http://transport.linkeddata.es/madrid/metro/calendar_rules/{service_id}"] -->|"gtfs:tuesday"| object3("{tuesday}")
+S["http://transport.linkeddata.es/madrid/metro/calendar_rules/{service_id}"] -->|"gtfs:wednesday"| object4("{wednesday}")
+S["http://transport.linkeddata.es/madrid/metro/calendar_rules/{service_id}"] -->|"gtfs:thursday"| object5("{thursday}")
+S["http://transport.linkeddata.es/madrid/metro/calendar_rules/{service_id}"] -->|"gtfs:friday"| object6("{friday}")
+S["http://transport.linkeddata.es/madrid/metro/calendar_rules/{service_id}"] -->|"gtfs:saturday"| object7("{saturday}")
+S["http://transport.linkeddata.es/madrid/metro/calendar_rules/{service_id}"] -->|"gtfs:sunday"| object8("{sunday}")
+S["http://transport.linkeddata.es/madrid/metro/calendar_rules/{service_id}"] -->|"schema1:startDate"| object9("{start_date}")
+S["http://transport.linkeddata.es/madrid/metro/calendar_rules/{service_id}"] -->|"schema1:endDate"| object10("{end_date}")
     
 ``` 
-- **joinCondition**:
 
-
-  - Source triple pattern: <services1_0>
-  - Target triple pattern: <calendar_rules_0>
-  - Function: **equal(service_id, service_id)**
-
-```mermaid
-%%{ init : { "theme" : "base", "flowchart" : { "curve" : "linear" }}}%%
-
-flowchart LR
-S1["http://transport.linkeddata.es/madrid/metro/services/{service_id}"] -->|"gtfs:serviceRule"| object1("http://transport.linkeddata.es/madrid/metro/calendar_rules/{service_id}")
-
-``` 
-
- ## shapes_0
-- **Source**
-
-```bash
-/data/SHAPES.csv
-``` 
-- **Subject**
-```bash
-http://transport.linkeddata.es/madrid/metro/shape/{shape_id}
-``` 
-- **Predicate Object**
-
-| Predicate | Object |
-|:----------|:-------|
-| http://www.w3.org/1999/02/22-rdf-syntax-ns#type | gtfs:Shape |
-- **RDF triples**
-```mermaid
-%%{ init : { "theme" : "base", "flowchart" : { "curve" : "linear" }}}%%
-flowchart LR
-S["http://transport.linkeddata.es/madrid/metro/shape/{shape_id}"] -->|"a"| object1("gtfs:Shape")
-    
-``` 
-- **joinCondition**:
-
-
-  - Source triple pattern: <shapes_0>
-  - Target triple pattern: <shapePoints_0>
-  - Function: **equal(shape_id, shape_id)**
-
-```mermaid
-%%{ init : { "theme" : "base", "flowchart" : { "curve" : "linear" }}}%%
-
-flowchart LR
-S1["http://transport.linkeddata.es/madrid/metro/shape/{shape_id}"] -->|"gtfs:shapePoint"| object1("http://transport.linkeddata.es/madrid/metro/shape_point/{shape_id}-{shape_pt_sequence}")
-
-``` 
-
- 
 
 
 
