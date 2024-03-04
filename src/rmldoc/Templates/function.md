@@ -1,8 +1,8 @@
 
 {% for j in join_list +%}
 - **Join Condition**:
-    - Source triples map: <{{ subject }}>
-    - Target triples map: <{{ j['parentTriplesMap'] }}>
+    - Source triples map: **{{ subject }}**
+    - Target triples map: **{{ j['parentTriplesMap'] }}**
     - Function: **equal({{ j['child'] }}, {{ j['parent'] }})**
 
 ```mermaid
