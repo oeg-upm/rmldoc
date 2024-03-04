@@ -13,7 +13,7 @@ RMLdoc is a tool designed to simplify the process of generating documentation fo
 ## Installation
 
 ### From pypi
-rmldoc is available in pypi!
+RMLdoc is available in pypi!
 
 ```bash
 pip install rmldoc
@@ -51,14 +51,14 @@ rmldoc -i path/to/rml/mappings.rml - o path/to/output/directory/mappings.md
 Replace `path/to/rml/mappings.rml` with the path to your RML mapping file and `path/to/output/directory/mappings.md` with the file where you want the documentation to be generated.
 
 ## Example
-The following [link](https://github.com/oeg-upm/rmldoc/blob/main/example/example.md) shows the result produced by `rmldoc` from the following [mapping file](https://github.com/oeg-upm/rmldoc/blob/main/example/example_input.ttl).
+The following [link](https://github.com/oeg-upm/rmldoc/blob/main/example/example.md) shows the result produced by `RMLdoc` from the following [mapping file](https://github.com/oeg-upm/rmldoc/blob/main/example/example_input.ttl).
 
-## rmldoc specification
-The [rmldoc specification](https://github.com/oeg-upm/rmldoc/blob/main/spec/specification.md) describes the main metadata expected in a RML mapping file. Have a look to create eye-catching documentations!
+## RMLdoc specification
+The [RMLdoc specification](https://github.com/oeg-upm/rmldoc/blob/main/spec/specification.md) describes the main metadata expected in a RML mapping file. Have a look to create eye-catching documentations!
 
 ## Contributing
 
-Contributions to `rmldoc` are welcome! If you encounter any issues or have suggestions for improvements, please open an issue or submit a pull request on GitHub.
+Contributions to `RMLdoc` are welcome! If you encounter any issues or have suggestions for improvements, please open an issue or submit a pull request on GitHub.
 
 
 
