@@ -159,6 +159,7 @@ def workflow(rdf_mapping_path, output_path):
     join_diagram = environment.get_template("function.md")
     # Version
     rml_version = g.query(dataset_version)
+    print(str(rml_version))
     rml_version = [{"version": str(vr.version)} for vr in rml_version]
 
     # Prefix
@@ -211,11 +212,12 @@ def workflow(rdf_mapping_path, output_path):
              'subject': str(i.s_template).replace('"', "'")} for i in
             g.query(join_condition(tp))]
 
-        # print(join_condition_diagram)
-        mapping_content += join_diagram.render(subject=tp.split('/')[-1], join_list=join_condition_diagram)
+        if join_condition_diagram:
+            mapping_content += join_diagram.render(subject=tp.split('/')[-1], join_list=join_condition_diagram)
 
     # parse the content
     # content = template.render(authors=rmd_authors, prefixes=rmd_prefixes, mapping_content=mapping_content)
+    print(rml_version)
     content = template.render(version=rml_version, mapping_file=get_file_name(rdf_mapping_path),
                               authors=rmd_authors,
                               prefixes=rmd_prefixes,

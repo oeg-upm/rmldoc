@@ -1,9 +1,9 @@
-- **joinCondition**:
-{% for j in join_list %}
 
-  Source triple pattern: <{{ subject }}>
-  Target triple pattern: <{{ j['parentTriplesMap'] }}>
-  Function: **equal({{ j['child'] }}, {{ j['parent'] }})**
+{% for j in join_list +%}
+- **Join Condition**:
+    - Source triples map: <{{ subject }}>
+    - Target triples map: <{{ j['parentTriplesMap'] }}>
+    - Function: **equal({{ j['child'] }}, {{ j['parent'] }})**
 
 ```mermaid
 %%{ init : { "theme" : "base", "flowchart" : { "curve" : "linear" }}}%%
@@ -13,4 +13,4 @@ S{{ loop.index }}["{{ j['subject'] }}"] -->|"{{ j['predicate'] }}"| object{{ loo
 
 ``` 
 
-{%+ endfor %} 
+{%+ endfor +%} 

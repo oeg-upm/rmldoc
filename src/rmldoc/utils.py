@@ -18,7 +18,10 @@ def prefix_short_cuts(graph, uri):
         if str(short) == 'rdf:type':
             short = 'a'
     else:
-        short = '{' + uri + '}'
+        if '{' in uri:
+            return uri
+        else:
+            short = '{' + uri + '}'
     return short
 
 
