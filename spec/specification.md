@@ -1,4 +1,4 @@
-# RML Mapping Documentation (RMLdoc) Specification Document-Draft
+# RML Documentation (RMLdoc) Specification Document-Draft
 **Version:** 0.1.0
 **Date:** 2023-10-03
 
@@ -51,75 +51,88 @@ In summary, mapping documentation plays a critical role in ensuring data consist
 
 ### 1.1 Purpose
 
-The purpose of RDF mapping documentation (RMD) is to provide a clear and comprehensive documentation of the [RDF mapping languages (RML)](https://rml.io/specs/rml/) within the RDF knowledge graph construction process.
+The purpose of RDF mapping documentation (RMLdoc) is to provide a clear and comprehensive documentation of the [RDF mapping languages (RML)](https://rml.io/specs/rml/) within the RDF knowledge graph construction process.
 
 
 ### 1.2 Scope
 
-The following table details which annotations are supported by this version of RDF Mapping Documentation (RMD).
+The following table details which annotations are supported by this version of **RML Documentation (RMLdoc)**.
 
-| annotation-level | metadata | Description |
-| ---------------- | -------------- | ----------- |
-| mapping          | dc:contributor(**creator**?) |             |
-| mapping    | rdfs:label     | be changed? |
-| mapping | **ex:versionIRI** | **//ToDo** |
-| TriplesMap       | rdfs:label     | **//ToDo**  be changed? |
-| TriplesMap       | rdfs:comment |             |
-| TriplesMap | **¿rmd:example?** | **//ToDo** |
-| logicalSource | rdfs:label |             |
-| logicalSource | rdfs:comment |             |
-| subjectMap | rdfs:label |             |
-| subjectMap | rdfs:comment |             |
-| predicateObjectMap | rdfs:label |             |
-| predicateObjectMap | rdfs:comment |             |
-| predicateMap | rdfs:label |             |
-| predicateMap | rdfs:comment | |
-| objectMap | rdfs:label | |
-| objectMap | rdfs:comment | |
-| joinCondition | rdfs:label | |
-| joinCondition | rdfs:comment | |
+| annotation-level | metadata |
+| ---------------- | -------------- |
+| mapping | schema:Dataset |
+| mapping          | schema:version |
+| mapping | dc:contributor & schema:contributor |
+| mapping    | schema:description |
+| mapping | schema:contributor |
+| mapping | schema:license |
+| mapping | schema:title |
 
 ## 2. Workflow
 [Include diagrams]
 
 ## 3. Design Specifications
 
-Specifications for RDF Mapping documentation(RMD) detail how the RML mapping needs to be structured in order to show that information in the documentation. Here are some design specifications for RML Mapping.
+Specifications for **RML documentation(RMLdoc)** detail how the RML mapping needs to be structured in order to show that information in the documentation. Here are some design specifications for RML Mapping.
 
-### 3.1 Version: 
+### 3.1 Dataset: 
+
+---
+
+Input:  **schema:Dataset** 
+
+```turtle
+<http://mapping.example.com/rules_000>
+  a schema:Dataset.
+```
+
+---
+
+
+
+### 3.2 Version: 
+
 ---
 Input: 
 
 ```turtle
-@prefix ns0: <https://w3id.org/mapping/gtfs/core#> .
-<https://w3id.org/mapping/gtfs/core#> ns0:versionIRI <https://w3id.org/mapping/gtfs/csv/0.1.0> .
+<http://mapping.example.com/rules_000>
+  schema:version "0.1.0" .
 ```
 Output: 
 
 **Version:**
 
-https://w3id.org/mapping/gtfs/csv/0.1.0
+- 0.1.0
 
 ---
 
-### 3.2 Author: 
+
+
+### 3.2 Contributor: 
 
 ---
 Input: 
 
 ```turtle
- <http://mapping.example.com/person>
+http://mapping.example.com/person_000>
   dc:contributor foaf:Person ;
-  rdfs:label "John Doe" ;
-  foaf:mbox <mailto:john@doe.com> .
+  rdfs:label "Jhon Toledo" .
+
+<http://mapping.example.com/person_001>
+  dc:contributor foaf:Person ;
+  rdfs:label "Ana Iglesias-Molina" .
 ```
 Output: 
 
 **Authors**:
 
-* [John Doe](John_Doe@upm.es)
+- Jhon Toledo
+- Ana Iglesias-Molina
 
 ---
+
+
 
 ### 3.3 License:
 
@@ -127,17 +140,28 @@ Output:
 Input: 
 
 ```turtle
- 
+ <http://mapping.example.com/rules_000>
+  schema:license <https://github.com/oeg-upm/rmldoc/blob/main/LICENSE> .
 ```
+
+
 Output: 
 
 **License**:
+
+https://github.com/oeg-upm/rmldoc/blob/main/LICENSE
+
+Default output:
+
 
 [![httpinsertlicenseURIhereorg](https://img.shields.io/badge/License-Creative%20Commons%20Attribution%204.0%20International%20(CC%20BY%204.0)-blue.svg)](https://creativecommons.org/licenses/by/4.0/)
 
 ---
 
+
+
 ### 3.4 Namespaces
+
 ---
 Input: 
 
@@ -164,7 +188,10 @@ Output:
 
 ---
 
+
+
 ### 3.5 Source
+
 ---
 Input: 
 
@@ -177,15 +204,18 @@ Input:
 ```
 Output: 
 
-**Source**
+- **Source**
 
-| Feature | Value                |
-| ------- | -------------------- |
-| sources | /data/STOP_TIMES.csv |
+```
+/data/STOP_TIMES.csv
+```
 
 ---
 
+
+
 ### 3.6 Subject
+
 ---
 Input: 
 
@@ -197,15 +227,18 @@ Input:
 ```
 Output: 
 
-**Subject**
+- **Subject**
 
-| URI                                                         |
-| ----------------------------------------------------------- |
-| http://transport.linkeddata.es/madrid/metro/trips/{trip_id} |
+```
+http://transport.linkeddata.es/madrid/metro/trips/{trip_id}
+```
 
 ---
 
+
+
 ### 3.7 Predicate object
+
 ---
 Input: 
 
