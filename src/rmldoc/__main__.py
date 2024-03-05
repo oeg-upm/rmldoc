@@ -161,7 +161,7 @@ def workflow(rdf_mapping_path, output_path):
     rml_version = g.query(dataset_version)
     
     rml_version = [{"version": str(vr.version), "license": str(vr.license),"description":str(vr.description),"title":str(vr.title),"dateCreated":str(vr.dateCreated)} for vr in rml_version]
-    
+
     # Prefix
     # rmd_prefixes = g.namespaces()
     rmd_prefixes = get_namespaces(g)
@@ -241,6 +241,7 @@ def define_args():
 def main():
     args = define_args().parse_args()
     log.info("RML Mapping Documentation(RMLdoc)")
+    log.info(args.input_mapping_path)
     workflow(args.input_mapping_path, args.output_path)
 
 
