@@ -1,7 +1,8 @@
 authors = """
-prefix dc: <http://purl.org/dc/terms/> 
+PREFIX dc: <http://purl.org/dc/terms/> 
+PREFIX schema: <http://schema.org/>
 SELECT ?s ?name ?mbox WHERE{
-    ?s dc:contributor  foaf:Person;
+    ?s (dc:contributor|schema:contributor)  foaf:Person;
     OPTIONAL {?s rdfs:label ?name.}
     OPTIONAL {?s foaf:mbox ?mbox.}
 }
@@ -21,11 +22,17 @@ WHERE {
 """
 
 dataset_version = """
-
-PREFIX dcat: <http://www.w3.org/ns/dcat#>
-SELECT ?version
+PREFIX schema: <http://schema.org/>
+PREFIX void: <http://rdfs.org/ns/void#>
+PREFIX dcterms: <http://purl.org/dc/terms/>
+SELECT ?version ?license ?description ?title
 WHERE {
-    ?triplesMap a dcat:Dataset;
-    dcat:version ?version.
+ VALUES (?map_class) {(schema:Dataset)(void:Dataset)}.
+    ?triplesMap a ?map_class.
+    OPTIONAL {?triplesMap schema:version ?version.}
+    OPTIONAL {?triplesMap schema:license ?license.}
+    OPTIONAL {?triplesMap (schema:description| dcterms:description) ?description.}
+    OPTIONAL {?triplesMap schema:title ?title.}
+    
 }
 """
