@@ -1,5 +1,6 @@
 {% extends "base.md" %}
-{%- block title %}
+{%- block title -%}
+   {% if version|length > 1 and v['title'] is defined %}
 {% for v in version %}
    {% if v['title']!='None' %}
 # {{ v['title']}}
@@ -7,8 +8,12 @@
 # Mapping Documentation
    {% endif %}
 {%- endfor %}
+   {% else %}
+# Mapping Documentation
+   {% endif %}
+
 {% endblock %}
-{% block version -%}
+{%- block version -%}
 {% for v in version -%}
    {% if v['version']!='' %}
 * {{ v['version']}}
@@ -31,13 +36,17 @@
 {%- endfor -%}
 {% endblock %}
 {%- block license %}
-{% for v in version -%}
-{% if 'https://creativecommons.org/licenses/by/4.0' in v['license'] or v['license']=='None' %}
+{% if version|length > 1 and v['license'] is defined  %}
+ {% for v in version -%}
+  {% if 'https://creativecommons.org/licenses/by/4.0' in v['license'] or v['license']=='None' %}
 [![http://insertlicenseURIhere.org](https://img.shields.io/badge/License-Creative%20Commons%20Attribution%204.0%20International%20(CC%20BY%204.0)-blue.svg)](https://creativecommons.org/licenses/by/4.0/)
-{% else %}
+  {% else %}
 {{ v['license'] }}
-{% endif %}
+ {% endif %}
 {%- endfor -%}
+{% else %}
+[![http://insertlicenseURIhere.org](https://img.shields.io/badge/License-Creative%20Commons%20Attribution%204.0%20International%20(CC%20BY%204.0)-blue.svg)](https://creativecommons.org/licenses/by/4.0/)
+{% endif %}
 {% endblock %}
 {%- block description %}
 {% for v in version -%}
