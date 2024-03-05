@@ -306,7 +306,7 @@ def define_args():
     parser.add_argument("-o", "--output_path", default="output.md", required=False,
                         help="Path to save the generated document. Default output output.md")
     parser.add_argument("-y", "--yatter", action='store_true',
-                        help="Path to the input mapping file in yarrrml format.")
+                        help="Enable yatter option")
     return parser
 
 
