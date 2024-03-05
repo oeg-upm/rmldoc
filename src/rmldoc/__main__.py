@@ -58,8 +58,8 @@ def logical_source(triples_map):
     SELECT ?source ?label ?comment
     WHERE {
         #<""" + triples_map + """>  a ?TriplesMap.
-        <""" + triples_map + """> (ns0:logicalSource|rml:logicalSource) ?logicalSource.
-        ?logicalSource (ns0:source|rml:source) ?source.
+        <""" + triples_map + """> (ns0:logicalSource|rml:logicalSource|rr:logicalTable) ?logicalSource.
+        ?logicalSource (ns0:source|rml:source|rr:tableName) ?source.
         OPTIONAL {?logicalSource rdfs:label ?label }
         OPTIONAL {?logicalSource rdfs:comment ?comment. }
     }"""
@@ -111,26 +111,6 @@ def join_condition(triples_map):
     WHERE {
         <""" + triples_map + """> rr:predicateObjectMap/rr:objectMap/rr:joinCondition[rr:child ?child; rr:parent ?parent; ^rr:joinCondition/rr:parentTriplesMap ?parentTriplesMap; ^rr:joinCondition/^rr:objectMap/rr:predicateMap/rr:constant ?predicate; ^rr:joinCondition/^rr:objectMap/^rr:predicateObjectMap/rr:subjectMap/rr:template   ?s_template ].
         ?parentTriplesMap rr:subjectMap/(rr:template|ns0:reference) ?o_template.
-    }
-    """
-    return query
-
-
-def join_condition2(triples_map):
-    query = """
-    PREFIX  rr: <http://www.w3.org/ns/r2rml#> 
-    PREFIX  rml: <http://w3id.org/rml/>
-    PREFIX  ns0: <http://semweb.mmlab.be/ns/rml#>
-    SELECT distinct ?parentTriplesMap ?parent ?predicate ?child ?o_template ?s_template
-    WHERE {
-        <""" + triples_map + """> rr:predicateObjectMap/rr:objectMap/rr:joinCondition/rr:child ?child.
-        <""" + triples_map + """> rr:predicateObjectMap/rr:objectMap/rr:joinCondition/rr:parent ?parent.
-        <""" + triples_map + """> rr:predicateObjectMap/rr:objectMap/rr:parentTriplesMap ?parentTriplesMap.
-        ?parentTriplesMap rr:subjectMap/rr:template ?o_template.
-        ?parentTriplesMap ^(rr:parentTriplesMap)/^(rr:objectMap) ?p.
-        ?p rr:predicateMap/rr:constant ?predicate.
-        ?parentTriplesMap ^(rr:parentTriplesMap)/^(rr:objectMap)/^(rr:predicateObjectMap) ?subject.
-        ?subject rr:subjectMap/rr:template ?s_template.
     }
     """
     return query
@@ -332,11 +312,11 @@ def define_args():
 
 def main():
     args = define_args().parse_args()
-    log.info("RML Mapping Documentation(RMLdoc)")
+    log.info("RML Documentation(RMLdoc)")
     log.info(args.input_mapping_path)
     if args.yatter:
         workflow_with_yatter(args.input_mapping_path, args.output_path)
-    elif args.yatter:
+    else:
         workflow(args.input_mapping_path, args.output_path)
 
 
