@@ -18,8 +18,12 @@
    
 
 **Mapping file:**
-mapping_title.ttl
+example_input.ttl
 
+**Description**: This is a mapping definition written in the RML syntax, which is used to map CSV data into RDF (Resource Description Framework) format.
+
+
+**Date created**: 03-05-2024
 
 **License**:
 
@@ -34,18 +38,18 @@ mapping_title.ttl
 
 | Prefix       |               IRI.                   |
 | :----------- | :----------------------------------  |
-| dct     | http://purl.org/dc/terms/ |
-| ql     | http://semweb.mmlab.be/ns/ql# |
-| gtfs     | http://vocab.gtfs.org/terms# |
-| geo1     | http://www.w3.org/2003/01/geo/wgs84_pos# |
-| rr     | http://www.w3.org/ns/r2rml# |
-| schema1     | http://schema.org/ |
-| map     | http://mapping.example.com/ |
-| ma     | http://www.w3.org/ns/ma-ont# |
 | v     | http://rdf.data-vocabulary.org/# |
 | sd     | http://www.w3.org/ns/sparql-service-description# |
-| rml     | http://semweb.mmlab.be/ns/rml# |
+| schema1     | http://schema.org/ |
+| map     | http://mapping.example.com/ |
+| gtfs     | http://vocab.gtfs.org/terms# |
+| dct     | http://purl.org/dc/terms/ |
 | rev     | http://purl.org/stuff/rev# |
+| ql     | http://semweb.mmlab.be/ns/ql# |
+| rr     | http://www.w3.org/ns/r2rml# |
+| ma     | http://www.w3.org/ns/ma-ont# |
+| rml     | http://semweb.mmlab.be/ns/rml# |
+| geo1     | http://www.w3.org/2003/01/geo/wgs84_pos# |
 
 
 
