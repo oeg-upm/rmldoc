@@ -159,9 +159,9 @@ def workflow(rdf_mapping_path, output_path):
     join_diagram = environment.get_template("function.md")
     # Version
     rml_version = g.query(dataset_version)
-    print(str(rml_version))
-    rml_version = [{"version": str(vr.version)} for vr in rml_version]
-
+    
+    rml_version = [{"version": str(vr.version), "license": str(vr.license),"description":str(vr.description),"title":str(vr.title)} for vr in rml_version]
+    print(rml_version)
     # Prefix
     # rmd_prefixes = g.namespaces()
     rmd_prefixes = get_namespaces(g)
@@ -197,12 +197,15 @@ def workflow(rdf_mapping_path, output_path):
         pom_diagram = [{"predicate": str(prefix_short_cuts(g, (str(i.pr_constant)).replace('"', "'"))),
                         "object": str(prefix_short_cuts(g, (str(i.ob_constant)).replace('"', "'")))} for i in
                        g.query(predicate_object_map(tp))]
-
-        mapping_content += pom_template.render(pom=pom)
         if subject:
             # PO diagram
             diagram_subject = str(subject[0]['template']).replace('"', "'")
+
+        if pom_diagram:
+            mapping_content += pom_template.render(pom=pom_diagram)
             mapping_content += spo_diagram.render(subject=diagram_subject, pom=pom_diagram)
+
+            #mapping_content += spo_diagram.render(subject=diagram_subject, pom=pom_diagram)
 
         # join diagram
         join_condition_diagram = [
@@ -217,7 +220,7 @@ def workflow(rdf_mapping_path, output_path):
 
     # parse the content
     # content = template.render(authors=rmd_authors, prefixes=rmd_prefixes, mapping_content=mapping_content)
-    print(rml_version)
+
     content = template.render(version=rml_version, mapping_file=get_file_name(rdf_mapping_path),
                               authors=rmd_authors,
                               prefixes=rmd_prefixes,
