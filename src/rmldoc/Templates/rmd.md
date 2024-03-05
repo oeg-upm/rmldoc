@@ -1,5 +1,5 @@
 {% extends "base.md" %}
-{% block title -%}
+{%- block title %}
 {% for v in version %}
    {% if v['title']!='None' %}
 # {{ v['title']}}
@@ -17,7 +17,7 @@
 {%- endblock %}
 {# -- block authors--#}
 {% block authors %}
-{% for author in authors -%}
+{% for author in authors %}
     {% if author['author']!='' %}
 * {{ author['author']}}
    {% endif %}
