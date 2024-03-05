@@ -60,7 +60,7 @@ In summary, mapping documentation plays a critical role in ensuring data consist
 
 ### 1.1 Purpose
 
-The purpose of RDF mapping documentation (RMLdoc) is to provide a clear and comprehensive documentation of the [RDF mapping languages (RML)](https://rml.io/specs/rml/) within the RDF knowledge graph construction process.
+The purpose of RML documentation (RMLdoc) is to provide a clear and comprehensive documentation of the [RDF mapping languages (RML)](https://rml.io/specs/rml/) within the RDF knowledge graph construction process.
 
 
 ### 1.2 Scope
