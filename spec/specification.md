@@ -114,7 +114,7 @@ Output:
 ---
 Input: 
 
-```turtle
+```bash
 http://mapping.example.com/person_000>
   dc:contributor foaf:Person ;
   rdfs:label "Jhon Toledo" .
