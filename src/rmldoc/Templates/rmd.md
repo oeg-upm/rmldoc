@@ -23,6 +23,13 @@
    {% endif %}
 {%- endfor %}
 {% endblock %}
+{%- block dateCreated %}
+{% for v in version -%}
+{% if v['dateCreated']!='None' %}
+**Date created**: {{ v['dateCreated'] }}
+{% endif %}
+{%- endfor -%}
+{% endblock %}
 {%- block license %}
 {% for v in version -%}
 {% if 'https://creativecommons.org/licenses/by/4.0' in v['license'] or v['license']=='None' %}
@@ -39,6 +46,7 @@
 {% endif %}
 {%- endfor -%}
 {% endblock %}
+
 {% block mapping_file %}
 {{ mapping_file }}
 {% endblock %}

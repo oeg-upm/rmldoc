@@ -5,9 +5,11 @@
 {%- block authors %}{% endblock %}
 **Mapping file:**
 {%- block mapping_file %}{% endblock %}
+{%- block description %}{% endblock %}
+{%- block dateCreated %}{% endblock %}
 **License**:
 {%- block license %}{% endblock %}
-{%- block description %}{% endblock %}
+
 ------
 
 

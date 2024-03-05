@@ -25,7 +25,7 @@ dataset_version = """
 PREFIX schema: <http://schema.org/>
 PREFIX void: <http://rdfs.org/ns/void#>
 PREFIX dcterms: <http://purl.org/dc/terms/>
-SELECT ?version ?license ?description ?title
+SELECT ?version ?license ?description ?title ?dateCreated
 WHERE {
  VALUES (?map_class) {(schema:Dataset)(void:Dataset)}.
     ?triplesMap a ?map_class.
@@ -33,6 +33,8 @@ WHERE {
     OPTIONAL {?triplesMap schema:license ?license.}
     OPTIONAL {?triplesMap (schema:description| dcterms:description) ?description.}
     OPTIONAL {?triplesMap schema:title ?title.}
+    OPTIONAL {?triplesMap schema:dateCreated ?dateCreated.}
+    
     
 }
 """

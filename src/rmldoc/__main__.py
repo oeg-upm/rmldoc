@@ -160,7 +160,7 @@ def workflow(rdf_mapping_path, output_path):
     # Version
     rml_version = g.query(dataset_version)
     
-    rml_version = [{"version": str(vr.version), "license": str(vr.license),"description":str(vr.description),"title":str(vr.title)} for vr in rml_version]
+    rml_version = [{"version": str(vr.version), "license": str(vr.license),"description":str(vr.description),"title":str(vr.title),"dateCreated":str(vr.dateCreated)} for vr in rml_version]
     print(rml_version)
     # Prefix
     # rmd_prefixes = g.namespaces()
