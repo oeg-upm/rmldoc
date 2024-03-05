@@ -1,4 +1,4 @@
-{% block title %}{% endblock %}
+{% block title %}{% endblock -%}
 **Version:**
 {% block version %}{% endblock %}
 **Authors**: 
