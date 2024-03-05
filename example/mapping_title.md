@@ -1,7 +1,9 @@
 
-# Mapping Documentation
-   
 
+   
+# GTFS-Madrid-Bench CSV mapping
+   
+   
 **Version:**
 
 * 0.1.0
@@ -32,18 +34,18 @@ mapping_title.ttl
 
 | Prefix       |               IRI.                   |
 | :----------- | :----------------------------------  |
-| v     | http://rdf.data-vocabulary.org/# |
 | schema1     | http://schema.org/ |
-| ma     | http://www.w3.org/ns/ma-ont# |
-| rev     | http://purl.org/stuff/rev# |
-| dct     | http://purl.org/dc/terms/ |
-| ql     | http://semweb.mmlab.be/ns/ql# |
-| rml     | http://semweb.mmlab.be/ns/rml# |
-| map     | http://mapping.example.com/ |
 | gtfs     | http://vocab.gtfs.org/terms# |
-| geo1     | http://www.w3.org/2003/01/geo/wgs84_pos# |
-| rr     | http://www.w3.org/ns/r2rml# |
+| map     | http://mapping.example.com/ |
+| ql     | http://semweb.mmlab.be/ns/ql# |
+| dct     | http://purl.org/dc/terms/ |
 | sd     | http://www.w3.org/ns/sparql-service-description# |
+| rev     | http://purl.org/stuff/rev# |
+| ma     | http://www.w3.org/ns/ma-ont# |
+| rml     | http://semweb.mmlab.be/ns/rml# |
+| geo1     | http://www.w3.org/2003/01/geo/wgs84_pos# |
+| v     | http://rdf.data-vocabulary.org/# |
+| rr     | http://www.w3.org/ns/r2rml# |
 
 
 
