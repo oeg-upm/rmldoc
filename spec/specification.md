@@ -58,37 +58,40 @@ The primary objectives of mapping documentation are as follows:
 
 In summary, mapping documentation plays a critical role in ensuring data consistency, quality, and interoperability across different systems and data sources. It facilitates the effective use of data in various business processes and analytical activities.
 
-### 1.1 Purpose
+### 1.1 Purpose and scope
 
 The purpose of RML documentation (RMLdoc) is to provide a clear and comprehensive documentation of the [RDF mapping languages (RML)](https://rml.io/specs/rml/) within the RDF knowledge graph construction process.
+(COGE MAPPINGS EN TAL Y TAL LENGUAJE, PROCESA Y GENERA DOCUMENTACIÓN EN MD CON DIAGRAMAS IN HUMAN-READABLE WAY)
 
 
-### 1.2 Scope
 
-The following table details which annotations are supported by this version of **RML Documentation (RMLdoc)**.
-
-| annotation-level | metadata |
-| ---------------- | -------------- |
-| mapping | schema:Dataset |
-| mapping          | schema:version |
-| mapping | dc:contributor & schema:contributor |
-| mapping    | schema:description |
-| mapping | schema:contributor |
-| mapping | schema:license |
-| mapping | schema:title |
 
 ## 2. Workflow
 [Include diagrams]
+(COGER EL DIAGRAMA DEL PAPER Y EXPLICAR POR ENCIMA)
+(PARA EL DIAGRAMA, FORMATO DE MAPPINGS DE ENTRADA Y VER SI SE PUEDE MEJORAR ALGO MAS)
 
 ## 3. Design Specifications
 
 Specifications for **RML documentation(RMLdoc)** detail how the RML mapping needs to be structured in order to show that information in the documentation. Here are some design specifications for RML Mapping.
 
-### 3.1 Dataset: 
+### 3.1 Metadata: 
+
+(explicar que se cogen metadatos del mapping, se toma el documento como un void/schema:Dataset y tal y tal propiedades que vienen en la tabla)
+The following table details which annotations are supported by this version of **RML Documentation (RMLdoc)**.
+| annotation-level | metadata |
+| ---------------- | -------------- |
+| mapping | schema:Dataset |
+| mapping          | schema:version |
+| mapping | dc:contributor | schema:contributor |
+| mapping    | schema:description |
+| mapping | schema:contributor |
+| mapping | schema:license |
+| mapping | schema:title |
 
 ---
 
-Input:  **schema:Dataset** 
+Input:  **schema:Dataset** (EJEMPLO CON TODOS LOS METADATOS QUE TIENEN LAS SIGUIENTES SUBSECCIONES PERO SOLO EN UNO)
 
 ```turtle
 <http://mapping.example.com/rules_000>
@@ -99,7 +102,7 @@ Input:  **schema:Dataset**
 
 
 
-### 3.2 Version: 
+### X3.2 Version: 
 
 ---
 Input: 
@@ -118,7 +121,7 @@ Output:
 
 
 
-### 3.3 Contributor: 
+### X3.3 Contributor: 
 
 ---
 Input: 
@@ -143,7 +146,7 @@ Output:
 
 
 
-### 3.4 License:
+### X3.4 License:
 
 ---
 Input: 
@@ -167,7 +170,7 @@ Default output:
 
 
 
-### 3.5 Namespaces
+### X3.5 Namespaces
 
 ---
 Input: 
@@ -197,7 +200,9 @@ Output:
 
 
 
-### 3.6 Source
+### 3.2 Source
+
+(QUÉ SE ESTÁ COGIENDO A NIVEL CONCPTUAL, REDIRECCIONAR A SPEC DE RML)
 
 ---
 Input: 
@@ -221,7 +226,7 @@ Output:
 
 
 
-### 3.7 Subject
+### 3.3 Subject
 
 ---
 Input: 
@@ -244,7 +249,7 @@ http://transport.linkeddata.es/madrid/metro/trips/{trip_id}
 
 
 
-### 3.8 Predicate object
+### 3.4 Predicate-object
 
 ---
 Input: 
@@ -282,7 +287,7 @@ Output:
 ---
 
 
-
+(SI NO HAY TESTING ESTO NOS LO CARGAMOS) (FUTURE WORK)
 ## 4. Testing and Quality Assurance
 
 ### 4.1 Test Objectives
