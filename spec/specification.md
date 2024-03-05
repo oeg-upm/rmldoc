@@ -143,8 +143,6 @@ Input:
  <http://mapping.example.com/rules_000>
   schema:license <https://github.com/oeg-upm/rmldoc/blob/main/LICENSE> .
 ```
-
-
 Output: 
 
 **License**:
@@ -243,49 +241,6 @@ http://transport.linkeddata.es/madrid/metro/trips/{trip_id}
 Input: 
 
 ```turtle
-predicateObjectMap-->//ToDo
-```
-Output: 
-
-| Property              | Collation¿?                                                  | param1  | param2  | condition |
-| --------------------- | ------------------------------------------------------------ | ------- | ------- | --------- |
-| a                     | gtfs:StopTime                                                |         |         |           |
-| gtfs:arrivalTime      | arrival_time                                                 |         |         |           |
-| gtfs:departureTime    | departure_time                                               |         |         |           |
-| gtfs:stopSequence     | stop_sequence                                                |         |         |           |
-| gtfs:headsign         | stop_headsign                                                |         |         |           |
-| gtfs:pickupType       | http://transport.linkeddata.es/resource/PickupType/$(pickup_type) |         |         |           |
-| gtfs:dropOffType      | http://transport.linkeddata.es/resource/DropOffType/$(drop_off_type) |         |         |           |
-| gtfs:distanceTraveled | shape_dist_traveled                                          |         |         |           |
-| gtfs:trip             | [trips](http://localhost:63342/markdownPreview/186959714/markdown-preview-index-437576200.html?_ijt=96for37v156vnbqmnn0othvpjg##trips) | trip_id | trip_id | equal     |
-| gtfs:stop             | [stops](http://localhost:63342/markdownPreview/186959714/markdown-preview-index-437576200.html?_ijt=96for37v156vnbqmnn0othvpjg##trips) | stop_id | stop_id | equal     |
-
----
-
-### 3.8 Example
----
-Input: 
-
-```turtle
-
-```
-Output: 
-
-<details>
-  <summary>RML example</summary>
-
-  ```rdf
-<stoptimes_0> a rr:TriplesMap;
-
-	rml:logicalSource [
-		a rml:LogicalSource;
-		rml:source "/data/STOP_TIMES.csv";
-		rml:referenceFormulation ql:CSV
-	];
-	rr:subjectMap [
-		a rr:SubjectMap;
-		rr:template "http://transport.linkeddata.es/madrid/metro/stoptimes/{trip_id}-{stop_id}-{arrival_time}";
-	];
 	rr:predicateObjectMap [
 		rr:predicateMap [
 			a rr:PredicateMap;
@@ -293,13 +248,31 @@ Output:
 		];
 		rr:objectMap [
 			a rr:ObjectMap;
-			rr:constant gtfs:StopTime;
+			rr:constant <http://vocab.gtfs.org/terms#StopTime>;
 		];
-	].
-  ```
-</details>
+	];
+	rr:predicateObjectMap [
+		rr:predicateMap [
+			a rr:PredicateMap;
+			rr:constant gtfs:arrivalTime;
+		];
+		rr:objectMap [
+			a rr:ObjectMap;
+			rml:reference "arrival_time";
+		];
+```
+Output: 
+
+- **Predicate Object**
+
+| Predicate        | Object         |
+| :--------------- | :------------- |
+| a                | gtfs:StopTime  |
+| gtfs:arrivalTime | {arrival_time} |
 
 ---
+
+
 
 ## 4. Testing and Quality Assurance
 
