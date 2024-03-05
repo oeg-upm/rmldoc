@@ -58,6 +58,8 @@ map:rules_000 schema:contributor map:person_000, map:person_001 ;
 	rdf:type schema:Dataset;
     schema:version "0.1.0";
     schema:title "GTFS-Madrid-Bench CSV mapping".
+    schema:dateCreated "03-05-2024";
+    schema:description "This is a mapping definition written in the RML syntax, which is used to map CSV data into RDF (Resource Description Framework) format.".
 
 map:s_000 rdf:type rr:SubjectMap ;
 	rr:template "http://transport.linkeddata.es/madrid/metro/stoptimes/{trip_id}-{stop_id}-{arrival_time}" .
