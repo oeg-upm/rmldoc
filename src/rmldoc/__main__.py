@@ -92,7 +92,7 @@ def predicate_object_map(triples_map):
     WHERE {
 
         <""" + triples_map + """>  (rr:predicateObjectMap|rml:predicateObjectMap|ns0:predicateObjectMap) ?predicateObjectMap.
-        ?predicateObjectMap (rr:predicateMap|rml:predicateMap|ns0:predicateMap)/(rr:constant|rml:constant|ns0:constant) ?pr_constant.
+        ?predicateObjectMap (rr:predicateMap|rml:predicateMap|ns0:predicateMap)/(rr:constant|rml:constant|ns0:constant)|(rr:predicate) ?pr_constant.
         ?predicateObjectMap (rr:objectMap|rml:objectMap|ns0:objectMap)/((rr:reference|rml:reference|ns0:reference)|(rr:constant|rml:constant|ns0:constant)|(rr:template|rml:template|ns0:template)) ?ob_constant.
 
         #OPTIONAL {?predicateObjectMap rdfs:label ?label }
@@ -305,7 +305,7 @@ def define_args():
                         help="Path to the input mapping file in RML format.")
     parser.add_argument("-o", "--output_path", default="output.md", required=False,
                         help="Path to save the generated document. Default output output.md")
-    parser.add_argument("-y", "--yatter",action='store_true',
+    parser.add_argument("-y", "--yatter", action='store_true',
                         help="Enable yatter option to read yarrrml mappings")
     return parser
 
