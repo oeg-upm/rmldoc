@@ -1,6 +1,6 @@
 {% extends "base.md" %}
 {%- block title -%}
-   {% if version|length > 1 and v['title'] is defined %}
+   {% if version|length > 0 %}
 {% for v in version %}
    {% if v['title']!='None' %}
 # {{ v['title']}}
@@ -11,7 +11,6 @@
    {% else %}
 # Mapping Documentation
    {% endif %}
-
 {% endblock %}
 {%- block version -%}
 {% for v in version -%}
