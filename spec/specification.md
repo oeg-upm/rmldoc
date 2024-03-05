@@ -1,30 +1,39 @@
 # RML Documentation (RMLdoc) Specification Document-Draft
 **Version:** 0.1.0
-**Date:** 2023-10-03
+**Date:** 2024-03-05
 
 ## Table of Contents
 
 1. [Introduction](#introduction)
    - [Purpose](#purpose)
    - [Scope](#scope)
+   
 2. [Workflow](#workflow)
+
 5. [Design Specifications](#design-specifications)
+   
+   - [Dataset](#dataset)
+   
    - [Version](#version)
-   - [Author](#author)
+   
+   - [Contributor](#contributor)
+   
    - [License](#license)
+
    - [Namespaces](#namespaces)
+   
    - [Source](#source)
+   
    - [Subject](#subject)
+   
    - [Predicate object](#predicate-object)
-   - [Example](#Example)
-
+   
 4. [Testing and Quality Assurance](#testing-and-quality-assurance)
-
-   - [Test Objectives](#test-objectives)
-
-   - [Test Environment](#test-environment)
-
-   - [Test Cases](#test-cases)
+- [Test Objectives](#test-objectives)
+   
+- [Test Environment](#test-environment)
+   
+- [Test Cases](#test-cases)
 
 
 7. [Documentation References](#documentation-references)
@@ -109,7 +118,7 @@ Output:
 
 
 
-### 3.2 Contributor: 
+### 3.3 Contributor: 
 
 ---
 Input: 
@@ -134,7 +143,7 @@ Output:
 
 
 
-### 3.3 License:
+### 3.4 License:
 
 ---
 Input: 
@@ -158,7 +167,7 @@ Default output:
 
 
 
-### 3.4 Namespaces
+### 3.5 Namespaces
 
 ---
 Input: 
@@ -188,7 +197,7 @@ Output:
 
 
 
-### 3.5 Source
+### 3.6 Source
 
 ---
 Input: 
@@ -212,7 +221,7 @@ Output:
 
 
 
-### 3.6 Subject
+### 3.7 Subject
 
 ---
 Input: 
@@ -235,7 +244,7 @@ http://transport.linkeddata.es/madrid/metro/trips/{trip_id}
 
 
 
-### 3.7 Predicate object
+### 3.8 Predicate object
 
 ---
 Input: 
