@@ -159,8 +159,9 @@ def workflow(rdf_mapping_path, output_path):
     join_diagram = environment.get_template("function.md")
     # Version
     rml_version = g.query(dataset_version)
-    
-    rml_version = [{"version": str(vr.version), "license": str(vr.license),"description":str(vr.description),"title":str(vr.title),"dateCreated":str(vr.dateCreated)} for vr in rml_version]
+
+    rml_version = [{"version": str(vr.version), "license": str(vr.license), "description": str(vr.description),
+                    "title": str(vr.title), "dateCreated": str(vr.dateCreated)} for vr in rml_version]
 
     # Prefix
     # rmd_prefixes = g.namespaces()
@@ -205,7 +206,7 @@ def workflow(rdf_mapping_path, output_path):
             mapping_content += pom_template.render(pom=pom_diagram)
             mapping_content += spo_diagram.render(subject=diagram_subject, pom=pom_diagram)
 
-            #mapping_content += spo_diagram.render(subject=diagram_subject, pom=pom_diagram)
+            # mapping_content += spo_diagram.render(subject=diagram_subject, pom=pom_diagram)
 
         # join diagram
         join_condition_diagram = [
@@ -229,12 +230,103 @@ def workflow(rdf_mapping_path, output_path):
     write_doc(content, output_path)
 
 
+def workflow_with_yatter(rdf_mapping_path, output_path):
+    import yatter
+    from ruamel.yaml import YAML
+    yaml = YAML(typ='safe', pure=True)
+    rml_content = yatter.translate(yaml.load(open(rdf_mapping_path)))
+
+    g = rdflib.Graph()
+    g.parse(data=rml_content)  # .ttl format
+    # environment = Environment(loader=FileSystemLoader("../templates/"))
+    path = os.path.join(os.path.dirname(__file__), 'Templates/')
+    templateLoader = FileSystemLoader(searchpath=path)
+    environment = Environment(loader=templateLoader)
+
+    template = environment.get_template("rmd.md")
+    source_template = environment.get_template("source.md")
+    subject_template = environment.get_template("subject.md")
+    pom_template = environment.get_template("predicate_object.md")
+    spo_diagram = environment.get_template("diagram.md")
+    join_diagram = environment.get_template("function.md")
+    # Version
+    rml_version = g.query(dataset_version)
+
+    rml_version = [{"version": str(vr.version), "license": str(vr.license), "description": str(vr.description),
+                    "title": str(vr.title), "dateCreated": str(vr.dateCreated)} for vr in rml_version]
+
+    # Prefix
+    # rmd_prefixes = g.namespaces()
+    rmd_prefixes = get_namespaces(g)
+    # Authors
+    my_authors = g.query(authors)
+    rmd_authors = [{"author": str(author.name), "mbox": str(author.mbox)} for author in my_authors]
+
+    # mappings
+    """TripleMaps"""
+    uri_triples_map = g.query(triples_map_query)
+    tps_map = {tp.asdict()['triplesMap'].toPython() for tp in uri_triples_map}
+    mapping_content = ""
+
+    for tp in tps_map:
+        # TriplesMap label
+        mapping_content += f"## {tp.split('/')[-1]}\n"
+
+        # LogicalSource
+        source = [{"source": str(i.source), "label": str(i.label), "comment": str(i.comment)} for i in
+                  g.query(logical_source(tp))]
+        mapping_content += source_template.render(source=source)
+
+        # SubjectMap
+        subject = [{"template": str(i.template), "label": str(i.label), "comment": str(i.comment)} for i in
+                   g.query(subject_map(tp))]
+        mapping_content += subject_template.render(subject=subject)
+
+        # pom = [{"label": str(i.label), "comment": str(i.comment)} for i in g.query(predicate_object_map(tp))]
+        # predicateObjectMap
+        pom = [{"predicate": str(i.pr_constant), "object": str(prefix_short_cuts(g, i.ob_constant))} for i in
+               g.query(predicate_object_map(tp))]
+
+        pom_diagram = [{"predicate": str(prefix_short_cuts(g, (str(i.pr_constant)).replace('"', "'"))),
+                        "object": str(prefix_short_cuts(g, (str(i.ob_constant)).replace('"', "'")))} for i in
+                       g.query(predicate_object_map(tp))]
+        if subject:
+            # PO diagram
+            diagram_subject = str(subject[0]['template']).replace('"', "'")
+
+        if pom_diagram:
+            mapping_content += pom_template.render(pom=pom_diagram)
+            mapping_content += spo_diagram.render(subject=diagram_subject, pom=pom_diagram)
+
+            # mapping_content += spo_diagram.render(subject=diagram_subject, pom=pom_diagram)
+
+        # join diagram
+        join_condition_diagram = [
+            {"predicate": str(prefix_short_cuts(g, i.predicate)),
+             "parentTriplesMap": str(i.parentTriplesMap).split('/')[-1],
+             "child": str(i.child), "parent": str(i.parent), 'template': str(i.o_template).replace('"', "'"),
+             'subject': str(i.s_template).replace('"', "'")} for i in
+            g.query(join_condition(tp))]
+
+        if join_condition_diagram:
+            mapping_content += join_diagram.render(subject=tp.split('/')[-1], join_list=join_condition_diagram)
+
+    content = template.render(version=rml_version, mapping_file=get_file_name(rdf_mapping_path),
+                              authors=rmd_authors,
+                              prefixes=rmd_prefixes,
+                              mapping_content=mapping_content)
+    # Write results
+    write_doc(content, output_path)
+
+
 def define_args():
     parser = argparse.ArgumentParser()
     parser.add_argument("-i", "--input_mapping_path", required=True,
                         help="Path to the input mapping file in RML format.")
     parser.add_argument("-o", "--output_path", default="output.md", required=False,
                         help="Path to save the generated document. Default output output.md")
+    parser.add_argument("-y", "--yatter", action='store_true',
+                        help="Path to the input mapping file in yarrrml format.")
     return parser
 
 
@@ -242,7 +334,10 @@ def main():
     args = define_args().parse_args()
     log.info("RML Mapping Documentation(RMLdoc)")
     log.info(args.input_mapping_path)
-    workflow(args.input_mapping_path, args.output_path)
+    if args.yatter:
+        workflow_with_yatter(args.input_mapping_path, args.output_path)
+    elif args.yatter:
+        workflow(args.input_mapping_path, args.output_path)
 
 
 if __name__ == "__main__":
