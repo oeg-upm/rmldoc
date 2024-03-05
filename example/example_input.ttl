@@ -1,0 +1,68 @@
+@prefix rr: <http://www.w3.org/ns/r2rml#> .
+@prefix rml: <http://semweb.mmlab.be/ns/rml#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix ql: <http://semweb.mmlab.be/ns/ql#> .
+@prefix map: <http://mapping.example.com/> .
+@prefix ma: <http://www.w3.org/ns/ma-ont#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix sd: <http://www.w3.org/ns/sparql-service-description#> .
+@prefix dc: <http://purl.org/dc/elements/1.1/> .
+@prefix foaf: <http://xmlns.com/foaf/0.1/> .
+@prefix rev: <http://purl.org/stuff/rev#> .
+@prefix v: <http://rdf.data-vocabulary.org/#> .
+@prefix schema: <http://schema.org/> .
+@prefix gtfs: <http://vocab.gtfs.org/terms#> .
+@prefix geo: <http://www.w3.org/2003/01/geo/wgs84_pos#> .
+@prefix dcterms:<http://purl.org/dc/terms/>.
+@prefix dct: <http://purl.org/dc/terms/> .
+
+map:map_stoptimes_000 rml:logicalSource map:source_000 ;
+	rdf:type rr:TriplesMap ;
+	rdfs:label "stoptimes" ;
+	rr:predicateObjectMap map:pom_000, map:pom_001 ;
+	rr:subjectMap map:s_000 .
+
+map:om_000 rdf:type rr:ObjectMap ;
+	rr:constant gtfs:StopTime ;
+	rr:termType rr:IRI .
+
+map:om_001 rml:reference "arrival_time" ;
+	rdf:type rr:ObjectMap ;
+	rr:datatype xsd:duration ;
+	rr:termType rr:Literal .
+
+map:person_000 dct:contributor foaf:Person ;
+	rdfs:label "Jhon Toledo" ;
+	foaf:mbox <mailto:ja.toledo@upm.es> .
+
+map:person_001 dct:contributor foaf:Person ;
+	rdfs:label "Ana Iglesias-Molina" .
+
+map:pm_000 rdf:type rr:PredicateMap ;
+	rr:constant rdf:type .
+
+map:pm_001 rdf:type rr:PredicateMap ;
+	rr:constant gtfs:arrivalTime .
+
+map:pom_000 rdf:type rr:PredicateObjectMap ;
+	rr:objectMap map:om_000 ;
+	rr:predicateMap map:pm_000 .
+
+map:pom_001 rdf:type rr:PredicateObjectMap ;
+	rr:objectMap map:om_001 ;
+	rr:predicateMap map:pm_001 .
+
+map:rules_000 schema:contributor map:person_000, map:person_001 ;
+	<http://rdfs.org/ns/void#exampleResource> map:map_stoptimes_000 ;
+	rdf:type schema:Dataset;
+    schema:version "0.1.0";
+    schema:title "GTFS-Madrid-Bench CSV mapping".
+
+map:s_000 rdf:type rr:SubjectMap ;
+	rr:template "http://transport.linkeddata.es/madrid/metro/stoptimes/{trip_id}-{stop_id}-{arrival_time}" .
+
+map:source_000 rml:referenceFormulation ql:CSV ;
+	rml:source "/data/STOP_TIMES.csv" ;
+	rdf:type rml:LogicalSource .
+
