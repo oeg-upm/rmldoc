@@ -58,7 +58,7 @@
 
 {% block mapping_file %}
 {{ mapping_file }}
-{% endblock %}
+{%- endblock %}
 {# -- block prefixes-- #}
 {% block prefixes %}
 | Prefix       |               IRI.                   |
