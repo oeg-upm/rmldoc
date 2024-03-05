@@ -1,7 +1,9 @@
 
-# Mapping Documentation
-   
 
+   
+# GTFS-Madrid-Bench CSV mapping
+   
+   
 **Version:**
 
 * 0.1.0
@@ -16,12 +18,8 @@
    
 
 **Mapping file:**
-example_input.ttl
+mapping_title.ttl
 
-**Description**: This is a mapping definition written in the RML syntax, which is used to map CSV data into RDF (Resource Description Framework) format.
-
-
-**Date created**: 03-05-2024
 
 **License**:
 
@@ -36,18 +34,18 @@ example_input.ttl
 
 | Prefix       |               IRI.                   |
 | :----------- | :----------------------------------  |
-| gtfs     | http://vocab.gtfs.org/terms# |
-| ql     | http://semweb.mmlab.be/ns/ql# |
-| rev     | http://purl.org/stuff/rev# |
 | rr     | http://www.w3.org/ns/r2rml# |
+| rml     | http://semweb.mmlab.be/ns/rml# |
+| schema1     | http://schema.org/ |
+| gtfs     | http://vocab.gtfs.org/terms# |
 | v     | http://rdf.data-vocabulary.org/# |
+| ma     | http://www.w3.org/ns/ma-ont# |
+| map     | http://mapping.example.com/ |
+| dct     | http://purl.org/dc/terms/ |
+| ql     | http://semweb.mmlab.be/ns/ql# |
 | geo1     | http://www.w3.org/2003/01/geo/wgs84_pos# |
 | sd     | http://www.w3.org/ns/sparql-service-description# |
-| rml     | http://semweb.mmlab.be/ns/rml# |
-| map     | http://mapping.example.com/ |
-| schema1     | http://schema.org/ |
-| dct     | http://purl.org/dc/terms/ |
-| ma     | http://www.w3.org/ns/ma-ont# |
+| rev     | http://purl.org/stuff/rev# |
 
 
 
