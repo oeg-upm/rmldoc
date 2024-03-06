@@ -36,19 +36,10 @@ example_input.ttl
 
 ## **Namespaces used in the document**
 
-| Prefix       |               IRI.                   |
+| Prefix       |               IRI                   |
 | :----------- | :----------------------------------  |
-| rml     | http://semweb.mmlab.be/ns/rml# |
 | gtfs     | http://vocab.gtfs.org/terms# |
-| v     | http://rdf.data-vocabulary.org/# |
-| map     | http://mapping.example.com/ |
-| schema1     | http://schema.org/ |
-| rr     | http://www.w3.org/ns/r2rml# |
-| ma     | http://www.w3.org/ns/ma-ont# |
-| ql     | http://semweb.mmlab.be/ns/ql# |
-| sd     | http://www.w3.org/ns/sparql-service-description# |
-| rev     | http://purl.org/stuff/rev# |
-| geo1     | http://www.w3.org/2003/01/geo/wgs84_pos# |
+| schema   | http://schema.org/ |
 | dct     | http://purl.org/dc/terms/ |
 
 
