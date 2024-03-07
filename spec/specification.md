@@ -39,9 +39,7 @@ In summary, mapping documentation plays a critical role in ensuring data consist
 
 
 ## 2. Workflow
-[Include diagrams]
-(COGER EL DIAGRAMA DEL PAPER Y EXPLICAR POR ENCIMA)
-(PARA EL DIAGRAMA, FORMATO DE MAPPINGS DE ENTRADA Y VER SI SE PUEDE MEJORAR ALGO MAS)
+**RMLdoc** is a tool designed to accept either [RML](https://rml.io/specs/rml/) or YARRRML files as input and generate comprehensive documentation. It leverages [rdflib](https://rdflib.readthedocs.io/en/stable/index.html) to manage mappings when processing turtle files, and extracting crucial details via SPARQL queries. This extracted data is then used to generate documentation utilizing a [Jinja](https://jinja.palletsprojects.com/en/3.1.x/) template. Finally, **RMLdoc** generates markdown documentation of the mappings, aiding in better visualizing the relationship between the ontology and the data source.
 
 
 
