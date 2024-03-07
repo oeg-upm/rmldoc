@@ -5,14 +5,16 @@
 ## Table of Contents
 
 1. [Introduction](#1-introduction)
-   - [Purpose](#purpose)
-   - [Scope](#scope)
-2. [Workflow](#workflow)
-5. [Design Specifications](#design-specifications)
-   - [Metadata](#metadata)
-   - [RML visualization](#32-rml-visualization)
+   - [Purpose and scope](#11-purpose-and-scope)
    
-4. [Documentation References](#documentation-references)
+2. [Workflow](#2-workflow)
+
+5. [Design Specifications](#3-design-specifications)
+   - [Metadata](#31-metadata)
+   - [Metadata visualization](32-metadata-visualization)
+   - [RML visualization](#33-rml-visualization)
+   
+4. [Documentation References](#4-documentation-references)
 
 ## 1. Introduction
 
