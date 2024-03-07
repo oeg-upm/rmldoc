@@ -99,7 +99,7 @@ map:rules_000 schema:contributor map:person_000, map:person_001 ;
 
 
 
-### 3.2 Source
+### 3.2 Support RML
 
 (QUÉ SE ESTÁ COGIENDO A NIVEL CONCPTUAL, REDIRECCIONAR A SPEC DE RML)
 
