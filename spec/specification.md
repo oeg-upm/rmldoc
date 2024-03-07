@@ -77,24 +77,24 @@ Specifications for **RML documentation(RMLdoc)** detail how the RML mapping need
 
 ### 3.1 Metadata: 
 
-(explicar que se cogen metadatos del mapping, se toma el documento como un void/schema:Dataset y tal y tal propiedades que vienen en la tabla)
-The following table details which annotations are supported by this version of **RML Documentation (RMLdoc)**.
+**RML Documentation (RMLdoc)** accepts the following metadata within the RML mapping to generate the documentation. It will display the version, author, and license by default to promote the use of these metadata within the mappings.
 
-| Metadata |
-| -------------- |
-| schema:Dataset\| void:Dataset\| dcat:Dataset |
-| schema:version\| dcat:version |
-| schema:contributor\| dc:contributor |
-| schema:description\| dc:description |
-| schema:license\| dc:license |
-| schema:title\| dc:title |
-| schema:dateCreated\| dc:created |
+| Metadata |  |  |
+| -------------- | -------------- | -------------- |
+| **schema:Dataset**\| **void:Dataset**\| **dcat:Dataset** | [schema:Dataset](https://schema.org/Dataset) | A collection of data |
+| **schema:version**\| **dcat:version** | [schema:version](https://schema.org/version) | The version of the mapping. |
+| **schema:author** | [schema:author](https://schema.org/author) | The author of this content. |
+| **schema:contributor**\| **dc:contributor** | [schema:contributor](https://schema.org/contributor) | contributor to the mapping. |
+| **schema:description**\| **dc:description** | [schema:description](https://schema.org/description) | A description of the item |
+| **schema:license**\| **dc:license** | [schema:license](https://schema.org/license) | A license document that applies to this content, typically indicated by URL. |
+| **schema:title**\| **dc:title** | [schema:title](https://schema.org/title) | The title of the mapping document |
+| **schema:dateCreated**\| **dc:created** | [schema:dateCreated](https://schema.org/dateCreated) | The date on which the mapping was created |
 
 
 
 ---
 
-Input:  **schema:Dataset** (EJEMPLO CON TODOS LOS METADATOS QUE TIENEN LAS SIGUIENTES SUBSECCIONES PERO SOLO EN UNO)
+Example:
 
 ```turtle
 @prefix dct: <http://purl.org/dc/terms/> .
@@ -121,63 +121,40 @@ map:rules_000 schema:contributor map:person_000, map:person_001 ;
 
 
 
-
-
 ### 3.2 Source
 
 (QUÉ SE ESTÁ COGIENDO A NIVEL CONCPTUAL, REDIRECCIONAR A SPEC DE RML)
 
 ---
-Input: 
+
 
 ```turtle
+map:person_000 dct:contributor foaf:Person ;
+	rdfs:label "Jhon Toledo" ;
+	foaf:mbox <mailto:ja.toledo@upm.es> .
+
+map:person_001 dct:contributor foaf:Person ;
+	rdfs:label "Ana Iglesias-Molina" .
+
+map:rules_000 schema:contributor map:person_000, map:person_001 ;
+	<http://rdfs.org/ns/void#exampleResource> map:map_stoptimes_000 ;
+	rdf:type schema:Dataset;
+    schema:version "0.1.0";
+    schema:title "GTFS-Madrid-Bench CSV mapping excerpt";
+    schema:dateCreated "03-05-2024";
+    schema:description "RML mapping with a subset of the GTFS-Madrid-Bench mapping for CSV files.".
+
+<myTriplesMap> a rr:TriplesMap;
+
 	rml:logicalSource [
 		a rml:LogicalSource;
-		rml:source "/data/STOP_TIMES.csv";
+		rml:source "/data/FREQUENCIES.csv";
 		rml:referenceFormulation ql:CSV
 	];
-```
-Output: 
-
-- **Source**
-
-```
-/data/STOP_TIMES.csv
-```
-
----
-
-
-
-### 3.3 Subject
-
----
-Input: 
-
-```turtle
 	rr:subjectMap [
 		a rr:SubjectMap;
-		rr:template "http://transport.linkeddata.es/madrid/metro/trips/{trip_id}";
+		rr:template "http://transport.linkeddata.es/madrid/metro/frequency/{trip_id}-{start_time}";
 	];
-```
-Output: 
-
-- **Subject**
-
-```
-http://transport.linkeddata.es/madrid/metro/trips/{trip_id}
-```
-
----
-
-
-
-### 3.4 Predicate-object
-
----
-Input: 
-
-```turtle
 	rr:predicateObjectMap [
 		rr:predicateMap [
 			a rr:PredicateMap;
@@ -185,52 +162,18 @@ Input:
 		];
 		rr:objectMap [
 			a rr:ObjectMap;
-			rr:constant <http://vocab.gtfs.org/terms#StopTime>;
+			rr:constant gtfs:Frequency;
 		];
 	];
-	rr:predicateObjectMap [
-		rr:predicateMap [
-			a rr:PredicateMap;
-			rr:constant gtfs:arrivalTime;
-		];
-		rr:objectMap [
-			a rr:ObjectMap;
-			rml:reference "arrival_time";
-		];
 ```
-Output: 
 
-- **Predicate Object**
-
-| Predicate        | Object         |
-| :--------------- | :------------- |
-| a                | gtfs:StopTime  |
-| gtfs:arrivalTime | {arrival_time} |
 
 ---
 
+## 4. Documentation References
+* https://rml.io/specs/rml/
+* https://rml.io/yarrrml/spec/
 
-(SI NO HAY TESTING ESTO NOS LO CARGAMOS) (FUTURE WORK)
-## 4. Testing and Quality Assurance
+## 
 
-### 4.1 Test Objectives
-[Explain the objectives]
-
-### 4.2 Test Environment
-[Describe the testing environment]
-
-### 4.3 Test Cases
-[Use yarrrml-parser test](https://github.com/RMLio/yarrrml-parser/tree/development/test)
-
-[Use RINF Mappings test]
-
-[Use GTFS-Madrid-Bench mappings](https://github.com/oeg-upm/gtfs-bench/tree/master/mappings)
-
-## 5. Documentation References
-[references]
-
-## 6. Appendix
-[additional information]
-
-
-Copyright © 2023 *[Ontology Engineering Group](https://oeg.fi.upm.es/)*, *[Universidad Politécnica de Madrid](https://www.upm.es/internacional)*.
+Copyright © 2024 *[RMLdoc](https://github.com/oeg-upm/rmldoc)*

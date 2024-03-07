@@ -2,7 +2,7 @@ authors = """
 PREFIX dc: <http://purl.org/dc/terms/> 
 PREFIX schema: <http://schema.org/>
 SELECT ?s ?name ?mbox WHERE{
-    ?s (dc:contributor|schema:contributor)  foaf:Person;
+    ?s (dc:contributor|schema:contributor|schema:author)  foaf:Person;
     OPTIONAL {?s rdfs:label ?name.}
     OPTIONAL {?s foaf:mbox ?mbox.}
 }
