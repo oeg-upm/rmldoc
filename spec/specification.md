@@ -7,38 +7,13 @@
 1. [Introduction](#1-introduction)
    - [Purpose](#purpose)
    - [Scope](#scope)
-   
 2. [Workflow](#workflow)
-
 5. [Design Specifications](#design-specifications)
    
-   - [Dataset](#dataset)
-   
+   - [Metadata](#metadata)
    - [Version](#version)
-   
-   - [Contributor](#contributor)
-   
-   - [License](#license)
 
-   - [Namespaces](#namespaces)
-   
-   - [Source](#source)
-   
-   - [Subject](#subject)
-   
-   - [Predicate object](#predicate-object)
-   
-4. [Testing and Quality Assurance](#testing-and-quality-assurance)
-- [Test Objectives](#test-objectives)
-  
-- [Test Environment](#test-environment)
-  
-- [Test Cases](#test-cases)
-
-
-7. [Documentation References](#documentation-references)
-
-8. [Appendix ](#appendix)
+4. [Documentation References](#documentation-references)
 
 ## 1. Introduction
 
