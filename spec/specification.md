@@ -9,10 +9,9 @@
    - [Scope](#scope)
 2. [Workflow](#workflow)
 5. [Design Specifications](#design-specifications)
-   
    - [Metadata](#metadata)
-   - [Version](#version)
-
+   - [RML visualization](#32-rml-visualization)
+   
 4. [Documentation References](#documentation-references)
 
 ## 1. Introduction
