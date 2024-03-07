@@ -24,17 +24,17 @@ WHERE {
 dataset_version = """
 PREFIX schema: <http://schema.org/>
 PREFIX void: <http://rdfs.org/ns/void#>
-PREFIX dcterms: <http://purl.org/dc/terms/>
+PREFIX dc: <http://purl.org/dc/terms/>
+PREFIX dcat: <http://www.w3.org/ns/dcat#> 
+
 SELECT ?version ?license ?description ?title ?dateCreated
 WHERE {
- VALUES (?map_class) {(schema:Dataset)(void:Dataset)}.
+ VALUES (?map_class) {(schema:Dataset)(void:Dataset)(dcat:Dataset)}.
     ?triplesMap a ?map_class.
-    OPTIONAL {?triplesMap schema:version ?version.}
-    OPTIONAL {?triplesMap schema:license ?license.}
-    OPTIONAL {?triplesMap (schema:description| dcterms:description) ?description.}
-    OPTIONAL {?triplesMap schema:title ?title.}
-    OPTIONAL {?triplesMap schema:dateCreated ?dateCreated.}
-    
-    
+    OPTIONAL {?triplesMap (schema:version|dcat:version) ?version.}
+    OPTIONAL {?triplesMap (schema:license|dc:license) ?license.}
+    OPTIONAL {?triplesMap (schema:description| dc:description) ?description.}
+    OPTIONAL {?triplesMap (schema:title|dc:title) ?title.}
+    OPTIONAL {?triplesMap (schema:dateCreated|dc:created) ?dateCreated.}
 }
 """
