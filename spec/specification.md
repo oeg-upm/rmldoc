@@ -74,7 +74,7 @@ Specifications for **RML documentation(RMLdoc)** detail how the RML mapping need
 
 
 
-### 3.2 Support RML
+### 3.2 RML visualization
 
 **Source**: Specifies the location of the source data.
 
@@ -127,8 +127,7 @@ http://transport.linkeddata.es/madrid/metro/frequency/{trip_id}-{start_time}
 
 ---
 
-- Join Condition:
-
+- **Join Condition**:
   - Source triples map: **frequencies**
   - Target triples map: **trips**
   - Function: **equal(trip_id, trip_id)**
