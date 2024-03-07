@@ -35,16 +35,21 @@ In summary, mapping documentation plays a critical role in ensuring data consist
 
 ### 1.1 Purpose and scope
 
-The **purpose of RML documentation (RMLdoc)** is to provide a clear and comprehensive documentation of the [RDF mapping languages (RML)](https://rml.io/specs/rml/) within the RDF knowledge graph construction process.
-(COGE MAPPINGS EN TAL Y TAL LENGUAJE, PROCESA Y GENERA DOCUMENTACIÓN EN MD CON DIAGRAMAS IN HUMAN-READABLE WAY)
-
-
+**RML documentation (RMLdoc)** is a tool designed to simplify the process of generating documentation of mappings used for knowledge graph construction. It automates the documentation generation process, allowing users to easily understand the mapping transformation rules defined within their projects. Given an input mapping file written in R2RML, RML, or YARRRML, RMLdoc will generate a detailed Markdown documentation explaining each mapping with corresponding diagrams, in a human readable manner.
 
 
 ## 2. Workflow
 [Include diagrams]
 (COGER EL DIAGRAMA DEL PAPER Y EXPLICAR POR ENCIMA)
 (PARA EL DIAGRAMA, FORMATO DE MAPPINGS DE ENTRADA Y VER SI SE PUEDE MEJORAR ALGO MAS)
+
+
+
+
+
+![](/images/rmldoc-workflow.png)
+
+
 
 ## 3. Design Specifications
 
