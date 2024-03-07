@@ -72,83 +72,82 @@ Specifications for **RML documentation(RMLdoc)** detail how the RML mapping need
 
 ---
 
-Example:
-
-```turtle
-@prefix dct: <http://purl.org/dc/terms/> .
-@prefix foaf: <http://xmlns.com/foaf/0.1/> .
-@prefix schema: <http://schema.org/> .
-
-map:person_000 dct:contributor foaf:Person ;
-	rdfs:label "Jhon Toledo" ;
-	foaf:mbox <mailto:ja.toledo@upm.es> .
-
-map:person_001 dct:contributor foaf:Person ;
-	rdfs:label "Ana Iglesias-Molina" .
-
-map:rules_000 schema:contributor map:person_000, map:person_001 ;
-	<http://rdfs.org/ns/void#exampleResource> map:map_stoptimes_000 ;
-	rdf:type schema:Dataset;
-    schema:version "0.1.0";
-    schema:title "GTFS-Madrid-Bench CSV mapping excerpt";
-    schema:dateCreated "03-05-2024";
-    schema:description "RML mapping with a subset of the GTFS-Madrid-Bench mapping for CSV files.".
-```
-
----
-
 
 
 ### 3.2 Support RML
 
-(QUÉ SE ESTÁ COGIENDO A NIVEL CONCPTUAL, REDIRECCIONAR A SPEC DE RML)
+**Source**: Specifies the location of the source data.
+
+---
+
+- **Source**
+
+```
+/data/FREQUENCIES.csv
+```
 
 ---
 
 
-```turtle
-map:person_000 dct:contributor foaf:Person ;
-	rdfs:label "Jhon Toledo" ;
-	foaf:mbox <mailto:ja.toledo@upm.es> .
 
-map:person_001 dct:contributor foaf:Person ;
-	rdfs:label "Ana Iglesias-Molina" .
+**Subject**: Defines how the subject of the RDF triples should be generated
 
-map:rules_000 schema:contributor map:person_000, map:person_001 ;
-	<http://rdfs.org/ns/void#exampleResource> map:map_stoptimes_000 ;
-	rdf:type schema:Dataset;
-    schema:version "0.1.0";
-    schema:title "GTFS-Madrid-Bench CSV mapping excerpt";
-    schema:dateCreated "03-05-2024";
-    schema:description "RML mapping with a subset of the GTFS-Madrid-Bench mapping for CSV files.".
+---
 
-<myTriplesMap> a rr:TriplesMap;
+- **Subject**
 
-	rml:logicalSource [
-		a rml:LogicalSource;
-		rml:source "/data/FREQUENCIES.csv";
-		rml:referenceFormulation ql:CSV
-	];
-	rr:subjectMap [
-		a rr:SubjectMap;
-		rr:template "http://transport.linkeddata.es/madrid/metro/frequency/{trip_id}-{start_time}";
-	];
-	rr:predicateObjectMap [
-		rr:predicateMap [
-			a rr:PredicateMap;
-			rr:constant rdf:type;
-		];
-		rr:objectMap [
-			a rr:ObjectMap;
-			rr:constant gtfs:Frequency;
-		];
-	];
+```
+http://transport.linkeddata.es/madrid/metro/frequency/{trip_id}-{start_time}
 ```
 
 
 ---
 
+
+
+**Predicate Object**: Specifies how predicate-object pairs should be generated
+
+---
+
+- **Predicate Object**
+
+| Predicate           | Object         |
+| ------------------- | -------------- |
+| a                   | gtfs:Frequency |
+| gtfs:startTime      | {start_time}   |
+| gtfs:endTime        | {end_time}     |
+| gtfs:headwaySeconds | {headway_secs} |
+| gtfs:exactTimes     | {exact_times}  |
+
+---
+
+
+
+**Join Condition:** Specifies the conditions for joining the child triples map with the parent triples map.
+
+---
+
+- Join Condition:
+
+  - Source triples map: **frequencies**
+  - Target triples map: **trips**
+  - Function: **equal(trip_id, trip_id)**
+
+```mermaid
+%%{ init : { "theme" : "base", "flowchart" : { "curve" : "linear" }}}%%
+
+flowchart LR
+S1["http://transport.linkeddata.es/madrid/metro/frequency/{trip_id}-{start_time}"] -->|"gtfs:trip"| object1("http://transport.linkeddata.es/madrid/metro/trips/{trip_id}")
+
+
+```
+
+---
+
+
+
 ## 4. Documentation References
+
 * https://rml.io/specs/rml/
 * https://rml.io/yarrrml/spec/
 
