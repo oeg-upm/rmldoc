@@ -34,10 +34,12 @@ usage: rmldoc [-h] -i INPUT_MAPPING_PATH [-o OUTPUT_PATH]
 
 optional arguments:
   -h, --help            show this help message and exit
+  
   -i INPUT_MAPPING_PATH, --input_mapping_path INPUT_MAPPING_PATH
                         Path to the input mapping file in RML format.
   -o OUTPUT_PATH, --output_path OUTPUT_PATH
-                        Path to save the generated document. Default output is output.md
+                        Path to save the generated document. Default output output.md
+  -y, --yatter          Enable yatter option to read yarrrml mappings
 
 ```
 
