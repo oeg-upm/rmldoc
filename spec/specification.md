@@ -69,11 +69,32 @@ Specifications for **RML documentation(RMLdoc)** detail how the RML mapping need
 
 
 
+### 3.2 Metadata visualization
+
 ---
 
+**Version:**
 
+- 0.1.0
 
-### 3.2 RML visualization
+**Authors**:
+
+- Jhon Toledo
+- Ana Iglesias-Molina
+
+**Mapping file:** example_input.ttl
+
+**Description**: RML mapping with a subset of the GTFS-Madrid-Bench mapping for CSV files.
+
+**Date created**: 03-05-2024
+
+**License**:
+
+[![http://insertlicenseURIhere.org](https://camo.githubusercontent.com/d5e4e21659b7f5ae27e560bcc7a697f73fb42b1c24a544151c1f5d7f6b35d484/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f4c6963656e73652d4372656174697665253230436f6d6d6f6e732532304174747269627574696f6e253230342e30253230496e7465726e6174696f6e616c2532302843432532304259253230342e30292d626c75652e737667)](https://creativecommons.org/licenses/by/4.0/)
+
+---
+
+### 3.3 RML visualization
 
 **Source**: Specifies the location of the source data.
 
