@@ -56,7 +56,7 @@ Specifications for **RML documentation(RMLdoc)** detail how the RML mapping need
 
 **RML Documentation (RMLdoc)** accepts the following metadata within the RML mapping to generate the documentation. It will display the version, author, and license by default to promote the use of these metadata within the mappings.
 
-| Metadata |  |  |
+| Metadata | **Type** | Comment |
 | -------------- | -------------- | -------------- |
 | **schema:Dataset**\| **void:Dataset**\| **dcat:Dataset** | [schema:Dataset](https://schema.org/Dataset) | A collection of data |
 | **schema:version**\| **dcat:version** | [schema:version](https://schema.org/version) | The version of the mapping. |
