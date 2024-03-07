@@ -47,7 +47,7 @@ In summary, mapping documentation plays a critical role in ensuring data consist
 
 
 
-![](images\rmldoc-workflow.png)
+![](images/rmldoc-workflow.png)
 
 
 
