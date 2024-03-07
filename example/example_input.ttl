@@ -17,21 +17,6 @@
 @prefix dcterms:<http://purl.org/dc/terms/>.
 @prefix dct: <http://purl.org/dc/terms/> .
 
-map:map_stoptimes_000 rml:logicalSource map:source_000 ;
-	rdf:type rr:TriplesMap ;
-	rdfs:label "stoptimes" ;
-	rr:predicateObjectMap map:pom_000, map:pom_001 ;
-	rr:subjectMap map:s_000 .
-
-map:om_000 rdf:type rr:ObjectMap ;
-	rr:constant gtfs:StopTime ;
-	rr:termType rr:IRI .
-
-map:om_001 rml:reference "arrival_time" ;
-	rdf:type rr:ObjectMap ;
-	rr:datatype xsd:duration ;
-	rr:termType rr:Literal .
-
 map:person_000 dct:contributor foaf:Person ;
 	rdfs:label "Jhon Toledo" ;
 	foaf:mbox <mailto:ja.toledo@upm.es> .
@@ -39,32 +24,212 @@ map:person_000 dct:contributor foaf:Person ;
 map:person_001 dct:contributor foaf:Person ;
 	rdfs:label "Ana Iglesias-Molina" .
 
-map:pm_000 rdf:type rr:PredicateMap ;
-	rr:constant rdf:type .
-
-map:pm_001 rdf:type rr:PredicateMap ;
-	rr:constant gtfs:arrivalTime .
-
-map:pom_000 rdf:type rr:PredicateObjectMap ;
-	rr:objectMap map:om_000 ;
-	rr:predicateMap map:pm_000 .
-
-map:pom_001 rdf:type rr:PredicateObjectMap ;
-	rr:objectMap map:om_001 ;
-	rr:predicateMap map:pm_001 .
-
 map:rules_000 schema:contributor map:person_000, map:person_001 ;
 	<http://rdfs.org/ns/void#exampleResource> map:map_stoptimes_000 ;
 	rdf:type schema:Dataset;
     schema:version "0.1.0";
-    schema:title "GTFS-Madrid-Bench CSV mapping";
+    schema:title "GTFS-Madrid-Bench CSV mapping excerpt";
     schema:dateCreated "03-05-2024";
-    schema:description "This is a mapping definition written in the RML syntax, which is used to map CSV data into RDF (Resource Description Framework) format.".
+    schema:description "RML mapping with a subset of the GTFS-Madrid-Bench mapping for CSV files.".
 
-map:s_000 rdf:type rr:SubjectMap ;
-	rr:template "http://transport.linkeddata.es/madrid/metro/stoptimes/{trip_id}-{stop_id}-{arrival_time}" .
+<frequencies> a rr:TriplesMap;
 
-map:source_000 rml:referenceFormulation ql:CSV ;
-	rml:source "/data/STOP_TIMES.csv" ;
-	rdf:type rml:LogicalSource .
+	rml:logicalSource [
+		a rml:LogicalSource;
+		rml:source "/data/FREQUENCIES.csv";
+		rml:referenceFormulation ql:CSV
+	];
+	rr:subjectMap [
+		a rr:SubjectMap;
+		rr:template "http://transport.linkeddata.es/madrid/metro/frequency/{trip_id}-{start_time}";
+	];
+	rr:predicateObjectMap [
+		rr:predicateMap [
+			a rr:PredicateMap;
+			rr:constant rdf:type;
+		];
+		rr:objectMap [
+			a rr:ObjectMap;
+			rr:constant gtfs:Frequency;
+		];
+	];
+	rr:predicateObjectMap [
+		rr:predicateMap [
+			a rr:PredicateMap;
+			rr:constant gtfs:startTime;
+		];
+		rr:objectMap [
+			a rr:ObjectMap;
+			rml:reference "start_time";
+		];
+	];
+	rr:predicateObjectMap [
+		rr:predicateMap [
+			a rr:PredicateMap;
+			rr:constant gtfs:endTime;
+		];
+		rr:objectMap [
+			a rr:ObjectMap;
+			rml:reference "end_time";
+		];
+	];
+	rr:predicateObjectMap [
+		rr:predicateMap [
+			a rr:PredicateMap;
+			rr:constant gtfs:headwaySeconds;
+		];
+		rr:objectMap [
+			a rr:ObjectMap;
+			rml:reference "headway_secs";
+			rr:datatype xsd:integer
+		];
+	];
+	rr:predicateObjectMap [
+		rr:predicateMap [
+			a rr:PredicateMap;
+			rr:constant gtfs:exactTimes;
+		];
+		rr:objectMap [
+			a rr:ObjectMap;
+			rml:reference "exact_times";
+			rr:datatype xsd:boolean
+		];
+	];
+	rr:predicateObjectMap [
+		rr:predicateMap [
+			a rr:PredicateMap;
+			rr:constant gtfs:trip;
+		];
+		rr:objectMap [
+			a rr:RefObjectMap;
+			rr:parentTriplesMap <trips>;
+			rr:joinCondition [
+				rr:child "trip_id";
+				rr:parent "trip_id";
+			];
+		];
+	].
 
+
+<trips> a rr:TriplesMap;
+
+	rml:logicalSource [
+		a rml:LogicalSource;
+		rml:source "/data/TRIPS.csv";
+		rml:referenceFormulation ql:CSV
+	];
+	rr:subjectMap [
+		a rr:SubjectMap;
+		rr:template "http://transport.linkeddata.es/madrid/metro/trips/{trip_id}";
+	];
+	rr:predicateObjectMap [
+		rr:predicateMap [
+			a rr:PredicateMap;
+			rr:constant rdf:type;
+		];
+		rr:objectMap [
+			a rr:ObjectMap;
+			rr:constant gtfs:Trip;
+		];
+	];
+	rr:predicateObjectMap [
+		rr:predicateMap [
+			a rr:PredicateMap;
+			rr:constant gtfs:headsign;
+		];
+		rr:objectMap [
+			a rr:ObjectMap;
+			rml:reference "trip_headsign";
+		];
+	];
+	rr:predicateObjectMap [
+		rr:predicateMap [
+			a rr:PredicateMap;
+			rr:constant gtfs:shortName;
+		];
+		rr:objectMap [
+			a rr:ObjectMap;
+			rml:reference "trip_short_name";
+		];
+	];
+	rr:predicateObjectMap [
+		rr:predicateMap [
+			a rr:PredicateMap;
+			rr:constant gtfs:direction;
+		];
+		rr:objectMap [
+			a rr:ObjectMap;
+			rml:reference "direction_id";
+		];
+	];
+	rr:predicateObjectMap [
+		rr:predicateMap [
+			a rr:PredicateMap;
+			rr:constant gtfs:block;
+		];
+		rr:objectMap [
+			a rr:ObjectMap;
+			rml:reference "block_id";
+		];
+	];
+	rr:predicateObjectMap [
+		rr:predicateMap [
+			a rr:PredicateMap;
+			rr:constant gtfs:wheelchairAccessible;
+		];
+		rr:objectMap [
+			a rr:ObjectMap;
+			rr:template "http://transport.linkeddata.es/resource/WheelchairBoardingStatus/{wheelchair_accessible}";
+			rr:termType rr:IRI
+		];
+	];
+	rr:predicateObjectMap [
+		rr:predicateMap [
+			a rr:PredicateMap;
+			rr:constant gtfs:service;
+		];
+		rr:objectMap [
+			a rr:RefObjectMap;
+			rr:parentTriplesMap <services1>;
+			rr:joinCondition [
+				rr:child "service_id";
+				rr:parent "service_id";
+			];
+		];
+		rr:objectMap [
+			a rr:RefObjectMap;
+			rr:parentTriplesMap <services2>;
+			rr:joinCondition [
+				rr:child "service_id";
+				rr:parent "service_id";
+			];
+		];
+	];
+	rr:predicateObjectMap [
+		rr:predicateMap [
+			a rr:PredicateMap;
+			rr:constant gtfs:route;
+		];
+		rr:objectMap [
+			a rr:RefObjectMap;
+			rr:parentTriplesMap <routes>;
+			rr:joinCondition [
+				rr:child "route_id";
+				rr:parent "route_id";
+			];
+		];
+	];
+	rr:predicateObjectMap [
+		rr:predicateMap [
+			a rr:PredicateMap;
+			rr:constant gtfs:shape;
+		];
+		rr:objectMap [
+			a rr:RefObjectMap;
+			rr:parentTriplesMap <shapes>;
+			rr:joinCondition [
+				rr:child "shape_id";
+				rr:parent "shape_id";
+			];
+		];
+	].
