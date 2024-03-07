@@ -60,7 +60,7 @@ In summary, mapping documentation plays a critical role in ensuring data consist
 
 ### 1.1 Purpose and scope
 
-The purpose of RML documentation (RMLdoc) is to provide a clear and comprehensive documentation of the [RDF mapping languages (RML)](https://rml.io/specs/rml/) within the RDF knowledge graph construction process.
+The **purpose of RML documentation (RMLdoc)** is to provide a clear and comprehensive documentation of the [RDF mapping languages (RML)](https://rml.io/specs/rml/) within the RDF knowledge graph construction process.
 (COGE MAPPINGS EN TAL Y TAL LENGUAJE, PROCESA Y GENERA DOCUMENTACIÓN EN MD CON DIAGRAMAS IN HUMAN-READABLE WAY)
 
 
@@ -79,124 +79,47 @@ Specifications for **RML documentation(RMLdoc)** detail how the RML mapping need
 
 (explicar que se cogen metadatos del mapping, se toma el documento como un void/schema:Dataset y tal y tal propiedades que vienen en la tabla)
 The following table details which annotations are supported by this version of **RML Documentation (RMLdoc)**.
-| annotation-level | metadata |
-| ---------------- | -------------- |
-| mapping | schema:Dataset |
-| mapping          | schema:version |
-| mapping | dc:contributor | schema:contributor |
-| mapping    | schema:description |
-| mapping | schema:contributor |
-| mapping | schema:license |
-| mapping | schema:title |
+
+| Metadata |
+| -------------- |
+| schema:Dataset\| void:Dataset\| dcat:Dataset |
+| schema:version\| dcat:version |
+| schema:contributor\| dc:contributor |
+| schema:description\| dc:description |
+| schema:license\| dc:license |
+| schema:title\| dc:title |
+| schema:dateCreated\| dc:created |
+
+
 
 ---
 
 Input:  **schema:Dataset** (EJEMPLO CON TODOS LOS METADATOS QUE TIENEN LAS SIGUIENTES SUBSECCIONES PERO SOLO EN UNO)
 
 ```turtle
-<http://mapping.example.com/rules_000>
-  a schema:Dataset.
+@prefix dct: <http://purl.org/dc/terms/> .
+@prefix foaf: <http://xmlns.com/foaf/0.1/> .
+@prefix schema: <http://schema.org/> .
+
+map:person_000 dct:contributor foaf:Person ;
+	rdfs:label "Jhon Toledo" ;
+	foaf:mbox <mailto:ja.toledo@upm.es> .
+
+map:person_001 dct:contributor foaf:Person ;
+	rdfs:label "Ana Iglesias-Molina" .
+
+map:rules_000 schema:contributor map:person_000, map:person_001 ;
+	<http://rdfs.org/ns/void#exampleResource> map:map_stoptimes_000 ;
+	rdf:type schema:Dataset;
+    schema:version "0.1.0";
+    schema:title "GTFS-Madrid-Bench CSV mapping excerpt";
+    schema:dateCreated "03-05-2024";
+    schema:description "RML mapping with a subset of the GTFS-Madrid-Bench mapping for CSV files.".
 ```
 
 ---
 
 
-
-### X3.2 Version: 
-
----
-Input: 
-
-```turtle
-<http://mapping.example.com/rules_000>
-  schema:version "0.1.0" .
-```
-Output: 
-
-**Version:**
-
-- 0.1.0
-
----
-
-
-
-### X3.3 Contributor: 
-
----
-Input: 
-
-```bash
-http://mapping.example.com/person_000>
-  dc:contributor foaf:Person ;
-  rdfs:label "Jhon Toledo" .
-
-<http://mapping.example.com/person_001>
-  dc:contributor foaf:Person ;
-  rdfs:label "Ana Iglesias-Molina" .
-```
-Output: 
-
-**Authors**:
-
-- Jhon Toledo
-- Ana Iglesias-Molina
-
----
-
-
-
-### X3.4 License:
-
----
-Input: 
-
-```turtle
- <http://mapping.example.com/rules_000>
-  schema:license <https://github.com/oeg-upm/rmldoc/blob/main/LICENSE> .
-```
-Output: 
-
-**License**:
-
-https://github.com/oeg-upm/rmldoc/blob/main/LICENSE
-
-Default output:
-
-
-[![httpinsertlicenseURIhereorg](https://img.shields.io/badge/License-Creative%20Commons%20Attribution%204.0%20International%20(CC%20BY%204.0)-blue.svg)](https://creativecommons.org/licenses/by/4.0/)
-
----
-
-
-
-### X3.5 Namespaces
-
----
-Input: 
-
-```turtle
-@prefix rr: <http://www.w3.org/ns/r2rml#>.
-@prefix foaf: <http://xmlns.com/foaf/0.1/>.
-@prefix xsd: <http://www.w3.org/2001/XMLSchema#>.
-@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>.
-@prefix dc: <http://purl.org/dc/elements/1.1/>.
-@prefix rml: <http://semweb.mmlab.be/ns/rml#>.
-```
-Output: 
-
-**Namespaces used in the document**
-
-| Prefix | IRI.                                  |
-| ------ | ------------------------------------- |
-| rr     | http://www.w3.org/ns/r2rml#           |
-| foaf   | http://xmlns.com/foaf/0.1/            |
-| xsd    | http://www.w3.org/2001/XMLSchema#     |
-| rdfs   | http://www.w3.org/2000/01/rdf-schema# |
-| dc     | http://purl.org/dc/elements/1.1/      |
-| rml    | http://semweb.mmlab.be/ns/rml#        |
-
----
 
 
 
