@@ -2,12 +2,12 @@
 
 # RMLdoc
 
-RMLdoc is a tool designed to simplify the process of generating documentation for RML (RDF Mapping Language) mappings. It automates the documentation generation process, allowing users to easily understand and share the mappings defined within their projects.
+RMLdoc is a tool designed to simplify the process of generating documentation of mappings used for knowledge graph construction. It automates the documentation generation process, allowing users to easily understand the mapping transformation rules defined within their projects. Given an input mapping file written in R2RML, RML, or YARRRML, RMLdoc will generate a detailed Markdown documentation explaining each mapping with corresponding diagrams, in a human readable manner.
 
 ## Features
 
-- **Automated Documentation Generation**: RMLdoc automatically generates documentation for RML mappings, eliminating the need for manual documentation efforts.
-- **Clear and Readable Output**: The generated documentation provides clear and concise descriptions of the logical sources, subject maps, predicate-object maps, and other components defined within the RML mappings.
+- **Automated Documentation Generation**: RMLdoc automatically generates documentation for mappings, eliminating the need for manual documentation efforts.
+- **Clear and Readable Output**: The generated documentation provides clear and concise descriptions of the input data sources, subject and predicate-object descriptions, along with other components defined within the mappings and their metadata.
 - **Command-Line Interface (CLI)**: RMLdoc provides a simple command-line interface for easy integration into existing workflows and build processes.
 
 ## Installation
@@ -42,7 +42,7 @@ optional arguments:
 ```
 
 
-To generate documentation for your RML mappings, use the following command:
+To generate documentation for your mappings, use the following command:
 
 ```bash
 rmldoc -i path/to/rml/mappings.rml - o path/to/output/directory/mappings.md
@@ -60,5 +60,8 @@ The [RMLdoc specification](https://github.com/oeg-upm/rmldoc/blob/main/spec/spec
 
 Contributions to `RMLdoc` are welcome! If you encounter any issues or have suggestions for improvements, please open an issue or submit a pull request on GitHub.
 
-
-
+## Authors
+* [Jhon Toledo](https://github.com/jatoledo) ([ja.toledo@upm.es](mailto:ja.toledo@upm.es))
+* [Ana Iglesias-Molina](https://github.com/anaigmo)
+* [David Chaves-Fraga](https://github.com/dachafra)
+* [Daniel Garijo](https://github.com/dgarijo)
