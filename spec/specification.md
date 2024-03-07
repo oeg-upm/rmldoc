@@ -142,7 +142,7 @@ S1["http://transport.linkeddata.es/madrid/metro/frequency/{trip_id}-{start_time}
 
 ---
 
-
+See the example in  https://github.com/oeg-upm/rmldoc/blob/main/example/example.md
 
 ## 4. Documentation References
 
