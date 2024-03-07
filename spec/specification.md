@@ -149,6 +149,6 @@ map:rules_000 schema:contributor map:person_000, map:person_001 ;
 * https://rml.io/specs/rml/
 * https://rml.io/yarrrml/spec/
 
-## 
+----------------------------
 
 Copyright © 2024 *[RMLdoc](https://github.com/oeg-upm/rmldoc)*
