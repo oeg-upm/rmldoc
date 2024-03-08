@@ -1,0 +1,21 @@
+title: "RML mapping documentation"
+license: Apache 2
+authors:
+  - given-names: Jhon
+    family-names: Toledo
+    orcid: 'https://orcid.org/0000-0002-2924-7272'
+  - family-names: Chaves
+    given-names: David
+    orcid: 'https://orcid.org/0000-0003-3236-2789'
+  - given-names: Ana
+    family-names: 'Iglesias-Molina '
+    orcid: 'https://orcid.org/0000-0001-5375-8024'
+  - given-names: Daniel
+    family-names: Garijo
+    orcid: 'https://orcid.org/0000-0003-0454-7145'
+cff-version: 1.2.0
+message: "If you use this software, please cite"
+identifiers:
+  - description: "RML mapping documentation  tool"
+    type: doi
+    value: 10.5281/zenodo.10732487
