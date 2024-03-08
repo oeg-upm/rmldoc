@@ -38,7 +38,7 @@ optional arguments:
   -i INPUT_MAPPING_PATH, --input_mapping_path INPUT_MAPPING_PATH
                         Path to the input mapping file in RML format.
   -o OUTPUT_PATH, --output_path OUTPUT_PATH
-                        Path to save the generated document. Default output output.md
+                        Path to save the generated document. Default output in output.md
   -y, --yatter          Enable yatter option to read yarrrml mappings
 
 ```
