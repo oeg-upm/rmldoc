@@ -39,8 +39,6 @@ example_input.ttl
 | Prefix       |               IRI                   |
 | :----------- | :----------------------------------  |
 | gtfs     | http://vocab.gtfs.org/terms# |
-| schema   | http://schema.org/ |
-| dct     | http://purl.org/dc/terms/ |
 
 
 
