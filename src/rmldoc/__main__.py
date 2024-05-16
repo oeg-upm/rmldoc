@@ -116,6 +116,19 @@ def join_condition(triples_map):
     return query
 
 
+def named_graph(triples_map):
+    query = """
+    PREFIX  rr: <http://www.w3.org/ns/r2rml#> 
+    PREFIX  rml: <http://w3id.org/rml/>
+    PREFIX  ns0: <http://semweb.mmlab.be/ns/rml#>
+    SELECT distinct ?graph
+    WHERE {
+        <""" + triples_map + """> rr:subjectMap/rr:graphMap/rr:constant ?graph .
+    }
+     """
+    return query
+
+
 def get_namespaces(g):
     g1 = rdflib.Graph()
     temp1 = g.namespaces()
@@ -137,6 +150,7 @@ def workflow(rdf_mapping_path, output_path):
     pom_template = environment.get_template("predicate_object.md")
     spo_diagram = environment.get_template("diagram.md")
     join_diagram = environment.get_template("function.md")
+    named_graph_template = environment.get_template("named_graph.md")
     # Version
     rml_version = g.query(dataset_version)
 
@@ -198,6 +212,11 @@ def workflow(rdf_mapping_path, output_path):
 
         if join_condition_diagram:
             mapping_content += join_diagram.render(subject=tp.split('/')[-1], join_list=join_condition_diagram)
+
+        # named_graph
+        rml_graph = [{"graph": str(i.graph)} for i in g.query(named_graph(tp))]
+        if rml_graph:
+            mapping_content += named_graph_template.render(graph=rml_graph)
 
     # parse the content
     # content = template.render(authors=rmd_authors, prefixes=rmd_prefixes, mapping_content=mapping_content)
@@ -229,6 +248,7 @@ def workflow_with_yatter(rdf_mapping_path, output_path):
     pom_template = environment.get_template("predicate_object.md")
     spo_diagram = environment.get_template("diagram.md")
     join_diagram = environment.get_template("function.md")
+    named_graph_template = environment.get_template("named_graph.md")
     # Version
     rml_version = g.query(dataset_version)
 
@@ -291,6 +311,11 @@ def workflow_with_yatter(rdf_mapping_path, output_path):
         if join_condition_diagram:
             mapping_content += join_diagram.render(subject=tp.split('/')[-1], join_list=join_condition_diagram)
 
+        # named_graph
+        rml_graph = [{"graph": str(i.graph)} for i in g.query(named_graph(tp))]
+        if rml_graph:
+            mapping_content += named_graph_template.render(graph=rml_graph)
+
     content = template.render(version=rml_version, mapping_file=get_file_name(rdf_mapping_path),
                               authors=rmd_authors,
                               prefixes=rmd_prefixes,
@@ -311,6 +336,7 @@ def define_args():
 
 
 def main():
+
     args = define_args().parse_args()
     log.info("RML Documentation(RMLdoc)")
     log.info(args.input_mapping_path)
