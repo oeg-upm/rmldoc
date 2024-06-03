@@ -151,11 +151,16 @@ def workflow(rdf_mapping_path, output_path):
     spo_diagram = environment.get_template("diagram.md")
     join_diagram = environment.get_template("function.md")
     named_graph_template = environment.get_template("named_graph.md")
+
     # Version
     rml_version = g.query(dataset_version)
-
-    rml_version = [{"version": str(vr.version), "license": str(vr.license), "description": str(vr.description),
-                    "title": str(vr.title), "dateCreated": str(vr.dateCreated)} for vr in rml_version]
+    rml_version = [{"version": str(vr.version),
+                    "license": str(vr.license),
+                    "description": str(vr.description),
+                    "title": str(vr.title),
+                    "dateCreated": str(vr.dateCreated)}
+                   for vr in rml_version]
+    log.debug("rml_version = %s", rml_version)
 
     # Prefix
     # rmd_prefixes = g.namespaces()
@@ -221,7 +226,8 @@ def workflow(rdf_mapping_path, output_path):
     # parse the content
     # content = template.render(authors=rmd_authors, prefixes=rmd_prefixes, mapping_content=mapping_content)
 
-    content = template.render(version=rml_version, mapping_file=get_file_name(rdf_mapping_path),
+    content = template.render(version=rml_version,
+                              mapping_file=get_file_name(rdf_mapping_path),
                               authors=rmd_authors,
                               prefixes=rmd_prefixes,
                               mapping_content=mapping_content)
@@ -249,11 +255,12 @@ def workflow_with_yatter(rdf_mapping_path, output_path):
     spo_diagram = environment.get_template("diagram.md")
     join_diagram = environment.get_template("function.md")
     named_graph_template = environment.get_template("named_graph.md")
+
     # Version
     rml_version = g.query(dataset_version)
-
     rml_version = [{"version": str(vr.version), "license": str(vr.license), "description": str(vr.description),
                     "title": str(vr.title), "dateCreated": str(vr.dateCreated)} for vr in rml_version]
+    log.debug("rml_version = %s", rml_version)
 
     # Prefix
     # rmd_prefixes = g.namespaces()
