@@ -35,17 +35,9 @@
 {%- endfor -%}
 {% endblock %}
 {%- block license %}
-{% if version|length > 1 and v['license'] is defined  %}
- {% for v in version -%}
-  {% if 'https://creativecommons.org/licenses/by/4.0' in v['license'] or v['license']=='None' %}
-[![http://insertlicenseURIhere.org](https://img.shields.io/badge/License-Creative%20Commons%20Attribution%204.0%20International%20(CC%20BY%204.0)-blue.svg)](https://creativecommons.org/licenses/by/4.0/)
-  {% else %}
-{{ v['license'] }}
- {% endif %}
-{%- endfor -%}
-{% else %}
-[![http://insertlicenseURIhere.org](https://img.shields.io/badge/License-Creative%20Commons%20Attribution%204.0%20International%20(CC%20BY%204.0)-blue.svg)](https://creativecommons.org/licenses/by/4.0/)
-{% endif %}
+{% for v in version -%}
+* {% if 'https://creativecommons.org/licenses/by/4.0' in v['license'] or v['license']=='None' %}[![http://insertlicenseURIhere.org](https://img.shields.io/badge/License-Creative%20Commons%20Attribution%204.0%20International%20(CC%20BY%204.0)-blue.svg)](https://creativecommons.org/licenses/by/4.0/){% else %}{{ v['license'] }}{% endif %} (v{{ v['version']}})
+{%- endfor %}
 {% endblock %}
 {%- block description %}
 {% for v in version -%}
