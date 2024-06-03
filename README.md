@@ -31,7 +31,8 @@ pip install -e .
 ```
 ## Usage
 
-rmldoc offers the following options:
+**rmldoc** offers the following options:
+
 ```bash
 usage: rmldoc [-h] -i INPUT_MAPPING_PATH [-o OUTPUT_PATH]
 
@@ -47,18 +48,28 @@ optional arguments:
 ```
 
 
-To generate documentation for your mappings, use the following command:
+To generate documentation for your mappings, use the following command, where you would replace `path/to/rml/mappings.rml` with the path to your RML mapping file and `path/to/output/directory/mappings.md` with the file where you want the documentation to be generated:
 
 ```bash
 rmldoc -i path/to/rml/mappings.rml - o path/to/output/directory/mappings.md
 ```
 
-Replace `path/to/rml/mappings.rml` with the path to your RML mapping file and `path/to/output/directory/mappings.md` with the file where you want the documentation to be generated.
+To automate documentation generation using GNU's [make](https://www.gnu.org/software/make/manual/make.html), a typical implementation would involve creating a *makefile* with the following structure:
+```makefile
+doc-rml:  ## Generate documentation for RML
+	@echo -e "\033[35m > Generate documentation for RML \033[0m - requires RMLdoc: see https://github.com/oeg-upm/rmldoc"
+	@find mapping/ -type f -name *.ttl \
+		-printf "\n%f\n" \
+		-exec rmldoc -i {} -o {}.md \;
+	@echo -e "\033[35m > Done  \033[0m"
+```
 
 ## Example
+
 The following [link](https://github.com/oeg-upm/rmldoc/blob/main/example/example.md) shows the result produced by `RMLdoc` from the following [mapping file](https://github.com/oeg-upm/rmldoc/blob/main/example/example_input.ttl).
 
 ## RMLdoc specification
+
 The [RMLdoc specification](https://github.com/oeg-upm/rmldoc/blob/main/spec/specification.md) describes the main metadata expected in a RML mapping file. Have a look to create eye-catching documentations!
 
 ## Contributing
@@ -66,6 +77,7 @@ The [RMLdoc specification](https://github.com/oeg-upm/rmldoc/blob/main/spec/spec
 Contributions to `RMLdoc` are welcome! If you encounter any issues or have suggestions for improvements, please open an issue or submit a pull request on GitHub.
 
 ## Authors
+
 * [Jhon Toledo](https://github.com/jatoledo) ([ja.toledo@upm.es](mailto:ja.toledo@upm.es))
 * [Ana Iglesias-Molina](https://github.com/anaigmo)
 * [David Chaves-Fraga](https://github.com/dachafra)
