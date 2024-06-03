@@ -27,7 +27,7 @@ PREFIX void: <http://rdfs.org/ns/void#>
 PREFIX dc: <http://purl.org/dc/terms/>
 PREFIX dcat: <http://www.w3.org/ns/dcat#> 
 
-SELECT ?version ?license ?description ?title ?dateCreated
+SELECT DISTINCT ?version ?license ?description ?title ?dateCreated
 WHERE {
  VALUES (?map_class) {(schema:Dataset)(void:Dataset)(dcat:Dataset)}.
     ?triplesMap a ?map_class.
