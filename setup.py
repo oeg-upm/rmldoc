@@ -33,7 +33,7 @@ def find_package_data(dirname):
 
 setup(
     name="rmldoc",
-    version="0.1.7",
+    version="0.1.8",
     author="Jhon Toledo",
     author_email="ja.toledo@upm.es",
     description="Rmldoc is a tool that generates documentation of RML mappings",
