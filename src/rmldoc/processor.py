@@ -11,6 +11,8 @@ from rmldoc.queries import (
     subject_map,
     term_map_info,
     triples_map_query,
+    join_condition,
+    named_graph,
 )
 
 # ---------------------------------------------------------------------------
@@ -307,6 +309,58 @@ class RMLDocProcessor:
                 "subject_href": subject_info.get("href"),
                 "subject_linkable": subject_info.get("linkable"),
                 "predicates": self.get_predicates_info(tm),
+                "joins": self.get_join_conditions(tm),
+                "graph": self.get_named_graph(tm),
             })
 
         return sorted(results, key=lambda x: x["id"])
+
+    # ------------------------------------------------------------------
+    # Joins
+    # ------------------------------------------------------------------
+
+    def get_join_conditions(self, tm_uri) -> list:
+        joins = []
+        for i, row in enumerate(self.graph.query(join_condition(tm_uri))):
+            parent_tm = str(row.parentTriplesMap) if row.parentTriplesMap else ""
+            parent_tm_id = self.get_id_from_tm(parent_tm)
+
+            source_id = self.safe_id(self.get_id_from_tm(tm_uri))
+            target_id = self.safe_id(parent_tm_id)
+            container_id = f"cy_join_{source_id}_{target_id}_{i}"
+
+            s_template = str(row.s_template) if row.s_template else self.get_id_from_tm(tm_uri)
+            o_template = str(row.o_template) if row.o_template else parent_tm_id
+
+            # --- CAMBIO AQUÍ ---
+            # Usamos self.get_qname() para que formatee el predicado como gtfs:trip
+            if row.predicate:
+                p_qname = self.get_qname(row.predicate)
+                # Opcional: si el predicado es rdf:type, lo mostramos como 'a' igual que en los triples normales
+                predicate = "a" if p_qname == "rdf:type" or str(row.predicate) == _RDF_TYPE_URI else p_qname
+            else:
+                predicate = ""
+            # -------------------
+
+            joins.append({
+                "parent_tm": parent_tm_id,
+                "child": str(row.child) if row.child else "unknown",
+                "parent": str(row.parent) if row.parent else "unknown",
+                "s_template": s_template,
+                "o_template": o_template,
+                "predicate": predicate,
+                "container_id": container_id
+            })
+        return joins
+
+    # ------------------------------------------------------------------
+    # Named Graph
+    # ------------------------------------------------------------------
+
+    def get_named_graph(self, tm_uri) -> Optional[str]:
+        graphs = []
+        for row in self.graph.query(named_graph(tm_uri)):
+            if row.graph:
+                graphs.append(self.get_qname(row.graph))
+
+        return ", ".join(graphs) if graphs else None
