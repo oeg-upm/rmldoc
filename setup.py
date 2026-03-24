@@ -7,7 +7,7 @@ from setuptools import find_packages, setup
 install_requires = [
     "rdflib>=6.0.2",
     "Jinja2>=3.1.2",
-    "yatter>=1.1.2"
+    "yatter>=2.0.4"
 ]
 
 
