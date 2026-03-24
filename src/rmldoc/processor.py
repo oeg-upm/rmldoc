@@ -207,7 +207,7 @@ class RMLDocProcessor:
                 self.get_first_obj(ds_node, SCHEMA.title)
                 or f"Mapping Documentation ({self.mapping_path.name})"
             ),
-            "version":      str(self.get_first_obj(ds_node, SCHEMA.version)     or "0.0.0"),
+            "version":      str(self.get_first_obj(ds_node, SCHEMA.version)     or "1.0.0"),
             "date_created": str(self.get_first_obj(ds_node, SCHEMA.dateCreated) or ""),
             "description":  str(self.get_first_obj(ds_node, SCHEMA.description) or ""),
             "license_url":  str(
