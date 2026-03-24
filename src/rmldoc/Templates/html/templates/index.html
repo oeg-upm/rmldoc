@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ title }}. Version {{ version }}</title>
+
+    <!--<link rel="stylesheet" href="../css/styles.css">-->
+    <style>
+    {{ css | safe }}
+    </style>
+    <script type="application/ld+json">
+    {
+      "@context":"https://schema.org",
+      "@type":"TechArticle",
+      "name":"{{ title }}. Version {{ version }}",
+      "headline":"{{ description }}",
+      "dateReleased":"{{ date_created }}",
+      "dateModified":"{{ date_created }}",
+      "version":"v{{ version }}",
+      "license":"{{ license_url }}",
+      "author":[
+        {% for a in authors %}
+          {"@type":"Person","name":"{{ a.name }}"}{% if not loop.last %},{% endif %}
+        {% endfor %}
+      ]
+    }
+    </script>
+
+    <script>
+        {{ cytoscape_lib | safe }}
+    </script>
+</head>
+<body>
+
+<div class="darkmode">
+  <dark-mode-toggle class="slider"></dark-mode-toggle>
+</div>
+
+<div class="container">
+  <div class="page-wrap">
+
+    <div class="head">
+      <h1>{{ title }}</h1>
+      {% if date_created %}
+        <h2>Release: {{ date_created }}</h2>
+      {% endif %}
+
+      <dl>
+        <dt>Version:</dt><dd>{{ version }}</dd>
+
+        <dt>Authors:</dt>
+        {% if authors and authors|length > 0 %}
+          {% for a in authors %}
+            <dd>
+              {% if a.mbox %}
+                <a href="{{ a.mbox }}">{{ a.name }}</a>
+              {% else %}
+                {{ a.name }}
+              {% endif %}
+            </dd>
+          {% endfor %}
+        {% else %}
+          <dd>(no contributors specified)</dd>
+        {% endif %}
+
+        <!--<dt>Mapping file:</dt>
+        <dd><a href="{{ mapping_filename }}" target="_blank">{{ mapping_filename }}</a></dd>-->
+
+        <dt>Description:</dt><dd>{{ description }}</dd>
+
+        {% if license_url %}
+          <dt>License:</dt>
+          <dd><a href="{{ license_url }}" target="_blank">{{ license_url }}</a></dd>
+        {% endif %}
+
+        <dt>Download serialization:</dt>
+        <dd class="badges">
+          <span>
+            <a href="{{ yarrrml_file }}" target="_blank">
+              <img src="https://img.shields.io/badge/Format-YARRRML-blue.svg" alt="YARRRML">
+            </a>
+          </span>
+          <span>
+            <a href="{{ mapping_filename }}" target="_blank">
+              <img src="https://img.shields.io/badge/Format-TTL-blue.svg" alt="TTL">
+            </a>
+          </span>
+        </dd>
+      </dl>
+      <hr>
+    </div>
+
+    <div class="layout">
+      <aside class="tm-toc" id="tmToc">
+        <div class="tm-toc__header">
+          <h2>Table of Contents</h2>
+          <button class="tm-toc__toggle" id="tmTocToggle" aria-expanded="true" aria-controls="tmTocList">
+            Collapse
+          </button>
+        </div>
+        <p class="tm-toc__hint">TriplesMaps ({{ maps_list|length }})</p>
+
+        <ul class="tm-toc__list" id="tmTocList">
+          {% for m in maps_list %}
+            <li><a href="#diagram-{{ m.id }}">{{ m.id }}</a></li>
+          {% endfor %}
+        </ul>
+      </aside>
+
+      <main class="tm-main" id="main">
+
+        <!--<div id="abstract" class="section-card">
+          <h2 id="abstract-sec" class="list">Abstract</h2>
+          <p>{{ description }}</p>
+
+        </div>-->
+
+        <div id="nstable" class="section-card">
+          <h2 id="ns" class="list">Namespaces</h2>
+          <table class="hlist">
+            <thead><tr><th>Prefix</th><th>Namespace</th></tr></thead>
+            <tbody>
+            {% for pfx, iri in prefixes.items() %}
+              <tr><td><code>{{ pfx }}</code></td><td><a href="{{ iri }}">{{ iri }}</a></td></tr>
+            {% endfor %}
+            </tbody>
+          </table>
+        </div>
+
+        <div id="diagrams" class="section-card">
+          <h2 id="diagrams-sec" class="list">TriplesMaps</h2>
+
+          {% for m in maps_list %}
+            <h3 id="diagram-{{ m.id }}" class="list">{{ m.id }}</h3>
+
+            <div class="tm-details">
+              <div class="tm-details__header">
+                <p class="tm-details__title">TriplesMap details</p>
+                <div class="tm-chiprow">
+                  <span class="tm-chip">
+                    <span class="tm-chip__label">Kind</span>
+                    <span>{{ m.source_info.kind }}</span>
+                  </span>
+                  {% if m.source_info.referenceFormulation %}
+                    <span class="tm-chip">
+                      <span class="tm-chip__label">Ref</span>
+                      <span>{{ m.source_info.referenceFormulation }}</span>
+                    </span>
+                  {% endif %}
+                </div>
+              </div>
+
+              <div class="tm-grid">
+                {% if m.source_info.source %}
+                  <div class="tm-field">
+                    <div class="tm-field__k"><span class="tm-dot"></span>Source</div>
+                    <div class="tm-field__v">{{ m.source_info.source }}</div>
+                  </div>
+                {% endif %}
+
+                {% if m.source_info.iterator %}
+                  <div class="tm-field">
+                    <div class="tm-field__k"><span class="tm-dot"></span>Iterator</div>
+                    <div class="tm-field__v">{{ m.source_info.iterator }}</div>
+                  </div>
+                {% endif %}
+
+                {% if m.source_info.tableName %}
+                  <div class="tm-field">
+                    <div class="tm-field__k"><span class="tm-dot"></span>Table</div>
+                    <div class="tm-field__v">{{ m.source_info.tableName }}</div>
+                  </div>
+                {% endif %}
+
+                {% if m.source_info.sqlQuery %}
+                  <div class="tm-field" style="grid-column: 1 / -1;">
+                    <div class="tm-field__k"><span class="tm-dot"></span>SQL query</div>
+                    <div class="tm-field__v">{{ m.source_info.sqlQuery }}</div>
+                  </div>
+                {% endif %}
+
+                <div class="tm-field" style="grid-column: 1 / -1;">
+                  <div class="tm-field__k"><span class="tm-dot"></span>Subject</div>
+                  <div class="tm-field__v">
+                    {% if m.subject_linkable and m.subject_href %}
+                      <a href="{{ m.subject_href }}" target="_blank" rel="noopener">{{ m.subject_raw }}</a>
+                    {% else %}
+                      {{ m.subject_raw }}
+                    {% endif %}
+                  </div>
+                </div>
+                {% if m.graph %}
+                  <div class="tm-field" style="grid-column: 1 / -1;">
+                    <div class="tm-field__k"><span class="tm-dot"></span>Graph</div>
+                    <div class="tm-field__v"><code>{{ m.graph }}</code></div>
+                  </div>
+                {% endif %}
+              </div>
+
+              <div class="tm-divider"></div>
+
+              <div class="po-title">Predicate Object</div>
+              <table class="po-table">
+                <thead>
+                  <tr>
+                    <th style="width: 30%;">Predicate</th>
+                    <th>Object</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {% for row in m.predicates %}
+                    <tr>
+                      <td>
+                        {% if row.p_linkable and row.p_href %}
+                          <a href="{{ row.p_href }}" target="_blank" rel="noopener"><code>{{ row.p }}</code></a>
+                        {% else %}
+                          <code>{{ row.p }}</code>
+                        {% endif %}
+                      </td>
+                      <td>
+                        {% if row.o_linkable and row.o_href %}
+                          <a href="{{ row.o_href }}" target="_blank" rel="noopener"><code>{{ row.o_display }}</code></a>
+                        {% else %}
+                          <code>{{ row.o_display }}</code>
+                        {% endif %}
+                      </td>
+                    </tr>
+                  {% endfor %}
+                </tbody>
+              </table>
+            </div>
+
+            <div class="viz-container">
+              <div class="label-info">RDF triples</div>
+              <div id="{{ containers[m.id] }}" class="cy"></div>
+            </div>
+            {% if m.joins and m.joins|length > 0 %}
+            <div class="join-details" style="margin-top: 2.5rem;">
+              <h4 class="list" style="margin-bottom: 1rem; color: var(--heading-color);">Join Conditions</h4>
+
+              {% for j in m.joins %}
+                <div class="tm-details" style="margin-bottom: 1.5rem;">
+                  <div class="tm-details__header">
+                    <p class="tm-details__title">Join Configuration</p>
+                    <div class="tm-chiprow">
+                      <span class="tm-chip">
+                        <span class="tm-chip__label">Function</span>
+                        <span style="font-family: monospace; font-size: 0.9em;">equal({{ j.child }}, {{ j.parent }})</span>
+                      </span>
+                    </div>
+                  </div>
+
+                  <div class="tm-grid">
+                    <div class="tm-field">
+                      <div class="tm-field__k"><span class="tm-dot"></span>Source triples map</div>
+                      <div class="tm-field__v" style="font-family: monospace; font-size: 0.95em;">{{ m.id }}</div>
+                    </div>
+
+                    <div class="tm-field">
+                      <div class="tm-field__k"><span class="tm-dot"></span>Target triples map</div>
+                      <div class="tm-field__v" style="font-family: monospace; font-size: 0.95em;">{{ j.parent_tm }}</div>
+                    </div>
+                  </div>
+
+                  <div class="tm-divider"></div>
+
+                  <div class="viz-container" style="margin-top: 0; padding-top: 0.5rem; border: none; background: transparent;">
+                    <div class="label-info">RDF triples</div>
+                    <div id="{{ j.container_id }}" class="cy" style="border: 1px solid var(--border-color, #e1e4e8); border-radius: 6px;"></div>
+                  </div>
+                </div>
+              {% endfor %}
+            </div>
+            {% endif %}
+          {% endfor %}
+        </div>
+
+      </main>
+    </div>
+
+  </div>
+</div>
+<script>
+  window.__RML_PAYLOAD__ = {{ payload_json | safe }};
+</script>
+<script>
+{{ js | safe }}
+</script>
+<footer class="rmldoc-footer" style="margin: 2.5rem 0 1.5rem; padding-top: 1rem; border-top: 1px solid rgba(0,0,0,.15); font-size: 0.95rem; opacity: 0.9; text-align: center;">
+  <strong>This documentation was generated using</strong>
+  <em><a href="https://oeg-upm.github.io/rmldoc/" target="_blank" rel="noopener noreferrer">RMLdoc</a></em>.
+</footer>
+
+</body>
+</html>
