@@ -1,356 +1,252 @@
+"""
+RMLDoc CLI - Generate documentation from RML/YARRRML mappings.
+"""
+
 __author__ = "Jhon Toledo"
 __credits__ = ["Jhon Toledo"]
 __copyright__ = "Copyright © 2024 Jhon Toledo"
-
 __license__ = "Apache-2.0"
 __maintainer__ = "Jhon Toledo"
 __email__ = "ja.toledo@upm.es"
 
-import rdflib
 import argparse
 import logging
-import codecs
-from .queries import *
-from jinja2 import Environment, FileSystemLoader, PackageLoader
-from .utils import *
+import sys
+import subprocess
+from pathlib import Path
 
-log = logging.getLogger("rmd_main")
-log.setLevel(logging.INFO)
-ch = logging.StreamHandler()
-ch.setFormatter(logging.Formatter("%(asctime)s - %(message)s"))
-log.handlers.clear()
-log.addHandler(ch)
+# rdflib imports used for metadata injection into the RDF graph.
+import rdflib
+from rdflib import Graph, Literal, URIRef, BNode, Namespace
+from rdflib.namespace import RDF, RDFS
+
+from rmldoc.workflows import workflow_md, workflow_html
 
 
-def write_doc(content, output_path):
+# ---------------------------------------------------------------------------
+# Logging
+# ---------------------------------------------------------------------------
+
+def setup_logging() -> logging.Logger:
+    """Configure and return the application logger."""
+    logger = logging.getLogger("rmd_main")
+    logger.setLevel(logging.INFO)
+
+    if not logger.handlers:
+        ch = logging.StreamHandler(sys.stdout)
+        formatter = logging.Formatter("%(asctime)s - %(levelname)s - %(message)s")
+        ch.setFormatter(formatter)
+        logger.addHandler(ch)
+
+    return logger
+
+log = setup_logging()
+
+
+# ---------------------------------------------------------------------------
+# Argument parsing
+# ---------------------------------------------------------------------------
+
+def parse_args() -> argparse.Namespace:
     """
-    :param content:
-    :return:
+    Define and parse command-line arguments.
     """
-    if not is_markdown_file(output_path):
-        output_path = output_path + ".md"
-    f = codecs.open(output_path, 'w', "utf-8")
-    f.write(content)
-    f.close()
+    parser = argparse.ArgumentParser(
+        description="Generate documentation from RML/YARRRML mappings.",
+        formatter_class=argparse.ArgumentDefaultsHelpFormatter
+    )
+
+    parser.add_argument(
+        "-i", "--input_mapping_path",
+        required=True,
+        type=Path,
+        help="Path to the input mapping file (.ttl, .yml, etc.)."
+    )
+    parser.add_argument(
+        "-o", "--output_path",
+        default=Path("output.md"),
+        type=Path,
+        help="Path to save the generated document."
+    )
+    parser.add_argument(
+        "-y", "--yatter",
+        action='store_true',
+        help="Enable explicit YARRRML support. (Auto-detected for .yml inputs; use this to force .yml generation from .ttl)."
+    )
+    parser.add_argument(
+        "-f", "--format",
+        choices=["md", "html"],
+        default="md",
+        help="Specify output format: 'md' for Markdown or 'html' for HTML."
+    )
+
+    meta_group = parser.add_argument_group(
+        'Optional Metadata',
+        'Inject metadata directly into the generated/existing RML mapping (.ttl file)'
+    )
+    meta_group.add_argument("--title",   type=str, help="Title of the dataset/mapping")
+    meta_group.add_argument("--desc",    type=str, help="Description of the mapping")
+    meta_group.add_argument("--version", type=str, help="Version (e.g., 1.0.0)")
+    meta_group.add_argument("--date",    type=str, help="Creation date (e.g., 14-02-2026)")
+
+    for i in range(1, 11):
+        meta_group.add_argument(f"--author{i}", type=str, help=f"Author {i} name")
+        meta_group.add_argument(f"--email{i}",  type=str, help=f"Author {i} email")
+
+    return parser.parse_args()
 
 
-def tmp_query(triples_map):
-    query = """
-    PREFIX rr: <http://www.w3.org/ns/r2rml#>
-    SELECT ?label ?comment ?source ?template
-    WHERE {
-        <""" + triples_map + """>  a rr:TriplesMap.
-        <""" + triples_map + """> rml:logicalSource ?logicalSource.
-        ?logicalSource rml:source ?source.
-        <""" + triples_map + """> rr:subjectMap ?subjectMap.
-        ?subjectMap rr:template ?template.
-        OPTIONAL {<""" + triples_map + """> rdfs:label ?label }
-        OPTIONAL {<""" + triples_map + """> rdfs:comment ?comment. }
-    }"""
-    return query
+# ---------------------------------------------------------------------------
+# Yatter integration
+# ---------------------------------------------------------------------------
 
-
-def logical_source(triples_map):
-    query = """
-    PREFIX  rr: <http://www.w3.org/ns/r2rml#> 
-    PREFIX  rml: <http://w3id.org/rml/>
-    PREFIX  ns0: <http://semweb.mmlab.be/ns/rml#>
-    SELECT ?source ?label ?comment
-    WHERE {
-        #<""" + triples_map + """>  a ?TriplesMap.
-        <""" + triples_map + """> (ns0:logicalSource|rml:logicalSource|rr:logicalTable) ?logicalSource.
-        ?logicalSource (ns0:source|rml:source|rr:tableName) ?source.
-        OPTIONAL {?logicalSource rdfs:label ?label }
-        OPTIONAL {?logicalSource rdfs:comment ?comment. }
-    }"""
-    return query
-
-
-def subject_map(triples_map):
-    query = """
-    PREFIX  rr: <http://www.w3.org/ns/r2rml#> 
-    PREFIX  rml: <http://w3id.org/rml/>
-    PREFIX  ns0: <http://semweb.mmlab.be/ns/rml#>
-    SELECT ?template ?label ?comment
-    WHERE {
-         #<""" + triples_map + """>  a rr:TriplesMap.
-         <""" + triples_map + """> (rr:subjectMap|rml:subjectMap) ?subjectMap.
-        ?subjectMap (rr:template|rml:template|ns0:reference) ?template.
-        OPTIONAL {?subjectMap rdfs:label ?label }
-        OPTIONAL {?subjectMap rdfs:comment ?comment. }
-        #FILTER (!isBlank(?template))
-    }"""
-    return query
-
-
-def predicate_object_map(triples_map):
-    query = """
-    PREFIX  rr: <http://www.w3.org/ns/r2rml#> 
-    PREFIX  rml: <http://w3id.org/rml/>
-    PREFIX  ns0: <http://semweb.mmlab.be/ns/rml#>
-    SELECT ?pr_constant ?ob_constant
-    WHERE {
-
-        <""" + triples_map + """>  (rr:predicateObjectMap|rml:predicateObjectMap|ns0:predicateObjectMap) ?predicateObjectMap.
-        ?predicateObjectMap (rr:predicateMap|rml:predicateMap|ns0:predicateMap)/(rr:constant|rml:constant|ns0:constant)|(rr:predicate) ?pr_constant.
-        ?predicateObjectMap (rr:objectMap|rml:objectMap|ns0:objectMap)/((rr:reference|rml:reference|ns0:reference)|(rr:constant|rml:constant|ns0:constant)|(rr:template|rml:template|ns0:template)) ?ob_constant.
-
-        #OPTIONAL {?predicateObjectMap rdfs:label ?label }
-        #OPTIONAL {?predicateObjectMap rdfs:comment ?comment. }
-    }
+def run_yatter(input_file: Path, output_file: Path) -> None:
     """
-    return query
-
-
-def join_condition(triples_map):
-    query = """
-    PREFIX  rr: <http://www.w3.org/ns/r2rml#> 
-    PREFIX  rml: <http://w3id.org/rml/>
-    PREFIX  ns0: <http://semweb.mmlab.be/ns/rml#>
-    SELECT distinct *
-    WHERE {
-        <""" + triples_map + """> rr:predicateObjectMap/rr:objectMap/rr:joinCondition[rr:child ?child; rr:parent ?parent; ^rr:joinCondition/rr:parentTriplesMap ?parentTriplesMap; ^rr:joinCondition/^rr:objectMap/rr:predicateMap/rr:constant ?predicate; ^rr:joinCondition/^rr:objectMap/^rr:predicateObjectMap/rr:subjectMap/rr:template   ?s_template ].
-        ?parentTriplesMap rr:subjectMap/(rr:template|ns0:reference) ?o_template.
-    }
+    Invoke the yatter CLI module as a subprocess to convert between
+    YARRRML (.yml) and RML (.ttl) serialisations.
     """
-    return query
+    try:
+        import yatter
+    except ImportError:
+        log.error("The 'yatter' package is not installed. Please install it using: pip install yatter")
+        sys.exit(1)
+
+    cmd = [sys.executable, "-m", "yatter", "-i", str(input_file), "-o", str(output_file)]
+
+    try:
+        subprocess.run(cmd, capture_output=True, text=True, check=True)
+    except subprocess.CalledProcessError as e:
+        log.error(f"Error executing yatter:\n{e.stderr}")
+        sys.exit(1)
 
 
-def named_graph(triples_map):
-    query = """
-    PREFIX  rr: <http://www.w3.org/ns/r2rml#> 
-    PREFIX  rml: <http://w3id.org/rml/>
-    PREFIX  ns0: <http://semweb.mmlab.be/ns/rml#>
-    SELECT distinct ?graph
-    WHERE {
-        <""" + triples_map + """> rr:subjectMap/rr:graphMap/rr:constant ?graph .
-    }
-     """
-    return query
+# ---------------------------------------------------------------------------
+# Metadata injection
+# ---------------------------------------------------------------------------
+
+def inject_metadata(ttl_path: Path, args: argparse.Namespace) -> None:
+    """
+    Inject dataset metadata supplied via CLI arguments into the Turtle file.
+    """
+    has_metadata = any([args.title, args.desc, args.version, args.date]) or \
+                   any(getattr(args, f"author{i}", None) or getattr(args, f"email{i}", None) for i in range(1, 11))
+
+    if not has_metadata:
+        return
+
+    log.info(f"Injecting metadata into {ttl_path.name}...")
+
+    g = Graph()
+    try:
+        g.parse(ttl_path, format="turtle")
+    except Exception as e:
+        log.error(f"Failed to parse {ttl_path} for metadata injection: {e}")
+        return
+
+    SCHEMA = Namespace("http://schema.org/")
+    DCT    = Namespace("http://purl.org/dc/terms/")
+    FOAF   = Namespace("http://xmlns.com/foaf/0.1/")
+
+    g.bind("schema", SCHEMA)
+    g.bind("dct",    DCT)
+    g.bind("foaf",   FOAF)
+
+    dataset_node = next(g.subjects(RDF.type, SCHEMA.Dataset), None)
+    if not dataset_node:
+        dataset_node = BNode()
+        g.add((dataset_node, RDF.type, SCHEMA.Dataset))
+
+    if args.title:
+        g.set((dataset_node, SCHEMA.title,       Literal(args.title)))
+    if args.desc:
+        g.set((dataset_node, SCHEMA.description, Literal(args.desc)))
+    if args.version:
+        g.set((dataset_node, SCHEMA.version,     Literal(args.version)))
+    if args.date:
+        g.set((dataset_node, SCHEMA.dateCreated, Literal(args.date)))
+
+    for i in range(1, 11):
+        author = getattr(args, f"author{i}", None)
+        email  = getattr(args, f"email{i}",  None)
+
+        if author or email:
+            person_node = BNode()
+            g.add((person_node, RDF.type, FOAF.Person))
+
+            if author:
+                g.add((person_node, RDFS.label, Literal(author)))
+            if email:
+                email_uri = email if email.startswith("mailto:") else f"mailto:{email}"
+                g.add((person_node, FOAF.mbox, URIRef(email_uri)))
+
+            g.add((dataset_node, SCHEMA.contributor, person_node))
+
+    g.serialize(destination=str(ttl_path), format="turtle")
+    log.info("Metadata successfully injected.")
 
 
-def get_namespaces(g):
-    g1 = rdflib.Graph()
-    temp1 = g.namespaces()
-    temp2 = g1.namespaces()
-    return list(set(temp1) - set(temp2))
+# ---------------------------------------------------------------------------
+# Entry point
+# ---------------------------------------------------------------------------
 
+def main() -> None:
+    args = parse_args()
 
-def workflow(rdf_mapping_path, output_path):
-    g = rdflib.Graph()
-    g.parse(rdf_mapping_path, format=rdflib.util.guess_format(rdf_mapping_path))  # .ttl format
-    # environment = Environment(loader=FileSystemLoader("../templates/"))
-    path = os.path.join(os.path.dirname(__file__), 'Templates/')
-    templateLoader = FileSystemLoader(searchpath=path)
-    environment = Environment(loader=templateLoader)
+    log.info("Starting RML Documentation generation.")
+    log.info(f"Input Mapping Path: {args.input_mapping_path}")
+    log.info(f"Output Format: {args.format}")
 
-    template = environment.get_template("rmd.md")
-    source_template = environment.get_template("source.md")
-    subject_template = environment.get_template("subject.md")
-    pom_template = environment.get_template("predicate_object.md")
-    spo_diagram = environment.get_template("diagram.md")
-    join_diagram = environment.get_template("function.md")
-    named_graph_template = environment.get_template("named_graph.md")
+    input_path:  Path = args.input_mapping_path
+    output_path: Path = args.output_path
 
-    # Version
-    rml_version = g.query(dataset_version)
-    rml_version = [{"version": str(vr.version),
-                    "license": str(vr.license),
-                    "description": str(vr.description),
-                    "title": str(vr.title),
-                    "dateCreated": str(vr.dateCreated)}
-                   for vr in rml_version]
-    log.debug("rml_version = %s", rml_version)
+    # ------------------------------------------------------------------
+    # File Format Detection & Yatter Integration
+    # ------------------------------------------------------------------
+    is_yaml = input_path.suffix.lower() in [".yml", ".yaml"]
+    is_ttl  = input_path.suffix.lower() in [".ttl", ".rml", ".nt"]
 
-    # Prefix
-    # rmd_prefixes = g.namespaces()
-    rmd_prefixes = get_namespaces(g)
-    # Authors
-    my_authors = g.query(authors)
-    rmd_authors = [{"author": str(author.name), "mbox": str(author.mbox)} for author in my_authors]
+    if is_yaml:
+        # Si es un YAML, ignoramos si se pasó la bandera -y o no, siempre usamos yatter.
+        output_ttl_path = input_path.with_suffix(".ttl")
+        log.info(f"YARRRML input detected (.yml). Automatically using yatter to generate RML serialization ({output_ttl_path.name})...")
+        run_yatter(input_path, output_ttl_path)
 
-    # mappings
-    """TripleMaps"""
-    uri_triples_map = g.query(triples_map_query)
-    tps_map = {tp.asdict()['triplesMap'].toPython() for tp in uri_triples_map}
-    mapping_content = ""
+        # Actualizamos la ruta al archivo .ttl recién generado
+        input_path = output_ttl_path
 
-    for tp in tps_map:
-        # TriplesMap label
-        mapping_content += f"## {tp.split('/')[-1]}\n"
+    elif is_ttl:
+        # Si es TTL, solo invocamos yatter si el usuario quiere generar el YAML de respaldo explícitamente.
+        if args.yatter:
+            output_yml_path = input_path.with_suffix(".yml")
+            if not output_yml_path.exists():
+                log.info(f"RML input detected (.ttl) and --yatter flag used. Generating missing YARRRML serialization ({output_yml_path.name})...")
+                run_yatter(input_path, output_yml_path)
 
-        # LogicalSource
-        source = [{"source": str(i.source), "label": str(i.label), "comment": str(i.comment)} for i in
-                  g.query(logical_source(tp))]
-        mapping_content += source_template.render(source=source)
+    # ------------------------------------------------------------------
+    # Metadata injection
+    # ------------------------------------------------------------------
+    # En este punto garantizamos que input_path es un .ttl
+    inject_metadata(input_path, args)
 
-        # SubjectMap
-        subject = [{"template": str(i.template), "label": str(i.label), "comment": str(i.comment)} for i in
-                   g.query(subject_map(tp))]
-        mapping_content += subject_template.render(subject=subject)
+    # Corregimos la extensión si no cuadra con el formato pedido
+    expected_ext = f".{args.format}"
+    if output_path.suffix != expected_ext:
+        output_path = output_path.with_suffix(expected_ext)
 
-        # pom = [{"label": str(i.label), "comment": str(i.comment)} for i in g.query(predicate_object_map(tp))]
-        # predicateObjectMap
-        pom = [{"predicate": str(i.pr_constant), "object": str(prefix_short_cuts(g, i.ob_constant))} for i in
-               g.query(predicate_object_map(tp))]
+    # ------------------------------------------------------------------
+    # Workflow execution
+    # ------------------------------------------------------------------
+    try:
+        if args.format == "html":
+            workflow_html(input_path, str(output_path))
+        else:
+            workflow_md(str(input_path), str(output_path))
 
-        pom_diagram = [{"predicate": str(prefix_short_cuts(g, (str(i.pr_constant)).replace('"', "'"))),
-                        "object": str(prefix_short_cuts(g, (str(i.ob_constant)).replace('"', "'")))} for i in
-                       g.query(predicate_object_map(tp))]
-        if subject:
-            # PO diagram
-            diagram_subject = str(subject[0]['template']).replace('"', "'")
+        log.info(f"Documentation successfully generated at: {output_path}")
 
-        if pom_diagram:
-            mapping_content += pom_template.render(pom=pom_diagram)
-            mapping_content += spo_diagram.render(subject=diagram_subject, pom=pom_diagram)
-
-            # mapping_content += spo_diagram.render(subject=diagram_subject, pom=pom_diagram)
-
-        # join diagram
-        join_condition_diagram = [
-            {"predicate": str(prefix_short_cuts(g, i.predicate)),
-             "parentTriplesMap": str(i.parentTriplesMap).split('/')[-1],
-             "child": str(i.child), "parent": str(i.parent), 'template': str(i.o_template).replace('"', "'"),
-             'subject': str(i.s_template).replace('"', "'")} for i in
-            g.query(join_condition(tp))]
-
-        if join_condition_diagram:
-            mapping_content += join_diagram.render(subject=tp.split('/')[-1], join_list=join_condition_diagram)
-
-        # named_graph
-        rml_graph = [{"graph": str(i.graph)} for i in g.query(named_graph(tp))]
-        if rml_graph:
-            mapping_content += named_graph_template.render(graph=rml_graph)
-
-    # parse the content
-    # content = template.render(authors=rmd_authors, prefixes=rmd_prefixes, mapping_content=mapping_content)
-
-    content = template.render(version=rml_version,
-                              mapping_file=get_file_name(rdf_mapping_path),
-                              authors=rmd_authors,
-                              prefixes=rmd_prefixes,
-                              mapping_content=mapping_content)
-    # Write results
-    write_doc(content, output_path)
-
-
-def workflow_with_yatter(rdf_mapping_path, output_path):
-    import yatter
-    from ruamel.yaml import YAML
-    yaml = YAML(typ='safe', pure=True)
-    rml_content = yatter.translate(yaml.load(open(rdf_mapping_path)))
-
-    g = rdflib.Graph()
-    g.parse(data=rml_content)  # .ttl format
-    # environment = Environment(loader=FileSystemLoader("../templates/"))
-    path = os.path.join(os.path.dirname(__file__), 'Templates/')
-    templateLoader = FileSystemLoader(searchpath=path)
-    environment = Environment(loader=templateLoader)
-
-    template = environment.get_template("rmd.md")
-    source_template = environment.get_template("source.md")
-    subject_template = environment.get_template("subject.md")
-    pom_template = environment.get_template("predicate_object.md")
-    spo_diagram = environment.get_template("diagram.md")
-    join_diagram = environment.get_template("function.md")
-    named_graph_template = environment.get_template("named_graph.md")
-
-    # Version
-    rml_version = g.query(dataset_version)
-    rml_version = [{"version": str(vr.version), "license": str(vr.license), "description": str(vr.description),
-                    "title": str(vr.title), "dateCreated": str(vr.dateCreated)} for vr in rml_version]
-    log.debug("rml_version = %s", rml_version)
-
-    # Prefix
-    # rmd_prefixes = g.namespaces()
-    rmd_prefixes = get_namespaces(g)
-    # Authors
-    my_authors = g.query(authors)
-    rmd_authors = [{"author": str(author.name), "mbox": str(author.mbox)} for author in my_authors]
-
-    # mappings
-    """TripleMaps"""
-    uri_triples_map = g.query(triples_map_query)
-    tps_map = {tp.asdict()['triplesMap'].toPython() for tp in uri_triples_map}
-    mapping_content = ""
-
-    for tp in tps_map:
-        # TriplesMap label
-        mapping_content += f"## {tp.split('/')[-1]}\n"
-
-        # LogicalSource
-        source = [{"source": str(i.source), "label": str(i.label), "comment": str(i.comment)} for i in
-                  g.query(logical_source(tp))]
-        mapping_content += source_template.render(source=source)
-
-        # SubjectMap
-        subject = [{"template": str(i.template), "label": str(i.label), "comment": str(i.comment)} for i in
-                   g.query(subject_map(tp))]
-        mapping_content += subject_template.render(subject=subject)
-
-        # pom = [{"label": str(i.label), "comment": str(i.comment)} for i in g.query(predicate_object_map(tp))]
-        # predicateObjectMap
-        pom = [{"predicate": str(i.pr_constant), "object": str(prefix_short_cuts(g, i.ob_constant))} for i in
-               g.query(predicate_object_map(tp))]
-
-        pom_diagram = [{"predicate": str(prefix_short_cuts(g, (str(i.pr_constant)).replace('"', "'"))),
-                        "object": str(prefix_short_cuts(g, (str(i.ob_constant)).replace('"', "'")))} for i in
-                       g.query(predicate_object_map(tp))]
-        if subject:
-            # PO diagram
-            diagram_subject = str(subject[0]['template']).replace('"', "'")
-
-        if pom_diagram:
-            mapping_content += pom_template.render(pom=pom_diagram)
-            mapping_content += spo_diagram.render(subject=diagram_subject, pom=pom_diagram)
-
-            # mapping_content += spo_diagram.render(subject=diagram_subject, pom=pom_diagram)
-
-        # join diagram
-        join_condition_diagram = [
-            {"predicate": str(prefix_short_cuts(g, i.predicate)),
-             "parentTriplesMap": str(i.parentTriplesMap).split('/')[-1],
-             "child": str(i.child), "parent": str(i.parent), 'template': str(i.o_template).replace('"', "'"),
-             'subject': str(i.s_template).replace('"', "'")} for i in
-            g.query(join_condition(tp))]
-
-        if join_condition_diagram:
-            mapping_content += join_diagram.render(subject=tp.split('/')[-1], join_list=join_condition_diagram)
-
-        # named_graph
-        rml_graph = [{"graph": str(i.graph)} for i in g.query(named_graph(tp))]
-        if rml_graph:
-            mapping_content += named_graph_template.render(graph=rml_graph)
-
-    content = template.render(version=rml_version, mapping_file=get_file_name(rdf_mapping_path),
-                              authors=rmd_authors,
-                              prefixes=rmd_prefixes,
-                              mapping_content=mapping_content)
-    # Write results
-    write_doc(content, output_path)
-
-
-def define_args():
-    parser = argparse.ArgumentParser()
-    parser.add_argument("-i", "--input_mapping_path", required=True,
-                        help="Path to the input mapping file in RML format.")
-    parser.add_argument("-o", "--output_path", default="output.md", required=False,
-                        help="Path to save the generated document. Default output output.md")
-    parser.add_argument("-y", "--yatter", action='store_true',
-                        help="Enable yatter option to read yarrrml mappings")
-    return parser
-
-
-def main():
-
-    args = define_args().parse_args()
-    log.info("RML Documentation(RMLdoc)")
-    log.info(args.input_mapping_path)
-    if args.yatter:
-        workflow_with_yatter(args.input_mapping_path, args.output_path)
-    else:
-        workflow(args.input_mapping_path, args.output_path)
+    except Exception as e:
+        log.error("An error occurred during the workflow execution.", exc_info=e)
+        sys.exit(1)
 
 
 if __name__ == "__main__":
