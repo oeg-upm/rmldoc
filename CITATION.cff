@@ -19,3 +19,18 @@ identifiers:
   - description: "RML mapping documentation  tool"
     type: doi
     value: 10.5281/zenodo.10732487
+preferred-citation:
+  type: conference-paper
+  title: "RMLdoc: Documenting Mapping Rules for Knowledge Graph Construction"
+  authors:
+    - given-names: Jhon
+      family-names: Toledo
+    - given-names: Ana
+      family-names: Iglesias-Molina
+    - given-names: David
+      family-names: Chaves-Fraga
+    - given-names: Daniel
+      family-names: Garijo
+  doi: "10.1007/978-3-031-78952-6_51"
+  collection-title: "The Semantic Web: ESWC 2024 Satellite Events"
+  year: 2025
